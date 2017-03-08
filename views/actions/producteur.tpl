@@ -1,0 +1,98 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>Producteur</h2>
+			<ol class="breadcrumb">
+				<li>
+					<a href="/actions/home">Portail</a>
+				</li>
+				<li class="active">
+					<strong>Producteur</strong>
+				</li>
+			</ol>
+	</div>
+	<div class="col-lg-2"></div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="row">
+		<div class="col-lg-7">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<h5>INFORMATIONS <small>Dernières modification le d/m/Y</small></h5>
+					<div class="ibox-tools">
+						<a class="collapse-link">
+							<i class="fa fa-chevron-up"></i>
+						</a>
+						<a class="close-link">
+							<i class="fa fa-times"></i>
+						</a>
+					</div>
+				</div>
+				<div class="ibox-content">
+					<form class="form-horizontal">
+						<p>Prenez soin de tenir à jour vos informations</p>
+						
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Société</label>
+							<div class="col-sm-10"><input type="text" title="Nom de la société" name="societe" placeholder="ECHO PHP SOCIETE" class="form-control"></div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-md-2 control-label">Représentant</label>
+							<div class="col-md-5"><input type="text" title="Nom du représentant" name="nom" placeholder="ECHO PHP NOM" class="form-control"></div>
+							<div class="col-md-5"><input type="text" title="Prénom du représentant" name="prenom" placeholder="ECHO PHP PRENOM" class="form-control"></div>	
+						</div>
+						
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Email</label>
+							<div class="col-sm-10"><input type="email" title="Email" name="email" placeholder="ECHO PHP EMAIL" class="form-control"></div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Téléphone</label>
+							<div class="col-sm-10"><input type="text" title="Numéro de téléphone" name="telephone" placeholder="ECHO PHP TELEPHONE" class="form-control"></div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Adresse</label>
+							<div class="col-sm-10"><input type="text" title="Adresse professionnelle" name="adresse" placeholder="ECHO PHP ADRESSE" class="form-control"></div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-md-2 control-label">Ville</label>
+							<div class="col-md-7"><input type="text" title="Ville" name="ville" placeholder="ECHO PHP VILLE" class="form-control"></div>
+							<div class="col-md-3"><input type="text" title="Code postal" name="codePostal" placeholder="ECHO PHP CODE POSTAL" class="form-control"></div>
+						</div>
+						
+						<div class="form-group">
+							<div class="col-sm-4">&nbsp;</div>
+							<button class="btn btn-lg btn-primary col-sm-4" type="submit">Enregistrer</button>
+							<div class="col-sm-4">&nbsp;</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-lg-5">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<h5>Horizontal form</h5>
+					<div class="ibox-tools">
+						<a class="collapse-link">
+							<i class="fa fa-chevron-up"></i>
+						</a>
+						<a class="close-link">
+							<i class="fa fa-times"></i>
+						</a>
+					</div>
+				</div>
+				<div class="ibox-content">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<?php include_once(HOME.DS.'includes'.DS.'footer.inc.php'); ?>
