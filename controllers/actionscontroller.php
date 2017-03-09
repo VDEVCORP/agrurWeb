@@ -130,7 +130,9 @@ class ActionsController extends Controller
 					$_SESSION['user'] = array(	"user_session" => session_id(),
 												"user_key" => $user["fk_id_user"]
 												);
-					$success = true;
+					$return = $this->_model->getRankUser($user["fk_id_user"]);
+
+					$success = $return["name_rank"];
 				} else {
 					$success = false;
 				}
