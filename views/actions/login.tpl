@@ -44,9 +44,6 @@
                 </div>
                 <button type="submit" id="connexion" class="btn btn-primary block full-width m-b">Login</button>
 
-                <a href="#"><small>Mot de passe oublié?</small></a>
-                <p class="text-muted text-center"><small>Pas encore inscrit? Rejoignez-nous</small></p>
-                <a class="btn btn-sm btn-white btn-block" href="/actions/inscription">Inscription</a>
             </div>
             <p class="m-t"> <small>Web solution by VDEV &copy; 2017</small> </p>
         </div>
@@ -62,14 +59,14 @@
 			var login = document.getElementById("login").value;
 			var password = document.getElementById("password").value;
 					$.post("/actions/ajax/checkLogin",{loginU : login, passwordU : password}, function(retour){
-					console.log(retour);
-					retour = retour.substring(0,1);
-					if (retour == 1){
+					retour = retour.replace(/^\s+|\s+$/gm,'');
+                    console.log(retour);
+					if (retour == "producteur"){
 						document.location.href="/actions/producteur";
-					} else if(retour == 2){
+					} else if(retour == "client"){
+						document.location.href="/actions/client";
+					} else if(retour == "admin"){
 						document.location.href="/actions/producteur";
-					} else if(retour == 3){
-						document.Location.href="/actions/client";
 					} else {
 						alert('BAD LOGIN OR PASSWORD !')
 					}}, "text");
