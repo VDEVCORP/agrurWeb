@@ -61,9 +61,9 @@
 					$.post("/actions/ajax/checkLogin",{loginU : login, passwordU : password}, function(retour){
 					retour = retour.replace(/^\s+|\s+$/gm,'');
                     console.log(retour);
-					if (retour == "producteur"){
+					if (retour == "producer"){
 						document.location.href="/actions/producteur";
-					} else if(retour == "client"){
+					} else if(retour == "customer"){
 						document.location.href="/actions/client";
 					} else if(retour == "admin"){
 						document.location.href="/actions/producteur";

@@ -6,7 +6,7 @@ $listParameters = array();
 
 $called = substr($_SERVER['REQUEST_URI'], 1);
 
-if (isset($called) && !empty($called)){
+if (isset($called) && !empty($called) && $called != "favicon.ico"){
 	list($nameController, $nameAction) = explode("/", $called);
 	$called = substr($_SERVER['REQUEST_URI'], (strlen($nameController . $nameAction) + 3));
 	$listParameters[] = explode("/", $called);

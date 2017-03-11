@@ -16,6 +16,9 @@ class ActionsController extends Controller
 	public function producteur()
 	{
 		$listAxx=$this->secureAccess("actions/producteur");
+
+		$user = $this->_model->findProducer($_SESSION['user']['user_key']);
+		$this->_view->set('user', $user);
 		
 		include_once(HOME.DS.'includes'.DS.'menu.inc.php');
 		return $this->_view->output();
@@ -56,7 +59,8 @@ class ActionsController extends Controller
 		
 		//partie creation du mail
 		$mail = 'nelsondu59@live.fr';
-		if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $mail)) // On filtre les serveurs qui rencontrent des bogues.
+		if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $mail))
+		// On filtre les serveurs qui rencontrent des bogues.
 		{
 			$passage_ligne = "\r\n";
 		}
@@ -122,6 +126,7 @@ class ActionsController extends Controller
 	public function ajax($id)
 	{
 		if ($id[0] == "checkLogin"){
+			$succes = false;
 			if(isset($_POST['loginU']) && isset($_POST['passwordU']))
 			{
 				$user =  $this->_model->findUserlogin($_POST['loginU']);
@@ -133,13 +138,9 @@ class ActionsController extends Controller
 					$return = $this->_model->getRankUser($user["fk_id_user"]);
 
 					$success = $return["name_rank"];
-				} else {
-					$success = false;
 				}
-			} else {
-				$success = false;
 			}
-			
+
 			echo $success;
 		}
 
@@ -255,7 +256,7 @@ class ActionsController extends Controller
 		}
 	}
 	
-	/* ------------------------------------------ Accès sécurisé -------------------------------------------------------*/
+	/* ------------------------------------------ Accès sécurisé -----------------------------------------------------*/
 
 	public function secureAccess($page)
 	{
@@ -263,7 +264,7 @@ class ActionsController extends Controller
 		$axx = $this->_model->getAccessUser($rank['name_rank'], $page);
 		
 		if (!$axx){
-			header("Location: http://agrur.fr");
+			header("Location: http://agrur.vdev");
 		} else {
 			$allAxx = $this->_model->getAllAccessUser($rank['name_rank']);
 			$tabAxx = Array();
@@ -275,30 +276,30 @@ class ActionsController extends Controller
 			return $tabAxx;
 	}
 	
-	/* ------------------------------------ Fin de l'accès sécurisé ---------------------------------------------------*/
+	/* ------------------------------------ Fin de l'accès sécurisé --------------------------------------------------*/
 	
-	/* ------------------------------------------ Connexion -----------------------------------------------------------*/
+	/* ------------------------------------------ Connexion ----------------------------------------------------------*/
 	
 	public function login()
 	{
 		return $this->_view->output();
 	}
 	
-	/* --------------------------------------- Fin de la connexion -----------------------------------------------------*/
+	/* --------------------------------------- Fin de la connexion ---------------------------------------------------*/
 	
-	/* ------------------------------------------ Deconnexion ----------------------------------------------------------*/
+	/* ------------------------------------------ Deconnexion --------------------------------------------------------*/
 	
 	public function logout()
 	{
 		try {
 				session_destroy();
-				header("Location: http://agrur.fr");
+				header("Location: http://agrur.vdev");
 			 
 		} catch (Exception $e) {
 			echo '<h1>Application error:</h1>' . $e->getMessage();
 		}
 	}
 	
-	/* -------------------------------------- Fin de la deconnexion ----------------------------------------------------*/
+	/* -------------------------------------- Fin de la deconnexion --------------------------------------------------*/
 
 }

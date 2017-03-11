@@ -76,7 +76,7 @@
 	</div>
 		<ul class="nav navbar-top-links navbar-right">
 			<li>
-				<span class="m-r-sm text-muted welcome-message">Bienvenue, visiteur inconnu!</span>
+				<span class="m-r-sm text-muted welcome-message">Bienvenue, <?= $user["prenomResponsable"] ?></span>
 			</li>
 
 			<li>
