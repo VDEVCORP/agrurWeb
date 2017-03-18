@@ -1,5 +1,0 @@
-BEL;Yves DUBOIS;POINT POST LIBRAIRIE
-25/05/2016;29 Rue de Velaine;ATMOSPHÉRE
-;5060 Sambreville;65 Avenue Président Roosvelt
-2090894500982;Belgium;5060 Sambreville
-;;Belgium
