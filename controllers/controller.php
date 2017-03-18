@@ -26,4 +26,22 @@ class Controller
 	{
 		$this->_view = new View(HOME . DS . 'views' . DS . strtolower($this->_controller) . DS . $viewName . '.tpl');
 	}
+
+/* --------- Contrôle des permissions de consultation  ---------*/
+//	Cette fonction est à appeller pour chaque page du site; elle verifie si
+// l'utilisateur possède les droits d'accès à la page demandée et stock dans une
+// list ces droits. Cette liste déterminera quels liens dans le menu seront
+// affichés.
+
+	public function secureAccess($page)
+	{
+		$rank =  $this->_model->getRankUser($_SESSION['user']['user_key']);
+		$axx = $this->_model->getAccessUser($rank['name_rank'], $page);
+		
+		if (!$axx){
+			header("Location: http://" . DOMAIN_NAME);
+		} else {
+			return $this->_model->getAllAccessUser($rank['name_rank']);
+		}
+	}
 }

@@ -1,5 +1,0 @@
-85254;Chausettes de foot adulte F700 41/42;4;6.60;0.00;6.60;21.00%;1.39;7.99;31.96
-1556257;Gilet Softshell QUECHUA FORCLAZ 700 HOMME L;1;24.79;0.00;24.79;21.00%;5.20;29.99;29.99
-536409;Textile de running homme kalenji t-shirt ekiden noir L;3;4.12;0.00;4.12;21.00%;0.87;4.99;14.97
-1356999;First Aid Waterproof;1;20.65;0.00;20.65;21.00%;4.34;24.99;24.99
-2115316;TS ML FOR 100 WARM M NOIR L;2;8.26;0.00;8.26;21.00%;1.73;9.99;19.98
