@@ -46,19 +46,22 @@
                     <a href="<?php
                                 switch($_SESSION['user']['rank']){
                                     case('admin'):
-                                        echo '/admin/manage';
+                                        echo '/admin/home';
                                         break;
-                                    case('regular'):
-                                        echo '/regular/home';
+                                    case('producteur'):
+                                        echo '/producteur/home';
+                                        break;
+                                    case('client'):
+                                        echo '/client/home';
                                         break;
                                 }
                                 ?>"><i class="fa fa-home"></i><span class="nav-label">Accueil</span></a>
                 </li>
 
                 <!-- MENU LINKS ADMIN -->
-                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/exempleAdmin"){ ?>
-                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/exempleAdmin') echo 'active'; ?>">
-                        <a href="/admin/exempleAdmin"><i class="fa fa-cubes"></i><span class="nav-label">Lien autorisé Admin</span></a>
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/inscription"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/inscription') echo 'active'; ?>">
+                        <a href="/admin/inscription"><i class="fa fa-plus"></i><span class="nav-label">Inscription</span></a>
                     </li>
                 <?php }} ?>
 

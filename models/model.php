@@ -90,23 +90,6 @@ class Model
 	{
 		echo $this->_sql;
 	}
-
-	public function findUserlogin($email){
-		$tabParam = array();
-		$sql = "SELECT * 
-				FROM users_login 
-				WHERE fk_id_user = (
-					SELECT id_user
-					FROM users
-					WHERE email = ?)";
-		
-		$tabParam[] = $email;
-		$this->_setSql($sql);
-		
-		$requests = $this->getRow($tabParam);
-		
-		return $requests; 
-	}
 	
 	public function getRankUser($id_user)
 	{

@@ -61,24 +61,8 @@
 		<script src="/includes/js/plugins/metisMenu/jquery.metisMenu.js"></script>
         <script src="/includes/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-	<script type="text/javascript">
-		$("#connexion").on("click", function(){
-			var login = document.getElementById("login").value;
-			var password = document.getElementById("password").value;
-					$.post("/portail/auth",{loginU : login, passwordU : password}, function(retour){
-					retour = retour.replace(/^\s+|\s+$/gm,'');
-                    console.log(retour);
-					if (retour == "producer"){
-						document.location.href="/producteur/home";
-					} else if(retour == "customer"){
-						document.location.href="/client/home";
-					} else if(retour == "admin"){
-						document.location.href="/admin/home";
-					} else {
-						alert('BAD LOGIN OR PASSWORD !')
-					}}, "text");
-				});
-	</script>
+        <!-- Authentification -->
+	    <script src="/includes/js/custom/auth.js"></script>
 
 </body>
 </html>
