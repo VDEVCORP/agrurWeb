@@ -68,22 +68,15 @@ class Model
 		
 		$sth = $this->_db->prepare($this->_sql);
 		try {
-			$sth->execute($data);
-			if($getLastID)
-				return $this->_db->lastInsertId();
-		}
-		catch (PDOException $e) {
-		
-			if (isset($_SESSION["userOxy"]["identifier"]))
-			{
-				//if ($_SESSION["userOxy"]["identifier"] == "Z27JDELV" || $_SESSION["userOxy"]["identifier"] == "CED2015" )
-					die('Connection error SQL : ' . $e->getMessage());
-				//else
-					//die("An error has been detected on application.");
+			$success = $sth->execute($data);
+			if($getLastID){
+				$success = $this->_db->lastInsertId();
 			}
-			else
-				die("An error has been detected on application.");
+		} catch (PDOException $e) {
+			die('Connection error SQL : ' . $e->getMessage());
 		}
+
+		return $success;
 	}
 	
 	protected function printSql()

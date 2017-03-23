@@ -52,8 +52,8 @@
 
     <!-- Mainly scripts -->
     <script src="/includes/js/jquery-2.1.1.js"></script>
+    <script src="/includes/js/app/main.js"></script>
     <script src="/includes/js/bootstrap.min.js"></script>
-    <script src="/includes/js/custom/app.js"></script>
     <script src="/includes/js/inspinia.js"></script>
 
 	<!-- scripts Plugin Inspinia -->
@@ -62,7 +62,7 @@
         <script src="/includes/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
         <!-- Authentification -->
-	    <script src="/includes/js/custom/auth.js"></script>
+	    <script src="/includes/js/app/auth.js"></script>
 
 </body>
 </html>

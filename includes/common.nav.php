@@ -24,8 +24,6 @@
     <link href="/includes/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="/includes/css/style.css" rel="stylesheet">
     <link href="/includes/css/animate.css" rel="stylesheet">
-    
-
 </head>
 
 <body>
@@ -98,7 +96,6 @@
 	    </div>
 
         <div class="row wrapper border-bottom white-bg page-heading">
-
         <!-- Les traitements PHP qui suivent sont très moche et devront donner lieu à Refactor 
                 - Ces traitements doivent être déplacé dans le controller parent
                 - Une variable d'infos de page est à imaginer'
@@ -129,3 +126,19 @@
             </div>
             <div class="col-lg-2"></div>
         </div>
+
+        <div class="wrapper wrapper-content animated fadeInRight"> <!-- Fermée dans le footer -->
+
+            <?php if(isset($error)){ ?>
+                <div class="alert alert-danger alert-dismissable">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <?= $error ?>
+                </div>
+            <?php } ?>
+
+            <?php if(isset($success)){ ?>
+                <div class="alert alert-success alert-dismissable">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <?= $succes ?>
+                </div>
+            <?php } ?>
