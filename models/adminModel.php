@@ -26,19 +26,21 @@ class AdminModel extends Model{
 	}
 
 	public function addUser($userEmail, $rank){
-		$tabParam = array($userEmail, $rank);
+		$tabParam = array($rank, $userEmail);
 		$sql = "INSERT INTO users(rank, email, valid)
-				VALUES (?, ?, 1)";
+				VALUES (?, ?, true)";
+		$this->_setSql($sql);
 
 		$success = $this->execSql($tabParam, true);
 		return $success;
 	}
 
 	public function addLog($userPassword, $userID){
-		$tabParam = array($userPassword, $userID);
+		$tabParam = array($userID, $userPassword);
 		
-		$sql = "INSERT INTO users_login(fk_id_users, user_password)
+		$sql = "INSERT INTO users_login(fk_id_user, password_user)
 				VALUES (?, ?)";
+		$this->_setSql($sql);
 
 		$success = $this->execSql($tabParam);
 		return $success;

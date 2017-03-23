@@ -12,7 +12,7 @@ class PortailModel extends Model{
 		$sql = "SELECT * 
 				FROM users_login 
 				WHERE fk_id_user = (
-					SELECT id_user
+					SELECT DISTINCT id_user
 					FROM users
 					WHERE email = ?)";
 		

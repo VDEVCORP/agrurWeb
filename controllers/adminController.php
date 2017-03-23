@@ -33,7 +33,7 @@ class AdminController extends Controller
                     break;
             }
 
-            $save = $this->addLog(sha1($_POST["tempPassword"]), $userID);
+            $save = $this->_model->addLog(sha1($_POST["tempPassword"]), $userID);
 
             switch($_POST["option"]){
                 case("producteur"):

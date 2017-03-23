@@ -27,16 +27,7 @@ class Model
 			$sth->execute($data);
 		}
 		catch (PDOException $e) {
-		
-			if (isset($_SESSION["userOxy"]["identifier"]))
-			{
-				//if ($_SESSION["userOxy"]["identifier"] == "Z27JDELV" || $_SESSION["userOxy"]["identifier"] == "CED2015" )
-					die('Connection error SQL : ' . $e->getMessage());
-				//else
-				//	die("An error has been detected on application.");
-			}
-			else
-				die("An error has been detected on application.");
+			die('Connection error SQL : ' . $e->getMessage());
 		}
 		return $sth->fetchAll();
 	}
