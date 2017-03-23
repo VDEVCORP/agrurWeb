@@ -27,7 +27,7 @@
         <div>
             <div>
 
-                <h1 class="logo-name">AGR</h1>
+                <h1 class="logo-name"><img src="/includes/images/Agrur_logo.png" height="250"></h1>
 
             </div>
             <h3>Bienvenue dans l'espace Agrur!</h3>
