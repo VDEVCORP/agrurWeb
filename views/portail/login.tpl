@@ -27,7 +27,7 @@
         <div>
             <div>
 
-                <h1 class="logo-name">AGR</h1>
+                <h1 class="logo-name"><img src="/includes/images/Agrur_logo.png" height="250"></h1>
 
             </div>
             <h3>Bienvenue dans l'espace Agrur!</h3>
@@ -52,8 +52,8 @@
 
     <!-- Mainly scripts -->
     <script src="/includes/js/jquery-2.1.1.js"></script>
+    <script src="/includes/js/app/main.js"></script>
     <script src="/includes/js/bootstrap.min.js"></script>
-    <script src="/includes/js/custom/app.js"></script>
     <script src="/includes/js/inspinia.js"></script>
 
 	<!-- scripts Plugin Inspinia -->
@@ -61,24 +61,8 @@
 		<script src="/includes/js/plugins/metisMenu/jquery.metisMenu.js"></script>
         <script src="/includes/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-	<script type="text/javascript">
-		$("#connexion").on("click", function(){
-			var login = document.getElementById("login").value;
-			var password = document.getElementById("password").value;
-					$.post("/portail/auth",{loginU : login, passwordU : password}, function(retour){
-					retour = retour.replace(/^\s+|\s+$/gm,'');
-                    console.log(retour);
-					if (retour == "producer"){
-						document.location.href="/producteur/home";
-					} else if(retour == "customer"){
-						document.location.href="/client/home";
-					} else if(retour == "admin"){
-						document.location.href="/admin/home";
-					} else {
-						alert('BAD LOGIN OR PASSWORD !')
-					}}, "text");
-				});
-	</script>
+        <!-- Authentification -->
+	    <script src="/includes/js/app/auth.js"></script>
 
 </body>
 </html>

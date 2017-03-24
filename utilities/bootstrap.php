@@ -18,6 +18,7 @@ if(!in_array($listParameters[1], LIST_EXCEPTION)){
 
 	$nameModel = $nameController . 'Model';
 	$controller = $nameController . 'Controller';
+	
 	session_start();
 
 	if (file_exists(HOME . DS . 'views' . DS . strtolower($nameController) . DS . $nameAction . '.tpl')){

@@ -24,8 +24,6 @@
     <link href="/includes/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="/includes/css/style.css" rel="stylesheet">
     <link href="/includes/css/animate.css" rel="stylesheet">
-    
-
 </head>
 
 <body>
@@ -46,19 +44,22 @@
                     <a href="<?php
                                 switch($_SESSION['user']['rank']){
                                     case('admin'):
-                                        echo '/admin/manage';
+                                        echo '/admin/home';
                                         break;
-                                    case('regular'):
-                                        echo '/regular/home';
+                                    case('producteur'):
+                                        echo '/producteur/home';
+                                        break;
+                                    case('client'):
+                                        echo '/client/home';
                                         break;
                                 }
                                 ?>"><i class="fa fa-home"></i><span class="nav-label">Accueil</span></a>
                 </li>
 
                 <!-- MENU LINKS ADMIN -->
-                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/exempleAdmin"){ ?>
-                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/exempleAdmin') echo 'active'; ?>">
-                        <a href="/admin/exempleAdmin"><i class="fa fa-cubes"></i><span class="nav-label">Lien autorisé Admin</span></a>
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/inscription"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/inscription') echo 'active'; ?>">
+                        <a href="/admin/inscription"><i class="fa fa-plus"></i><span class="nav-label">Inscription</span></a>
                     </li>
                 <?php }} ?>
 
@@ -95,7 +96,6 @@
 	    </div>
 
         <div class="row wrapper border-bottom white-bg page-heading">
-
         <!-- Les traitements PHP qui suivent sont très moche et devront donner lieu à Refactor 
                 - Ces traitements doivent être déplacé dans le controller parent
                 - Une variable d'infos de page est à imaginer'
@@ -126,3 +126,19 @@
             </div>
             <div class="col-lg-2"></div>
         </div>
+
+        <div class="wrapper wrapper-content animated fadeInRight"> <!-- Fermée dans le footer -->
+
+            <?php if(isset($error)){ ?>
+                <div class="alert alert-danger alert-dismissable">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <?= $error ?>
+                </div>
+            <?php } ?>
+
+            <?php if(isset($success)){ ?>
+                <div class="alert alert-success alert-dismissable">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <?= $success ?>
+                </div>
+            <?php } ?>

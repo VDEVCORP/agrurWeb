@@ -27,16 +27,7 @@ class Model
 			$sth->execute($data);
 		}
 		catch (PDOException $e) {
-		
-			if (isset($_SESSION["userOxy"]["identifier"]))
-			{
-				//if ($_SESSION["userOxy"]["identifier"] == "Z27JDELV" || $_SESSION["userOxy"]["identifier"] == "CED2015" )
-					die('Connection error SQL : ' . $e->getMessage());
-				//else
-				//	die("An error has been detected on application.");
-			}
-			else
-				die("An error has been detected on application.");
+			die('Connection error SQL : ' . $e->getMessage());
 		}
 		return $sth->fetchAll();
 	}
@@ -68,44 +59,20 @@ class Model
 		
 		$sth = $this->_db->prepare($this->_sql);
 		try {
-			$sth->execute($data);
-			if($getLastID)
-				return $this->_db->lastInsertId();
-		}
-		catch (PDOException $e) {
-		
-			if (isset($_SESSION["userOxy"]["identifier"]))
-			{
-				//if ($_SESSION["userOxy"]["identifier"] == "Z27JDELV" || $_SESSION["userOxy"]["identifier"] == "CED2015" )
-					die('Connection error SQL : ' . $e->getMessage());
-				//else
-					//die("An error has been detected on application.");
+			$success = $sth->execute($data);
+			if($getLastID){
+				$success = $this->_db->lastInsertId();
 			}
-			else
-				die("An error has been detected on application.");
+		} catch (PDOException $e) {
+			die('Connection error SQL : ' . $e->getMessage());
 		}
+
+		return $success;
 	}
 	
 	protected function printSql()
 	{
 		echo $this->_sql;
-	}
-
-	public function findUserlogin($email){
-		$tabParam = array();
-		$sql = "SELECT * 
-				FROM users_login 
-				WHERE fk_id_user = (
-					SELECT id_user
-					FROM users
-					WHERE email = ?)";
-		
-		$tabParam[] = $email;
-		$this->_setSql($sql);
-		
-		$requests = $this->getRow($tabParam);
-		
-		return $requests; 
 	}
 	
 	public function getRankUser($id_user)

@@ -1,3 +1,5 @@
+ 
+ </div> <!-- Fermeture de wrapper wrapper-content animated fadeInRight -->
  <div class="footer">
 	<div>
 		&nbsp;
@@ -12,8 +14,8 @@
 
     <!-- scripts Javascript -->
     <script src="/includes/js/jquery-2.1.1.js"></script>
+	<script src="/includes/js/app/main.js"></script>
     <script src="/includes/js/bootstrap.min.js"></script>
-    <script src="/includes/js/custom/app.js"></script>
     <script src="/includes/js/inspinia.js"></script>
 
 	<!-- scripts Plugin Inspinia -->

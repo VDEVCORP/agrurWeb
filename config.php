@@ -5,7 +5,7 @@ define ('DB_USER', 	'root');
 define ('DB_PASS', 	'');
 define ('ACTION', 'portail');
 define ('METHOD', 'login');
-define ('DOMAIN_NAME', 'temp.agrur');
+define ('DOMAIN_NAME', 'agrur.vdev');
 
 // PHP 5.6 constante type array :
 const LIST_EXCEPTION = array(   'skin-config.html',
