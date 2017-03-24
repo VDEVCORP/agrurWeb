@@ -63,6 +63,36 @@
                     </li>
                 <?php }} ?>
 
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/utilisateurs"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/utilisateurs') echo 'active'; ?>">
+                        <a href="/admin/utilisateurs"><i class="fa fa-users"></i><span class="nav-label">Utilisateurs</span></a>
+                    </li>
+                <?php }} ?>
+
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/communes"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/communes') echo 'active'; ?>">
+                        <a href="/admin/communes"><i class="fa fa-road"></i><span class="nav-label">Communes</span></a>
+                    </li>
+                <?php }} ?>
+
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/varietes"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/varietes') echo 'active'; ?>">
+                        <a href="/admin/varietes"><i class="fa fa-quote-right"></i><span class="nav-label">Varietes</span></a>
+                    </li>
+                <?php }} ?>
+
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/vergers"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/vergers') echo 'active'; ?>">
+                        <a href="/admin/vergers"><i class="fa fa-tree"></i><span class="nav-label">Vergers</span></a>
+                    </li>
+                <?php }} ?>
+
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/commandes"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/commandes') echo 'active'; ?>">
+                        <a href="/admin/commandes"><i class="fa fa-truck"></i><span class="nav-label">Commandes</span></a>
+                    </li>
+                <?php }} ?>
+
 
                 <!-- MENU LINKS PRODUCTEUR -->
                 <?php foreach($listAxx as $page){if($page['url_page'] == "regular/exempleRegular"){ ?>

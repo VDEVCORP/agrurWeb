@@ -30,8 +30,8 @@ class Controller
 /* --------- Contrôle des permissions de consultation  ---------*/
 //	Cette fonction est à appeller pour chaque page du site; elle verifie si
 // l'utilisateur possède les droits d'accès à la page demandée et stock dans une
-// list ces droits. Cette liste déterminera quels liens dans le menu seront
-// affichés.
+// liste ces droits. Cette liste déterminera également quels liens dans le menu seront
+// visibles pour l'utilisateur.
 
 	public function secureAccess($page)
 	{
@@ -44,4 +44,17 @@ class Controller
 			return $this->_model->getAllAccessUser($rank['name_rank']);
 		}
 	}
+
+// Permet d'envoyer à la vue le messages de votre choix
+// en fonction du drapeau "$status" reçu, témoins de l'echec
+// ou du succès d'une opération.
+
+	public function setViewResponse($status, $success, $error){
+		if($status){
+			$this->_view->set('success', $success);
+		} else {
+			$this->_view->set('error', $error);
+		}
+	}
+
 }

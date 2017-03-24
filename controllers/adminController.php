@@ -64,21 +64,14 @@ class AdminController extends Controller
                     $save = $this->_model->addCustomer($data);
                     break;
             }
-            
-            if($save){
-                $success = "Le nouvel utilisateur à bien été inscrit.";
-                $this->_view->set('success', $success);
-            } else {
-                $error = "Un problème est survenu lors de la sauvegarde!";
-                $this->_view->set('error', $error);
-            }
         }
-        
+        $this->setViewResponse($save, "Le nouvel utilisateur a bien été enregistré.", "Un problème est survenu lors de la sauvegarde!");
+
         include_once(HOME . DS . "includes" . DS . "common.nav.php");
         $this->_view->outPut();
     }
 
-    public function gestionUtilisateurs(){
+    public function utilisateurs(){
         $listAxx = $this->secureAccess("admin/gestionUtilisateurs");
         $this->_view->set('listAxx', $listAxx);
 
@@ -91,6 +84,66 @@ class AdminController extends Controller
 
         }
 
+        include_once(HOME . DS . "includes" . DS . "common.nav.php");
+        $this->_view->outPut();
+    }
+
+    public function varietes(){
+        $listAxx = $this->secureAccess("admin/gestionUtilisateurs");
+        $this->_view->set('listAxx', $listAxx);
+
+        $varietes = $this->_model->findAllVarietes();
+        $this->_view->set('varietes', $varietes);
+
+        if($_POST){
+            $save = false;
+
+            $save = addVariete($_POST);
+        }
+        $this->setViewResponse($save, "La nouvelle variété a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");
+
+        include_once(HOME . DS . "includes" . DS . "common.nav.php");
+        $this->_view->outPut();
+    }
+
+    public function communes(){
+        $listAxx = $this->secureAccess("admin/gestionUtilisateurs");
+        $this->_view->set('listAxx', $listAxx);
+
+        $communes = $this->_model->findAllCommunes();
+        $this->_view->set('communes', $communes);
+
+        if($_POST){
+            $save = false;
+            $save = addCommune($_POST);
+        }
+        $this->setViewResponse($save, "La nouvelle commune a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");
+
+        include_once(HOME . DS . "includes" . DS . "common.nav.php");
+        $this->_view->outPut();
+    }
+
+    public function vergers(){
+        $listAxx = $this->secureAccess("admin/gestionUtilisateurs");
+        $this->_view->set('listAxx', $listAxx);
+
+        $vergers = $this->_model->findAllVergers();
+        $this->_view->set('vergers', $vergers);
+
+        $varietes = $this->_model->findAllVarietes();
+        $this->_view->set('varietes', $varietes);
+        $communes = $this->_model->findAllCommunes();
+        $this->_view->set('communes', $communes);
+        $producteurs = $this->_model->findAllProducteurs();
+        $this->_view->set('producteurs', $producteurs);
+
+        if($_POST){
+            $save = false;
+            $save = addVerger($_POST);
+        }
+        $this->setViewResponse($save, "Le nouveau verger a bien été ajouté.", "Un problème est survenu lors de la sauvegarde!");
+
+        include_once(HOME . DS . "includes" . DS . "common.nav.php");
         $this->_view->outPut();
     }
 
