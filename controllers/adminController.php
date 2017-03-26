@@ -72,11 +72,11 @@ class AdminController extends Controller
         $this->_view->outPut();
     }
 
-    public function utilisateurs(){
+    public function utilisateurs($action = false){
         $listAxx = $this->secureAccess("admin/utilisateurs");
         $this->_view->set('listAxx', $listAxx);
 
-        switch($action){
+        if($action){
 
         }
 
@@ -89,7 +89,7 @@ class AdminController extends Controller
         $this->_view->outPut();
     }
 
-    public function varietes(){
+    public function varietes($action = false){
         $listAxx = $this->secureAccess("admin/varietes");
         $this->_view->set('listAxx', $listAxx);
 
@@ -100,9 +100,24 @@ class AdminController extends Controller
             $this->setViewResponse($save, "La nouvelle variété a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");  
         }
 
+        if($action){
+            $action = $this->formatAction($action);
+            switch($action['path']){
+                case('edit') :
+                    $save = false;
+                    $save = $this->updateVariete($action['query']['id']);
+                    $this->setViewResponse($save, "La variété à bien été modifiée.", "Un problème est survenu lors de l'opération!");
+                    break;
+                case('delete') :
+                    $save = false;
+                    $save = $this->deleteVariete($action['query']['id']);
+                    $this->setViewResponse($save, "La variété à bien été supprimée.", "Impossible d'opérer la suppression!");
+                    break;
+            }
+        }
+
         $varietes = $this->_model->findAllVarietes();
         $this->_view->set('varietes', $varietes);
-        
 
         $this->_view->outPut();
     }

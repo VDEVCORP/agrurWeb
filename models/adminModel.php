@@ -79,6 +79,24 @@ class AdminModel extends Model{
 		return $success;
 	}
 
+	public function deleteVariete($id){
+		$sql = "DELETE FROM variete
+				WHERE idVariete = ?";
+		$this->_setSql($sql);
+
+		$success = $this->execSql([$id]);
+		return $success;
+	}
+
+	public function updateVariete($id, $data){
+		$sql = "UPDATE variete
+				SET nomVariete = :nom, aoc = :aoc";
+		$this->_setSql($sql);
+
+		$success = $this->execSql($data);
+		return $success;		
+	}
+
 // Table Verger
 	public function findAllVergers(){
 		$sql = "SELECT * FROM verger";

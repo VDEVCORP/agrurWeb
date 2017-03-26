@@ -20,6 +20,7 @@
                             <th>#</th>
                             <th>Variété</th>
                             <th>AOC</th>
+                            <th></th>
                         </tr>
                     <thead>
                     <tbody>
@@ -28,11 +29,16 @@
                             <td><?= $variete["idVariete"] ?></td>
                             <td><?= $variete["nomVariete"] ?></td>
                             <td><?= $variete["aoc"] ? '<i class="fa fa-check"></li>' : '<i class="fa fa-times"></li>' ?></td>
-                        <tr>
+                            <td class="text-right">
+                                <div class="btn-group">
+                                    <button class="btn btn-info" id="edit">Editer</button>
+                                    <button class="btn btn-danger" id="delete">Supprimer</button>
+                                </div>
+                            </td>
+                        </tr>
                     <?php } ?>
                     </tbody>
                 </table>
-
             </div>
         </div>
     </div>

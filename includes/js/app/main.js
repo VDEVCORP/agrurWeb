@@ -5,3 +5,11 @@ $(".profession").on('change', function(){
         $("#adherent").css('display','none')
     }
 })
+
+$("#edit").click(function(e){
+    
+})
+
+$("#delete").click(function(e){
+
+})

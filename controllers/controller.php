@@ -27,7 +27,7 @@ class Controller
 		$this->_view = new View(HOME . DS . 'views' . DS . strtolower($this->_controller) . DS . $viewName . '.tpl');
 	}
 
-/* --------- Contrôle des permissions de consultation  ---------*/
+/* --------- Contrôle des permissions de consultation de page ---------*/
 //	Cette fonction est à appeller pour chaque page du site; elle verifie si
 // l'utilisateur possède les droits d'accès à la page demandée et stock dans une
 // liste ces droits. Cette liste déterminera également quels liens dans le menu seront
@@ -45,6 +45,7 @@ class Controller
 		}
 	}
 
+/* --------- Message en réponse à une action de l'utilisateur ---------*/
 // Permet d'envoyer à la vue le messages de votre choix
 // en fonction du drapeau "$status" reçu, témoins de l'echec
 // ou du succès d'une opération.
@@ -55,6 +56,26 @@ class Controller
 		} else {
 			$this->_view->set('error', $error);
 		}
+	}
+
+/* --------- Formatage d'une action appellée en GET ---------*/
+// Récupère l'action passé en troisième paramètre d'une url sous forme d'une
+// chaîne type : [action]?[key1=value1]&[key2=value2] ....
+// 
+	/**
+	* @param string
+	*
+	* @return array array(["path"] => string, ["query"] => array)
+	*/
+	public function formatAction($actionString){
+		$action = parse_url($actionString);
+		$action['query'] = explode("&", $action['query']);
+		for($i = 0; $i < count($action['query']); $i++){
+			$temp = explode("=", $action['query'][$i]);
+			$action['query'][$temp[0]] = $temp[1];
+			unset($action['query'][$i]);
+		}
+		return $action;
 	}
 
 }
