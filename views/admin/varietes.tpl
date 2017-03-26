@@ -27,7 +27,7 @@
                         <tr>
                             <td><?= $variete["idVariete"] ?></td>
                             <td><?= $variete["nomVariete"] ?></td>
-                            <td><?= $variete["AOC"] ?></td>
+                            <td><?= $variete["aoc"] ? '<i class="fa fa-check"></li>' : '<i class="fa fa-times"></li>' ?></td>
                         <tr>
                     <?php } ?>
                     </tbody>

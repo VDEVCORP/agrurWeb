@@ -76,14 +76,15 @@ class AdminController extends Controller
         $listAxx = $this->secureAccess("admin/utilisateurs");
         $this->_view->set('listAxx', $listAxx);
 
+        switch($action){
+
+        }
+
         $producers = $this->_model->findAllProducers();
         $this->_view->set('producers', $users);
         $cutomers = $this->_model->findAllCutomers();
         $this->_view->set('customers', $customers);
 
-        switch($action){
-
-        }
 
         $this->_view->outPut();
     }
@@ -92,16 +93,16 @@ class AdminController extends Controller
         $listAxx = $this->secureAccess("admin/varietes");
         $this->_view->set('listAxx', $listAxx);
 
-        $varietes = $this->_model->findAllVarietes();
-        $this->_view->set('varietes', $varietes);
-        
-
         if($_POST){
             $save = false;
-            isset($_POST["aoc"]) ? $_POST["aoc"] : $_POST["aoc"] = 0;
+            isset($_POST["aoc"]) ? $_POST["aoc"] = 1 : $_POST["aoc"] = 0;
             $save = $this->_model->addVariete($_POST);
             $this->setViewResponse($save, "La nouvelle variété a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");  
         }
+
+        $varietes = $this->_model->findAllVarietes();
+        $this->_view->set('varietes', $varietes);
+        
 
         $this->_view->outPut();
     }
@@ -110,22 +111,28 @@ class AdminController extends Controller
         $listAxx = $this->secureAccess("admin/communes");
         $this->_view->set('listAxx', $listAxx);
 
-        $communes = $this->_model->findAllCommunes();
-        $this->_view->set('communes', $communes);
-
         if($_POST){        
             $save = false;
-            isset($_POST["aoc"]) ? $_POST["aoc"] : $_POST["aoc"] = 0;
+            isset($_POST["aoc"]) ? $_POST["aoc"] = 1 : $_POST["aoc"] = 0;
             $save = $this->_model->addCommune($_POST);
             $this->setViewResponse($save, "La nouvelle commune a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");   
         }
-        
+
+        $communes = $this->_model->findAllCommunes();
+        $this->_view->set('communes', $communes);
+
         $this->_view->outPut();
     }
 
     public function vergers(){
         $listAxx = $this->secureAccess("admin/vergers");
         $this->_view->set('listAxx', $listAxx);
+
+        if($_POST){
+            $save = false;
+            $save = $this->_model->addVerger($_POST);
+            $this->setViewResponse($save, "Le nouveau verger a bien été ajouté.", "Un problème est survenu lors de la sauvegarde!");
+        }
 
         $vergers = $this->_model->findAllVergers();
         $this->_view->set('vergers', $vergers);
@@ -137,11 +144,6 @@ class AdminController extends Controller
         $producteurs = $this->_model->findAllProducers();
         $this->_view->set('producteurs', $producteurs);
 
-        if($_POST){
-            $save = false;
-            $save = $this->_model->addVerger($_POST);
-            $this->setViewResponse($save, "Le nouveau verger a bien été ajouté.", "Un problème est survenu lors de la sauvegarde!");
-        }
 
         $this->_view->outPut();
     }

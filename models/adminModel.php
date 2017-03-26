@@ -71,8 +71,8 @@ class AdminModel extends Model{
 	}
 
 	public function addVariete(array $data){
-		$sql = "INSERT INTO variete(nomVariete, AOC)
-				VALUES (?, ?)";
+		$sql = "INSERT INTO variete(nomVariete, aoc)
+				VALUES (:nom, :aoc)";
 		$this->_setSql($sql);
 
 		$success = $this->execSql($data);
@@ -106,8 +106,8 @@ class AdminModel extends Model{
 
 	public function addCommune(array $data){
 		
-		$sql = "INSERT INTO commune(nomCommune, codePostal, AOC)
-				VALUES (?, ?, ?)";
+		$sql = "INSERT INTO commune(nomCommune, codePostal, aoc)
+				VALUES (:nom, :codePostal, :aoc)";
 		$this->_setSql($sql);
 
 		$success = $this->execSql($data);
