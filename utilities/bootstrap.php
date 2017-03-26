@@ -4,6 +4,8 @@ date_default_timezone_set("Europe/Paris");
 $nameController = ACTION;
 $nameAction = METHOD;
 $listParameters = array(null, null);
+$arg = array();
+$forbidden = false;
 
 $called = $_SERVER["REQUEST_URI"];
 
@@ -12,13 +14,23 @@ if (!empty($called) && $called != "/"){
 	$listParameters = explode("/", $called);
 	$nameController = $listParameters[0];
 	$nameAction = $listParameters[1];
+
+	if(isset($listParameters[2])){
+		$arg[] = $listParameters[2];
+	}
 }
 
-if(!in_array($listParameters[1], LIST_EXCEPTION)){
+foreach($listParameters as $parameter){
+	$forbidden = in_array($parameter, LIST_EXCEPTION) ? true : false;
+}
+
+if(!$forbidden){
 
 	$nameModel = $nameController . 'Model';
 	$controller = $nameController . 'Controller';
-	
+	unset($listParameters);
+
+
 	session_start();
 
 	if (file_exists(HOME . DS . 'views' . DS . strtolower($nameController) . DS . $nameAction . '.tpl')){
@@ -29,8 +41,8 @@ if(!in_array($listParameters[1], LIST_EXCEPTION)){
 	}
 
 	if (method_exists($load, $nameAction)) {
-		call_user_func_array(array($load, $nameAction), $listParameters);
-		unset($listParameters);
+		call_user_func_array(array($load, $nameAction), $arg);
+		unset($arg);
 	} else {
 		die("PROBLEM ON call_user_func_array");
 		//header("Location: /error/404") ;

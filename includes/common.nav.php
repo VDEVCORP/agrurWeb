@@ -131,8 +131,14 @@
                 - Une variable d'infos de page est à imaginer'
         -->
         <?php
+            $url_access = substr($_SERVER['REQUEST_URI'],1);
+            if(substr_count($url_access, "/") > 1){
+                /*Expession retournant les deux premiers paramètre de l'URL si un troisième
+                est passé pour ne pas froisser l'écriture du chemin de la page */
+                $url_access = str_replace(strrchr(substr($_SERVER['REQUEST_URI'],1), "/"), "", substr($_SERVER['REQUEST_URI'],1));
+            } 
             foreach($listAxx as $page){
-                if($page['url_page'] == substr($_SERVER['REQUEST_URI'],1)){ 
+                if($page['url_page'] == $url_access){ 
                     $treeInfs[] = current(explode("/", $page['url_page']));
                     $treeInfs[] = $page['name_page'];
                 }
