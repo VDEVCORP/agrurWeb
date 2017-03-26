@@ -159,16 +159,16 @@
 
         <div class="wrapper wrapper-content animated fadeInRight"> <!-- Fermée dans le footer -->
 
-            <?php if(isset($error)){ ?>
-                <div class="alert alert-danger alert-dismissable">
-                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                    <?= $error ?>
-                </div>
-            <?php } ?>
-
             <?php if(isset($success)){ ?>
                 <div class="alert alert-success alert-dismissable">
                     <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
                     <?= $success ?>
+                </div>
+            <?php } ?>
+
+            <?php if(isset($error)){ ?>
+                <div class="alert alert-danger alert-dismissable">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <?= $error ?>
                 </div>
             <?php } ?>

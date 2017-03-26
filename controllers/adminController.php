@@ -7,13 +7,15 @@ class AdminController extends Controller
 	{
 		parent::__construct($model, $nameController, $nameAction);
 		$this->_setModel($model);
+
+        $this->_view->setCommons("nav", HOME . DS . 'includes' . DS . 'common.nav.php');
+		$this->_view->setCommons("footer", HOME . DS . 'includes' . DS . 'common.footer.php');
 	}
 
     public function home(){
         $listAxx = $this->secureAccess("admin/home");
         $this->_view->set('listAxx', $listAxx);
 
-        include_once(HOME . DS . "includes" . DS . "common.nav.php");
         $this->_view->outPut();
     }
 
@@ -21,9 +23,9 @@ class AdminController extends Controller
         $listAxx = $this->secureAccess("admin/inscription");
         $this->_view->set('listAxx', $listAxx);
 
-        if($_POST){
+        if($_POST){ 
             $save = false;
-
+            
             switch($_POST["option"]){
                 case("producteur"):
                     $userID = $this->_model->addUser($_POST["mail"], 2);
@@ -64,15 +66,14 @@ class AdminController extends Controller
                     $save = $this->_model->addCustomer($data);
                     break;
             }
+            $this->setViewResponse($save, "La nouvel utilisateur à bien été enregistré.", "Un problème est survenu lors de la sauvegarde!");
         }
-        $this->setViewResponse($save, "Le nouvel utilisateur a bien été enregistré.", "Un problème est survenu lors de la sauvegarde!");
 
-        include_once(HOME . DS . "includes" . DS . "common.nav.php");
         $this->_view->outPut();
     }
 
     public function utilisateurs(){
-        $listAxx = $this->secureAccess("admin/gestionUtilisateurs");
+        $listAxx = $this->secureAccess("admin/utilisateurs");
         $this->_view->set('listAxx', $listAxx);
 
         $producers = $this->_model->findAllProducers();
@@ -84,47 +85,46 @@ class AdminController extends Controller
 
         }
 
-        include_once(HOME . DS . "includes" . DS . "common.nav.php");
         $this->_view->outPut();
     }
 
     public function varietes(){
-        $listAxx = $this->secureAccess("admin/gestionUtilisateurs");
+        $listAxx = $this->secureAccess("admin/varietes");
         $this->_view->set('listAxx', $listAxx);
 
         $varietes = $this->_model->findAllVarietes();
         $this->_view->set('varietes', $varietes);
+        
 
         if($_POST){
             $save = false;
-
-            $save = addVariete($_POST);
+            isset($_POST["aoc"]) ? $_POST["aoc"] : $_POST["aoc"] = 0;
+            $save = $this->_model->addVariete($_POST);
+            $this->setViewResponse($save, "La nouvelle variété a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");  
         }
-        $this->setViewResponse($save, "La nouvelle variété a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");
 
-        include_once(HOME . DS . "includes" . DS . "common.nav.php");
         $this->_view->outPut();
     }
 
     public function communes(){
-        $listAxx = $this->secureAccess("admin/gestionUtilisateurs");
+        $listAxx = $this->secureAccess("admin/communes");
         $this->_view->set('listAxx', $listAxx);
 
         $communes = $this->_model->findAllCommunes();
         $this->_view->set('communes', $communes);
 
-        if($_POST){
+        if($_POST){        
             $save = false;
-            $save = addCommune($_POST);
+            isset($_POST["aoc"]) ? $_POST["aoc"] : $_POST["aoc"] = 0;
+            $save = $this->_model->addCommune($_POST);
+            $this->setViewResponse($save, "La nouvelle commune a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");   
         }
-        $this->setViewResponse($save, "La nouvelle commune a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");
-
-        include_once(HOME . DS . "includes" . DS . "common.nav.php");
+        
         $this->_view->outPut();
     }
 
     public function vergers(){
-        $listAxx = $this->secureAccess("admin/gestionUtilisateurs");
+        $listAxx = $this->secureAccess("admin/vergers");
         $this->_view->set('listAxx', $listAxx);
 
         $vergers = $this->_model->findAllVergers();
@@ -134,16 +134,15 @@ class AdminController extends Controller
         $this->_view->set('varietes', $varietes);
         $communes = $this->_model->findAllCommunes();
         $this->_view->set('communes', $communes);
-        $producteurs = $this->_model->findAllProducteurs();
+        $producteurs = $this->_model->findAllProducers();
         $this->_view->set('producteurs', $producteurs);
 
         if($_POST){
             $save = false;
-            $save = addVerger($_POST);
+            $save = $this->_model->addVerger($_POST);
+            $this->setViewResponse($save, "Le nouveau verger a bien été ajouté.", "Un problème est survenu lors de la sauvegarde!");
         }
-        $this->setViewResponse($save, "Le nouveau verger a bien été ajouté.", "Un problème est survenu lors de la sauvegarde!");
 
-        include_once(HOME . DS . "includes" . DS . "common.nav.php");
         $this->_view->outPut();
     }
 

@@ -35,7 +35,7 @@
 			Conçu pour les producteurs adhérents de la coopérative Agrur et ses clients.
             </p>
             <p>Connexion | Authentification</p>
-            <div class="m-t">
+            <form action="" class="m-t">
                 <div class="form-group">
                     <input id="login" name="login" type="email" class="form-control" placeholder="@ Email" required="">
                 </div>
@@ -43,7 +43,6 @@
                     <input id="password" name="password" type="password" class="form-control" placeholder="Mot de passe" required="">
                 </div>
                 <button type="submit" id="connexion" class="btn btn-primary block full-width m-b">Login</button>
-
             </div>
             <p class="m-t"> <small>Web solution by VDEV &copy; 2017</small> </p>
         </div>
