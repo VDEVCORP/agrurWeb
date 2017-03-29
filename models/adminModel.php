@@ -42,6 +42,17 @@ class AdminModel extends Model{
 	}
 
 // Table Producteur
+	public function findProducerByID($id){
+		$sql = "SELECT *, users.email, users.valid
+				FROM producteur
+				INNER JOIN users ON producteur.fk_id_user = users.id_user
+				WHERE idProducteur = ?";
+		$this->_setSql($sql);
+
+		$producer = $this->getRow([$id]);
+		return $producer;
+	}
+
 	public function findAllProducers(){
 		$sql = "SELECT * FROM producteur";
 		$this->_setSql($sql);
@@ -59,6 +70,17 @@ class AdminModel extends Model{
 	}
 
 // Table Client
+	public function findCustomerByID($id){
+		$sql = "SELECT *, users.email, users.valid 
+				FROM client
+				INNER JOIN users ON client.fk_id_user = users.id_user
+				WHERE idClient = ?";
+		$this->_setSql($sql);
+
+		$producer = $this->getRow([$id]);
+		return $producer;
+	}
+
 	public function findAllCustomers(){
 		$sql = "SELECT * FROM client";
 		$this->_setSql($sql);

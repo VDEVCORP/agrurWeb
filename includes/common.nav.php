@@ -24,6 +24,8 @@
     <link href="/includes/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="/includes/css/style.css" rel="stylesheet">
     <link href="/includes/css/animate.css" rel="stylesheet">
+
+    <link href="/includes/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 </head>
 
 <body>
@@ -133,7 +135,7 @@
         <?php
             $url_access = substr($_SERVER['REQUEST_URI'],1);
             if(substr_count($url_access, "/") > 1){
-                /*Expession retournant les deux premiers paramètre de l'URL si un troisième
+                /*Expression retournant les deux premiers paramètre de l'URL si un troisième
                 est passé pour ne pas froisser l'écriture du chemin de la page */
                 $url_access = str_replace(strrchr(substr($_SERVER['REQUEST_URI'],1), "/"), "", substr($_SERVER['REQUEST_URI'],1));
             } 

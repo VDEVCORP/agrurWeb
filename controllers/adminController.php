@@ -80,7 +80,13 @@ class AdminController extends Controller
             $action = $this->formatAction($action);
             switch($action['path']){
                 case('edit') :
-                    
+                    if($action['query']['role'] == 'prod'){
+                        $askProducer = $this->_model->findProducerByID($action['query']['id']);
+                        $this->_view->set('askProducer', $askProducer);
+                    } elseif($action['query']['role'] == 'cli'){
+                        $askProducer = $this->_model->findCustomerByID($action['query']['id']);
+                        $this->_view->set('askCustomer', $askCustomer);
+                    }
                 break;
                 case('remove') :
                     $save = $this->_model->removeUser($action['query']['id']);
@@ -89,17 +95,17 @@ class AdminController extends Controller
             }
         }
 
+        /* Prévoir un tri par ordre alphabetique */
         $producers = $this->_model->findAllProducers();
+        $this->_view->set('producers', $producers);
         $customers = $this->_model->findAllCustomers();
-        $allUsers = array_merge($producers, $customers);
-        foreach($allUsers as $user){
-            $temp[] = isset($user['nomResponsable']) ? $user['nomResponsable'] : $user['nomRepresentant'];
-        }
+        $this->_view->set('customers', $customers);
+
         $this->_view->outPut();
     }
 
     public function varietes($action = false){
-        $listAxx = $this->secureAccess("admin/varietes");
+        $listAxx = $this->secureAccess("admin/varietes/");
         $this->_view->set('listAxx', $listAxx);
 
         if($_POST){
