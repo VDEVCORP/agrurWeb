@@ -77,15 +77,24 @@ class AdminController extends Controller
         $this->_view->set('listAxx', $listAxx);
 
         if($action){
-
+            $action = $this->formatAction($action);
+            switch($action['path']){
+                case('edit') :
+                    
+                break;
+                case('remove') :
+                    $save = $this->_model->removeUser($action['query']['id']);
+                    $this->setViewResponse($save, "L'utilisateur à bien été désactivé.", "Un problème est survenu lors de la modificiation!");
+                break;
+            }
         }
 
         $producers = $this->_model->findAllProducers();
-        $this->_view->set('producers', $users);
-        $cutomers = $this->_model->findAllCutomers();
-        $this->_view->set('customers', $customers);
-
-
+        $customers = $this->_model->findAllCustomers();
+        $allUsers = array_merge($producers, $customers);
+        foreach($allUsers as $user){
+            $temp[] = isset($user['nomResponsable']) ? $user['nomResponsable'] : $user['nomRepresentant'];
+        }
         $this->_view->outPut();
     }
 

@@ -16,6 +16,19 @@ class AdminModel extends Model{
 		$success = $this->execSql($tabParam, true);
 		return $success;
 	}
+	/**
+	* Ne supprime pas l'user de la bdd
+	* Update du champ "valid" à 0.
+	*/
+	public function removeUser($id){
+		$sql = "UPDATE users 
+				SET valid = 0
+				WHERE id_user = ?";
+		$this->_setSql($sql);
+
+		$success = $this->execSql([$id]);
+		return $success;
+	}
 
 	public function addLog($userPassword, $userID){
 		$tabParam = array($userID, $userPassword);
@@ -131,6 +144,4 @@ class AdminModel extends Model{
 		$success = $this->execSql($data);
 		return $success;
 	}
-
-
 }
