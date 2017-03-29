@@ -24,6 +24,8 @@
     <link href="/includes/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="/includes/css/style.css" rel="stylesheet">
     <link href="/includes/css/animate.css" rel="stylesheet">
+
+    <link href="/includes/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 </head>
 
 <body>
@@ -60,6 +62,36 @@
                 <?php foreach($listAxx as $page){if($page['url_page'] == "admin/inscription"){ ?>
                     <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/inscription') echo 'active'; ?>">
                         <a href="/admin/inscription"><i class="fa fa-plus"></i><span class="nav-label">Inscription</span></a>
+                    </li>
+                <?php }} ?>
+
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/utilisateurs"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/utilisateurs') echo 'active'; ?>">
+                        <a href="/admin/utilisateurs"><i class="fa fa-users"></i><span class="nav-label">Utilisateurs</span></a>
+                    </li>
+                <?php }} ?>
+
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/communes"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/communes') echo 'active'; ?>">
+                        <a href="/admin/communes"><i class="fa fa-road"></i><span class="nav-label">Communes</span></a>
+                    </li>
+                <?php }} ?>
+
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/varietes"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/varietes') echo 'active'; ?>">
+                        <a href="/admin/varietes"><i class="fa fa-quote-right"></i><span class="nav-label">Varietes</span></a>
+                    </li>
+                <?php }} ?>
+
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/vergers"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/vergers') echo 'active'; ?>">
+                        <a href="/admin/vergers"><i class="fa fa-tree"></i><span class="nav-label">Vergers</span></a>
+                    </li>
+                <?php }} ?>
+
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/commandes"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/commandes') echo 'active'; ?>">
+                        <a href="/admin/commandes"><i class="fa fa-truck"></i><span class="nav-label">Commandes</span></a>
                     </li>
                 <?php }} ?>
 
@@ -101,8 +133,14 @@
                 - Une variable d'infos de page est à imaginer'
         -->
         <?php
+            $url_access = substr($_SERVER['REQUEST_URI'],1);
+            if(substr_count($url_access, "/") > 1){
+                /*Expression retournant les deux premiers paramètre de l'URL si un troisième
+                est passé pour ne pas froisser l'écriture du chemin de la page */
+                $url_access = str_replace(strrchr(substr($_SERVER['REQUEST_URI'],1), "/"), "", substr($_SERVER['REQUEST_URI'],1));
+            } 
             foreach($listAxx as $page){
-                if($page['url_page'] == substr($_SERVER['REQUEST_URI'],1)){ 
+                if($page['url_page'] == $url_access){ 
                     $treeInfs[] = current(explode("/", $page['url_page']));
                     $treeInfs[] = $page['name_page'];
                 }
@@ -129,16 +167,16 @@
 
         <div class="wrapper wrapper-content animated fadeInRight"> <!-- Fermée dans le footer -->
 
-            <?php if(isset($error)){ ?>
-                <div class="alert alert-danger alert-dismissable">
-                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                    <?= $error ?>
-                </div>
-            <?php } ?>
-
             <?php if(isset($success)){ ?>
                 <div class="alert alert-success alert-dismissable">
                     <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
                     <?= $success ?>
+                </div>
+            <?php } ?>
+
+            <?php if(isset($error)){ ?>
+                <div class="alert alert-danger alert-dismissable">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <?= $error ?>
                 </div>
             <?php } ?>

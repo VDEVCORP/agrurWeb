@@ -14,7 +14,6 @@
 
     <!-- scripts Javascript -->
     <script src="/includes/js/jquery-2.1.1.js"></script>
-	<script src="/includes/js/app/main.js"></script>
     <script src="/includes/js/bootstrap.min.js"></script>
     <script src="/includes/js/inspinia.js"></script>
 
@@ -22,6 +21,13 @@
 		<!-- Animation replis menu -->
 		<script src="/includes/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 		<script src="/includes/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+		<!-- Sweet alert -->
+    	<script src="/includes/js/plugins/sweetalert/sweetalert.min.js"></script>
+	
+	<!-- Custom -->
+	<script src="/includes/js/app/main.js"></script>
+
 </body>
 
 </html>

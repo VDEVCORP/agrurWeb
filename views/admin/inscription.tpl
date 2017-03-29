@@ -1,5 +1,7 @@
 <div class="row">
-    <div class="col-lg-7">
+    <div class="col-lg-2"></div>
+
+    <div class="col-lg-8">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>Inscription</h5>
@@ -13,34 +15,35 @@
                 </div>
             </div>
             <div class="ibox-content">
-                <form action="" method="POST" class="form">
+                <form action="" method="POST" class="form-horizontal">
+                    <h2>Informations</h2>
                     <div class="form-group">
-                        <label>Vous souhaitez inscrire un : </label>
+                        <label class="col-sm-4 control-label">Vous souhaitez inscrire un : </label>
                         <div class="radio-inline">
                             <label>
-                                <input type="radio" name="option" class="profession" id="optionProducteur" value="producteur">
+                                <input type="radio" name="option" class="profession" value="producteur">
                                 Producteur
                             </label>
                         </div>
                         <div class="radio-inline">
                             <label>
-                                <input type="radio" name="option" class="profession" id="optionClient" value="client">
+                                <input type="radio" name="option" class="profession" value="client">
                                 Client
                             </label>
                         </div>
                     </div>
 
                     <div id="adherent" style="display:none">
-                        <label>Adhérent : </label>
-                        <div class="checkbox-inline">
+                        <label class="col-sm-4 control-label">Adhérent : </label>
+                        <div class="radio-inline">
                             <label> 
-                                <input type="checkbox" name="adherent" value="1">
+                                <input type="radio" name="adherent" value="1">
                                 Oui
                             </label>
                         </div>
-                        <div class="checkbox-inline">
+                        <div class="radio-inline">
                             <label> 
-                                <input type="checkbox" name="adherent" value="0">
+                                <input type="radio" name="adherent" value="0">
                                 Non
                             </label>
                         </div>
@@ -49,60 +52,81 @@
                     <hr>
 
                     <div class="form-group">
-                        <label for="societe">Société</label>
-                        <input type="text" name="societe" id="societe" class="form-control" placeholder="* Facultatif pour les producteurs">
+                        <label for="societe" class="col-sm-2 control-label">Société</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="societe" id="societe" class="form-control" placeholder="* Facultatif pour les producteurs">
+                            </div>
                     </div>
+
                     <div class="form-group">
-                        <label for="nom">Nom</label>
-                        <input type="text" name="nom" id="nom" class="form-control">
+                        <label for="nom" class="col-sm-2 control-label">Nom</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="nom" id="nom" class="form-control">
+                        </div>
                     </div>
+
                     <div class="form-group">
-                        <label for="prenom">Prenom</label>
-                        <input type="text" name="prenom" id="prenom" class="form-control">
+                        <label for="prenom" class="col-sm-2 control-label">Prenom</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="prenom" id="prenom" class="form-control">
+                        </div>
                     </div>
 
                     <hr>
                     <h2>Contacts</h2>
 
                     <div class="form-group">
-                        <label for="mail">Email</label>
-                        <input type="mail" name="mail" id="mail" class="form-control" placeholder="exemple@mail.fr">
+                        <label for="mail" class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-10">
+                            <input type="mail" name="mail" id="mail" class="form-control" placeholder="exemple@mail.fr">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="telephone">Telephone</label>
-                        <input type="tel" name="telephone" id="telephone" class="form-control" placeholder="06 xx xx xx xx">
+                        <label for="telephone" class="col-sm-2 control-label">Telephone</label>
+                        <div class="col-sm-10">
+                            <input type="tel" name="telephone" id="telephone" class="form-control" placeholder="06 xx xx xx xx">
+                        </div>
                     </div>
 
                     <hr>
                     <h2>Adresse</h2>
 
                     <div class="form-group">
-                        <label for="adresse">Rue</label>
-                        <input type="text" name="adresse" id="adresse" class="form-control" placeholder="27 rue des Saules">
+                        <label for="adresse" class="col-sm-2 control-label">Rue</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="adresse" id="adresse" class="form-control" placeholder="27 rue des Saules">
+                        </div>
                     </div>
-                
-                    <div class="form-inline">
-                        <div class="form-group">
-                            <label for="ville">Ville</label>
+
+                    <div class="form-group">
+                        <label for="ville" class="col-sm-2 control-label">Ville</label>
+                        <div class="col-sm-10">
                             <input type="text" name="ville" id="ville" class="form-control">
                         </div>
-                        <div class="form-group">
-                            <label for="codePostal">Code Postal</label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="codePostal" class="col-sm-2 control-label">Code Postal</label>
+                        <div class="col-sm-5">
                             <input type="text" name="codePostal" id="codePostal" class="form-control">
-                        </div>
+                        </div> 
                     </div>
 
                     <hr>
 
                     <div class="form-group">
-                            <label for="tempPassword">Mot de passe</label>
-                            <input type="text" name="tempPassword" id="tempPassword" class="form-control" placeholder="* Celui-ci est provisoire">
+                            <label for="tempPassword" class="col-sm-2 control-label">Mot de passe</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="tempPassword" id="tempPassword" class="form-control" placeholder="* Celui-ci est provisoire">
+                            </div>    
                     </div>
 
-                    <input type="submit" class="btn btn-primary" value="Enregistrer">  
+                    <button type="submit" class="btn btn-primary btn-lg">Enregistrer</button>
                 </form>
             </div>
         </div>
     </div>
+
+    <div class="col-lg-2"></div>
+
 </div>
-<?php include(HOME . DS . "includes" . DS . "common.footer.php"); ?>
