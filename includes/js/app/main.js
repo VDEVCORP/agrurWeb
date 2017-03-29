@@ -10,7 +10,7 @@ $('.user-disable').click(function () {
     $element = $(this)
     var id = $element.attr('id')
     swal({
-        title: "Êtes-vou sûr?",
+        title: "Êtes-vous sûr?",
         text: "Une fois désactivé, l'utilisateur ne pourra plus accéder à son compte!",
         type: "warning",
         showCancelButton: true,
@@ -28,7 +28,7 @@ $('.user-disable').click(function () {
             }
         )
         .done(function(data) {
-            swal("Désactivé!", "L'utilisateur à bien été désactivé!", "success");
+            swal("Fait!", "L'utilisateur à bien été désactivé!", "success");
         })
         .error(function(data) {
             swal("Oops", "Une erreur s'est produite lors de la modification!", "error");
