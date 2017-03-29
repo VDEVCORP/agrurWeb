@@ -1,1 +1,1 @@
-<h1>Bienvenue dans l'espace d'aministration</h1>
+<h1>Bienvenue dans l'espace d'administration</h1>
