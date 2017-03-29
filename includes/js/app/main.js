@@ -16,6 +16,7 @@ $('.user-disable').click(function () {
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "Oui, désactiver!",
+        cancelButtonText: "Retour",
         closeOnConfirm: false
     }, function() { 
         $.ajax(
