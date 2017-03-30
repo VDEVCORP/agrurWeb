@@ -30,6 +30,16 @@ class AdminModel extends Model{
 		return $success;
 	}
 
+	public function activateUser($id){
+		$sql = "UPDATE users 
+				SET valid = 1
+				WHERE id_user = ?";
+		$this->_setSql($sql);
+
+		$success = $this->execSql([$id]);
+		return $success;
+	}
+
 	public function addLog($userPassword, $userID){
 		$tabParam = array($userID, $userPassword);
 		
@@ -54,7 +64,9 @@ class AdminModel extends Model{
 	}
 
 	public function findAllProducers(){
-		$sql = "SELECT * FROM producteur";
+		$sql = "SELECT *, users.email, users.valid
+				FROM producteur
+				INNER JOIN users ON producteur.fk_id_user = users.id_user";
 		$this->_setSql($sql);
 		$results = $this->getAll();
 		return $results;
@@ -82,7 +94,9 @@ class AdminModel extends Model{
 	}
 
 	public function findAllCustomers(){
-		$sql = "SELECT * FROM client";
+		$sql = "SELECT *, users.email, users.valid
+				FROM client
+				INNER JOIN users ON client.fk_id_user = users.id_user";
 		$this->_setSql($sql);
 		$results = $this->getAll();
 		return $results;
@@ -161,6 +175,24 @@ class AdminModel extends Model{
 		
 		$sql = "INSERT INTO commune(nomCommune, codePostal, aoc)
 				VALUES (:nom, :codePostal, :aoc)";
+		$this->_setSql($sql);
+
+		$success = $this->execSql($data);
+		return $success;
+	}
+
+// Table Certification
+	public function findAllCertifications(){
+		$sql = "SELECT * FROM certification";
+		$this->_setSql($sql);
+		$results = $this->getAll();
+		return $results;
+	}
+
+	public function addCertification(array $data){
+		
+		$sql = "INSERT INTO certification(libelleCertification)
+				VALUES (?)";
 		$this->_setSql($sql);
 
 		$success = $this->execSql($data);

@@ -30,9 +30,37 @@ $('.user-disable').click(function () {
         )
         .done(function(data) {
             swal("Fait!", "L'utilisateur à bien été désactivé!", "success");
+            $element.removeClass('user-disable').addClass('user-enable')
+            $element.removeClass('btn-danger').addClass('btn-success')
+            $element.text('Activer')
         })
         .error(function(data) {
             swal("Oops", "Une erreur s'est produite lors de la modification!", "error");
         });
+    });
+});
+
+$('.user-enable').click(function(){
+    $element = $(this)
+    var id = $element.attr('id')
+    $.ajax(
+        {
+            type: "get",
+            url: "/admin/utilisateurs/activate",
+            data: "id="+id,
+            success: function(data){
+            }
+        }
+    ).done(function(data){
+        swal({
+            title: "Fait!",
+            text: "L'utilisateur à bien été activé!",
+            type: "success"
+        })
+        $element.removeClass('user-enable').addClass('user-disable')
+        $element.removeClass('btn-success').addClass('btn-danger')
+        $element.text('Désactiver')
+    }).error(function(data) {
+        swal("Oops", "Une erreur s'est produite lors de la modification!", "error");
     });
 });

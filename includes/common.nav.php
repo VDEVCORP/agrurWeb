@@ -95,11 +95,17 @@
                     </li>
                 <?php }} ?>
 
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/certifications"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/certifications') echo 'active'; ?>">
+                        <a href="/admin/certifications"><i class="fa fa-truck"></i><span class="nav-label">Certifications</span></a>
+                    </li>
+                <?php }} ?>
+
 
                 <!-- MENU LINKS PRODUCTEUR -->
-                <?php foreach($listAxx as $page){if($page['url_page'] == "regular/exempleRegular"){ ?>
-                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='regular/exempleRegular') echo 'active'; ?>">
-                        <a href="/regular/exempleRegular"><i class="fa fa-cubes"></i><span class="nav-label">Lien autorisé Regular</span></a>
+                <?php foreach($listAxx as $page){if($page['url_page'] == "producteur/vergers"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='producteur/vergers') echo 'active'; ?>">
+                        <a href="/producteur/vergers"><i class="fa fa-cubes"></i><span class="nav-label">Mes Vergers</span></a>
                     </li>
                 <?php }} ?>
 

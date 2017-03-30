@@ -2,7 +2,7 @@
     <div class="col-lg-8">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>Clients</h5>
+                <h5>Producteurs</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -27,7 +27,7 @@
                     <thead>
                     <tbody>
                     <?php foreach($producers as $producer){ ?>
-                        <tr>
+                        <tr <?= !$producer['valid'] ? 'class="text-danger"' : false ?>>
                             <td><?= $producer['idProducteur'] ?></td>
                             <td><?= $producer['nomResponsable'] ?></td>
                             <td><?= $producer['prenomResponsable'] ?></td>
@@ -37,7 +37,9 @@
                             <td class="text-right">
                                 <div class="btn-group">
                                     <a class="btn btn-info" id="edit" href="/admin/utilisateurs/edit?role=prod&id=<?= $producer['idProducteur'] ?>">Editer</a>
-                                    <button class="btn btn-danger user-disable" id="<?=$producer['fk_id_user']?>">Désactiver</button >
+                                    <button <?= $producer['valid'] ? 'class="btn btn-danger user-disable"' : 'class="btn btn-success user-enable"' ?> id="<?= $producer['fk_id_user'] ?>">
+                                        <?= $producer['valid'] ? 'Désactiver' : 'Activer' ?>
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -49,7 +51,7 @@
 
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>Producteurs</h5>
+                <h5>Clients</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -74,7 +76,7 @@
                     <thead>
                     <tbody>
                     <?php foreach($customers as $customer){ ?>
-                        <tr>
+                        <tr <?= !$customer['valid'] ? 'class="text-danger"' : false ?>>
                             <td><?= $customer['idClient'] ?></td>
                             <td><?= $customer['nomClient'] ?></td>
                             <td><?= $customer['nomRepresentant'] ?></td>
@@ -83,7 +85,9 @@
                             <td class="text-right">
                                 <div class="btn-group">
                                     <a class="btn btn-info" href="/admin/utilisateurs/edit?role=cli&id=<?= $customer['idClient'] ?>">Editer</a>
-                                    <button class="btn btn-danger user-disable" id="<?= $customer['fk_id_user'] ?>">Désactiver</button>
+                                    <button <?= $customer['valid'] ? 'class="btn btn-danger user-disable"' : 'class="btn btn-success user-enable"' ?> id="<?= $customer['fk_id_user'] ?>">
+                                        <?= $customer['valid'] ? 'Désactiver' : 'Activer' ?>
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -111,19 +115,29 @@
             <?php if(isset($askProducer)){ ?>
                 <div class="ibox-content profile-content">
                     <h3><strong><?= $askProducer['nomResponsable'] ?> <?= $askProducer['prenomResponsable']?></strong></h3>   
-                    <?= isset($askProducer['nomSociete']) ? '<h3><small>Société: </small>' . $askProducer['nomSociete'] . '</h3>' : false ?> 
+                    <?= isset($askProducer['nomSociete']) && !empty($askProducer['nomSociete']) ? '<h3><small>Société: </small>' . $askProducer['nomSociete'] . '</h3>' : false ?> 
                     
                     <p><i class="fa fa-map-marker"></i> <?= $askProducer['adresse'] ?>, <?= $askProducer['ville'] ?> <?= $askProducer['codePostal'] ?></p>
                     <hr>
                     <h4 class="text-center">Contacts</h4>
                     <p><strong>Email: </strong><?= $askProducer['email'] ?></p>
                     <p><strong>Telephone: </strong><?= $askProducer['telephone'] ?></p>
+                    <hr>
                 </div>
             <?php } ?>
 
             <?php if(isset($askCustomer)){ ?>
-
-
+                <div class="ibox-content profile-content">
+                    <h3><strong><?= $askCustomer['nomRepresentant'] ?> <?= $askCustomer['prenomRepresentant']?></strong></h3>   
+                    <?= isset($askCustomer['nomClient']) && !empty($askCustomer['nomClient']) ? '<h3><small>Société: </small>' . $askCustomer['nomClient'] . '</h3>' : false ?> 
+                    
+                    <p><i class="fa fa-map-marker"></i> <?= $askCustomer['adresse'] ?>, <?= $askCustomer['ville'] ?> <?= $askCustomer['codePostal'] ?></p>
+                    <hr>
+                    <h4 class="text-center">Contacts</h4>
+                    <p><strong>Email: </strong><?= $askCustomer['email'] ?></p>
+                    <p><strong>Telephone: </strong><?= $askCustomer['telephone'] ?></p>
+                    <hr>
+                </div>
             <?php } ?>
             </div>
         </div>

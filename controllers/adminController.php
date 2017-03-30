@@ -84,13 +84,15 @@ class AdminController extends Controller
                         $askProducer = $this->_model->findProducerByID($action['query']['id']);
                         $this->_view->set('askProducer', $askProducer);
                     } elseif($action['query']['role'] == 'cli'){
-                        $askProducer = $this->_model->findCustomerByID($action['query']['id']);
+                        $askCustomer = $this->_model->findCustomerByID($action['query']['id']);
                         $this->_view->set('askCustomer', $askCustomer);
                     }
                 break;
                 case('remove') :
                     $save = $this->_model->removeUser($action['query']['id']);
-                    $this->setViewResponse($save, "L'utilisateur à bien été désactivé.", "Un problème est survenu lors de la modificiation!");
+                break;
+                case('activate') :
+                    $save = $this->_model->activateUser($action['query']['id']);
                 break;
             }
         }
@@ -105,7 +107,7 @@ class AdminController extends Controller
     }
 
     public function varietes($action = false){
-        $listAxx = $this->secureAccess("admin/varietes/");
+        $listAxx = $this->secureAccess("admin/varietes");
         $this->_view->set('listAxx', $listAxx);
 
         if($_POST){
@@ -158,22 +160,23 @@ class AdminController extends Controller
         $listAxx = $this->secureAccess("admin/vergers");
         $this->_view->set('listAxx', $listAxx);
 
-        if($_POST){
-            $save = false;
-            $save = $this->_model->addVerger($_POST);
-            $this->setViewResponse($save, "Le nouveau verger a bien été ajouté.", "Un problème est survenu lors de la sauvegarde!");
-        }
-
         $vergers = $this->_model->findAllVergers();
         $this->_view->set('vergers', $vergers);
 
-        $varietes = $this->_model->findAllVarietes();
-        $this->_view->set('varietes', $varietes);
-        $communes = $this->_model->findAllCommunes();
-        $this->_view->set('communes', $communes);
-        $producteurs = $this->_model->findAllProducers();
-        $this->_view->set('producteurs', $producteurs);
+        $this->_view->outPut();
+    }
 
+    public function certifications(){
+        $listAxx = $this->secureAccess("admin/certifications");
+        $this->_view->set('listAxx', $listAxx);
+
+        if($_POST){        
+            $save = false;
+            $save = $this->_model->addCertification($_POST);
+            $this->setViewResponse($save, "La nouvelle commune a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");   
+        }     
+
+        $certifications = $this->_model->findAllCertifications();
 
         $this->_view->outPut();
     }
