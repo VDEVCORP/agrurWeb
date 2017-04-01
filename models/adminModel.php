@@ -168,7 +168,6 @@ class AdminModel extends Model{
 	}
 
 	public function addCommune(array $data){
-		
 		$sql = "INSERT INTO commune(nomCommune, codePostal, aocCommune)
 				VALUES (:nom, :codePostal, :aocCommune)";
 		$this->_setSql($sql);
@@ -185,13 +184,13 @@ class AdminModel extends Model{
 		return $results;
 	}
 
-	public function addCertification(array $data){
+	public function addCertification($libelle){
 		
 		$sql = "INSERT INTO certification(libelleCertification)
 				VALUES (?)";
 		$this->_setSql($sql);
 
-		$success = $this->execSql([$data]);
+		$success = $this->execSql([$libelle]);
 		return $success;
 	}
 
@@ -226,11 +225,32 @@ class AdminModel extends Model{
 		return $success;
 	}
 
-// Table Typeproduit
+// Table TypeProduit
 	public function findAllTypesProduits(){
 		$sql = "SELECT * FROM typeproduit";
 		$this->_setSql($sql);
 		$results = $this->getAll();
 		return $results;
+	}
+
+// Table CertifDelivree
+	public function findCertifDelivrees($id_producer){
+		$sql = "SELECT dateCertification, certification.*
+				FROM certifdelivree
+				INNER JOIN certification ON certifdelivree.idCertification = certification.idCertification
+				WHERE idProducteur = ?";
+		$this->_setSql($sql);
+		$results = $this->getAll([$id_producer]);
+		return $results;
+		
+	}
+
+	public function addCertifDelivree(array $data){
+		$sql = "INSERT INTO certifdelivree(dateCertification, idCertification, idProducteur)
+				VALUES (:dateCertif, :certification, :producteur)";
+		$this->_setSql($sql);
+
+		$success = $this->execSql($data);
+		return $success;
 	}
 }

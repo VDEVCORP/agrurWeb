@@ -52,7 +52,9 @@ class Controller
 
 	public function setViewResponse($status, $success, $error){
 		if($status){
-			$this->_view->set('success', $success);
+			if(!empty($success)){
+				$this->_view->set('success', $success);
+			}
 		} else {
 			$this->_view->set('error', $error);
 		}

@@ -79,24 +79,36 @@ class AdminController extends Controller
         $listAxx = $this->secureAccess("admin/utilisateurs");
         $this->_view->set('listAxx', $listAxx);
 
+        if($_POST){
+            $save = $this->_model->AddCertifDelivree($_POST);
+            $this->setViewResponse($save, "", "Un problème est lors de l'attribution!");
+        }
+
         if($action){
             $action = $this->formatAction($action);
             switch($action['path']){
+
                 case('edit') :
                     if($action['query']['role'] == 'prod'){
                         $askProducer = $this->_model->findProducerByID($action['query']['id']);
                         $this->_view->set('askProducer', $askProducer);
+                        $certifications = $this->_model->findAllCertifications();
+                        $this->_view->set('certifications', $certifications);
+                        $certifDelivrees = $this->_model->findCertifDelivrees($action['query']['id']);
+                        $this->_view->set('certifDelivrees', $certifDelivrees);
                     } elseif($action['query']['role'] == 'cli'){
                         $askCustomer = $this->_model->findCustomerByID($action['query']['id']);
                         $this->_view->set('askCustomer', $askCustomer);
                     }
                 break;
+
                 case('remove') :
                     $save = $this->_model->removeUser($action['query']['id']);
                 break;
                 case('activate') :
                     $save = $this->_model->activateUser($action['query']['id']);
                 break;
+
             }
         }
 

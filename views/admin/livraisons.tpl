@@ -19,7 +19,7 @@
                         <tr>
                             <th>#</th>
                             <th>Date de livraison</th>
-                            <th>Verger de provenance</th>
+                            <th>Provenance</th>
                             <th>Quantité (kg)</th>
                         </tr>
                     <thead>
