@@ -16,6 +16,9 @@ class AdminController extends Controller
         $listAxx = $this->secureAccess("admin/home");
         $this->_view->set('listAxx', $listAxx);
 
+        $vergers = $this->_model->findAllVergers();
+        $this->_view->set('vergers', $vergers);
+
         $this->_view->outPut();
     }
 
@@ -156,27 +159,25 @@ class AdminController extends Controller
         $this->_view->outPut();
     }
 
-    public function vergers(){
-        $listAxx = $this->secureAccess("admin/vergers");
-        $this->_view->set('listAxx', $listAxx);
-
-        $vergers = $this->_model->findAllVergers();
-        $this->_view->set('vergers', $vergers);
-
-        $this->_view->outPut();
-    }
-
     public function certifications(){
         $listAxx = $this->secureAccess("admin/certifications");
         $this->_view->set('listAxx', $listAxx);
 
         if($_POST){        
             $save = false;
-            $save = $this->_model->addCertification($_POST);
-            $this->setViewResponse($save, "La nouvelle commune a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");   
-        }     
+            $save = $this->_model->addCertification($_POST['libelle']);
+            $this->setViewResponse($save, "La nouvelle certification a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");   
+        }   
 
         $certifications = $this->_model->findAllCertifications();
+        $this->_view->set('certifications', $certifications);
+
+        $this->_view->outPut();
+    }
+
+    public function livraisons(){
+        $listAxx = $this->secureAccess("admin/certifications");
+        $this->_view->set('listAxx', $listAxx);
 
         $this->_view->outPut();
     }

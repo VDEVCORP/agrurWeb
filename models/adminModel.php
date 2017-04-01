@@ -154,15 +154,6 @@ class AdminModel extends Model{
 		return $results;
 	}
 
-	public function addVerger(array $data){
-		$sql = "INSERT INTO verger(idProducteur, idVariete, idCommune, superficie, nbrArbreParHect)
-				VALUES (?, ?, ?, ?, ?)";
-		$this->_setSql($sql);
-
-		$success = $this->execSql($data);
-		return $success;
-	}
-
 // Table Commune
 	public function findAllCommunes(){
 		$sql = "SELECT * FROM commune";
@@ -189,13 +180,13 @@ class AdminModel extends Model{
 		return $results;
 	}
 
-	public function addCertification(array $data){
+	public function addCertification($data){
 		
 		$sql = "INSERT INTO certification(libelleCertification)
 				VALUES (?)";
 		$this->_setSql($sql);
 
-		$success = $this->execSql($data);
+		$success = $this->execSql([$data]);
 		return $success;
 	}
 }

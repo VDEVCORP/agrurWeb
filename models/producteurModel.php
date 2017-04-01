@@ -28,4 +28,27 @@ class ProducteurModel extends Model{
 
 		return $this->getAll([$id_user]);
 	}
+
+	public function findAllVarietes(){
+		$sql = "SELECT * FROM variete";
+		$this->_setSql($sql);
+		$results = $this->getAll();
+		return $results;
+	}
+
+	public function findAllCommunes(){
+		$sql = "SELECT * FROM commune";
+		$this->_setSql($sql);
+		$results = $this->getAll();
+		return $results;
+	}
+	
+	public function addVerger(array $data){
+		$sql = "INSERT INTO verger(idProducteur, idVariete, idCommune, superficie, nbrArbreParHect)
+				VALUES (?, ?, ?, ?, ?)";
+		$this->_setSql($sql);
+
+		$success = $this->execSql($data);
+		return $success;
+	}
 }

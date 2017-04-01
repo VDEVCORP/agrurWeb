@@ -84,7 +84,7 @@
                     <div class="form-group">
                         <label for="telephone" class="col-sm-2 control-label">Telephone</label>
                         <div class="col-sm-10">
-                            <input type="tel" name="telephone" id="telephone" class="form-control" placeholder="06 xx xx xx xx">
+                            <input type="tel" name="telephone" id="telephone" class="form-control" placeholder="0612345678">
                         </div>
                     </div>
 
@@ -97,7 +97,7 @@
                             <input type="text" name="adresse" id="adresse" class="form-control" placeholder="27 rue des Saules">
                         </div>
                     </div>
-
+                    
                     <div class="form-group">
                         <label for="ville" class="col-sm-2 control-label">Ville</label>
                         <div class="col-sm-10">
@@ -115,10 +115,10 @@
                     <hr>
 
                     <div class="form-group">
-                            <label for="tempPassword" class="col-sm-2 control-label">Mot de passe</label>
-                            <div class="col-sm-5">
-                                <input type="text" name="tempPassword" id="tempPassword" class="form-control" placeholder="* Celui-ci est provisoire">
-                            </div>    
+                        <label for="tempPassword" class="col-sm-2 control-label">Mot de passe</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="tempPassword" id="tempPassword" class="form-control" placeholder="* Celui-ci est provisoire">
+                        </div>    
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-lg">Enregistrer</button>

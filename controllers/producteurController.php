@@ -2,6 +2,8 @@
 
 class ProducteurController extends Controller{
 
+    private $producer;
+
     public function __construct($model, $nameController, $nameAction)
 	{
 		parent::__construct($model, $nameController, $nameAction);
@@ -11,13 +13,23 @@ class ProducteurController extends Controller{
 		$this->_view->setCommons("footer", HOME . DS . 'includes' . DS . 'common.footer.php');
 	}
 
+    /*  Pour ne pas avoir à retrouver le producteur
+        lié à l'id utilisateur à dans chaques pages 
+        on enregistre l'utilisateur courant dans
+        notre classe */
+    public function setSpaceUser($user){
+        $this->producer = $user;
+    }
+
     public function home(){
         $listAxx = $this->secureAccess("producteur/home");
         $this->_view->set('listAxx', $listAxx);
         
         $user = $this->_model->findProducer($_SESSION['user']['user_key']);
+        $this->setSpaceUser($user);
 		$this->_view->set('user', $user);
-        $vergers = $this->_model->findProducerVergers($user['idProducteur']);
+
+        $vergers = $this->_model->findProducerVergers($this->producer['idProducteur']);
         $this->_view->set('vergers', $vergers);
 
         $this->_view->outPut();
@@ -33,7 +45,10 @@ class ProducteurController extends Controller{
             $this->setViewResponse($save, "Le nouveau verger a bien été ajouté.", "Un problème est survenu lors de la sauvegarde!");
         }
 
-        $vergers = $this->_model->findAllVergers();
+        $vergers = $this->_model->findProducerVergers($this->producer['idProducteur']);
+        foreach($vergers as $verger){
+            if($verger["aoc"]);
+        }
         $this->_view->set('vergers', $vergers);
 
         $varietes = $this->_model->findAllVarietes();

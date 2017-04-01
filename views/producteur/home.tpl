@@ -49,9 +49,9 @@
 					</div>
 					
 					<div class="form-group">
-						<div class="col-sm-4">&nbsp;</div>
+						<div class="col-sm-4"></div>
 						<button class="btn btn-lg btn-primary col-sm-4" type="submit">Enregistrer</button>
-						<div class="col-sm-4">&nbsp;</div>
+						<div class="col-sm-4"></div>
 					</div>
 				</form>
 			</div>

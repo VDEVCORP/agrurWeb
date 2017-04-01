@@ -64,3 +64,7 @@ $('.user-enable').click(function(){
         swal("Oops", "Une erreur s'est produite lors de la modification!", "error");
     });
 });
+
+function updateLinks(){
+    
+}

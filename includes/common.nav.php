@@ -71,6 +71,12 @@
                     </li>
                 <?php }} ?>
 
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/livraisons"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/livraisons') echo 'active'; ?>">
+                        <a href="/admin/livraisons"><i class="fa fa-truck"></i><span class="nav-label">Livraisons</span></a>
+                    </li>
+                <?php }} ?>
+
                 <?php foreach($listAxx as $page){if($page['url_page'] == "admin/communes"){ ?>
                     <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/communes') echo 'active'; ?>">
                         <a href="/admin/communes"><i class="fa fa-road"></i><span class="nav-label">Communes</span></a>
@@ -83,21 +89,9 @@
                     </li>
                 <?php }} ?>
 
-                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/vergers"){ ?>
-                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/vergers') echo 'active'; ?>">
-                        <a href="/admin/vergers"><i class="fa fa-tree"></i><span class="nav-label">Vergers</span></a>
-                    </li>
-                <?php }} ?>
-
-                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/commandes"){ ?>
-                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/commandes') echo 'active'; ?>">
-                        <a href="/admin/commandes"><i class="fa fa-truck"></i><span class="nav-label">Commandes</span></a>
-                    </li>
-                <?php }} ?>
-
                 <?php foreach($listAxx as $page){if($page['url_page'] == "admin/certifications"){ ?>
                     <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/certifications') echo 'active'; ?>">
-                        <a href="/admin/certifications"><i class="fa fa-truck"></i><span class="nav-label">Certifications</span></a>
+                        <a href="/admin/certifications"><i class="fa fa-certificate"></i><span class="nav-label">Certifications</span></a>
                     </li>
                 <?php }} ?>
 
@@ -105,7 +99,7 @@
                 <!-- MENU LINKS PRODUCTEUR -->
                 <?php foreach($listAxx as $page){if($page['url_page'] == "producteur/vergers"){ ?>
                     <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='producteur/vergers') echo 'active'; ?>">
-                        <a href="/producteur/vergers"><i class="fa fa-cubes"></i><span class="nav-label">Mes Vergers</span></a>
+                        <a href="/producteur/vergers"><i class="fa fa-tree"></i><span class="nav-label">Mes Vergers</span></a>
                     </li>
                 <?php }} ?>
 
