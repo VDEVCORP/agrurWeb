@@ -28,7 +28,7 @@
                         <tr>
                             <td><?= $variete["idVariete"] ?></td>
                             <td><?= $variete["nomVariete"] ?></td>
-                            <td><?= $variete["aoc"] ? '<i class="fa fa-check"></li>' : '<i class="fa fa-times"></li>' ?></td>
+                            <td><?= $variete["aocVariete"] ? '<i class="fa fa-check"></li>' : '<i class="fa fa-times"></li>' ?></td>
                             <td class="text-right">
                                 <div class="btn-group">
                                     <button class="btn btn-info" id="edit">Editer</button>
@@ -69,7 +69,7 @@
                         <div class="col-sm-offset-2 col-sm-10">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="aoc" value="1">
+                                    <input type="checkbox" name="aocVariete" value="1">
                                     Variété AOC
                                 </label>
                             </div>

@@ -115,7 +115,7 @@ class AdminController extends Controller
 
         if($_POST){
             $save = false;
-            isset($_POST["aoc"]) ? $_POST["aoc"] = 1 : $_POST["aoc"] = 0;
+            isset($_POST["aocVariete"]) ? $_POST["aocVariete"] = 1 : $_POST["aocVariete"] = 0;
             $save = $this->_model->addVariete($_POST);
             $this->setViewResponse($save, "La nouvelle variété a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");  
         }
@@ -148,7 +148,7 @@ class AdminController extends Controller
 
         if($_POST){        
             $save = false;
-            isset($_POST["aoc"]) ? $_POST["aoc"] = 1 : $_POST["aoc"] = 0;
+            isset($_POST["aocCommune"]) ? $_POST["aocCommune"] = 1 : $_POST["aocCommune"] = 0;
             $save = $this->_model->addCommune($_POST);
             $this->setViewResponse($save, "La nouvelle commune a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");   
         }
@@ -166,7 +166,7 @@ class AdminController extends Controller
         if($_POST){        
             $save = false;
             $save = $this->_model->addCertification($_POST['libelle']);
-            $this->setViewResponse($save, "La nouvelle certification a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");   
+            $this->setViewResponse($save, "La nouvelle certification a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");
         }   
 
         $certifications = $this->_model->findAllCertifications();

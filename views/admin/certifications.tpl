@@ -26,7 +26,7 @@
                         <tr>
                             <td><?= $certification["idCertification"] ?></td>
                             <td><?= $certification["libelleCertification"] ?></td>
-                        <tr>
+                        </tr>
                     <?php } ?>
                     </tbody>
                 </table>
