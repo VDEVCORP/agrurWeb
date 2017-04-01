@@ -44,8 +44,8 @@ class ProducteurModel extends Model{
 	}
 	
 	public function addVerger(array $data){
-		$sql = "INSERT INTO verger(idProducteur, idVariete, idCommune, superficie, nbrArbreParHect)
-				VALUES (?, ?, ?, ?, ?)";
+		$sql = "INSERT INTO verger(nomVerger, superficie, nbrArbreParHect, idProducteur, idVariete, idCommune)
+				VALUES (:name, :superficie, :nbArbres, :idProducteur, :variete, :commune)";
 		$this->_setSql($sql);
 
 		$success = $this->execSql($data);

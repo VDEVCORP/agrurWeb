@@ -37,8 +37,8 @@
                         <div class="col-sm-9">
                             <select class="form-control" name="commune" id="commune">
                                 <?php foreach($communes as $commune){ ?>
-                                    <option>
-                                        <?= $commune['nomCommune'] ?> - <?= $commune['codePostal'] ?> <?= $commune["aoc"] ? '(AOC)' : false ?>
+                                    <option value="<?= $commune['idCommune'] ?>">
+                                        <?= $commune['nomCommune'] ?> - <?= $commune['codePostal'] ?> <?= $commune["aocCommune"] ? '(AOC)' : false ?>
                                     </option>
                                 <?php } ?>
                             </select>
@@ -48,10 +48,10 @@
                     <div class="form-group">
                         <label for="commune" class="col-sm-3 control-label">Variété</label>
                         <div class="col-sm-9">
-                            <select class="form-control" name="commune" id="commune">
+                            <select class="form-control" name="variete" id="variete">
                                 <?php foreach($varietes as $variete){ ?>
-                                    <option>
-                                         <?= $variete['nomVariete'] ?> <?= $variete["aoc"] ? '(AOC)' : false ?>
+                                    <option value="<?= $variete['idVariete'] ?>">
+                                         <?= $variete['nomVariete'] ?> <?= $variete["aocVariete"] ? '(AOC)' : false ?>
                                     </option>
                                 <?php } ?>
                             </select>
@@ -95,8 +95,8 @@
                         <tr>
                             <td><?= $verger["nomVerger"] ?></td>
                             <td><?= $verger["nomCommune"] ?></td>
-                            <td><?= $verger["nomVartite"] ? '<i class="fa fa-check"></li>' : '<i class="fa fa-times"></li>' ?></td>
-                            <td><?= $verger["aoc"] ?></td>
+                            <td><?= $verger["nomVariete"] ?></td>
+                            <td><?= $verger["aoc"] ? '<i class="fa fa-check"></li>' : '<i class="fa fa-times"></li>' ?></td>
                         </tr>
                     <?php } ?>
                     </tbody>

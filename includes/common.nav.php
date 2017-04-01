@@ -48,10 +48,10 @@
                                     case('admin'):
                                         echo '/admin/home';
                                         break;
-                                    case('producteur'):
+                                    case('producer'):
                                         echo '/producteur/home';
                                         break;
-                                    case('client'):
+                                    case('customer'):
                                         echo '/client/home';
                                         break;
                                 }
@@ -117,7 +117,7 @@
 	            </div>
 		        <ul class="nav navbar-top-links navbar-right">
 			        <li>
-				        <span class="m-r-sm text-muted welcome-message">Bienvenue, visiteur inconnu</span>
+				        <span class="m-r-sm text-muted welcome-message">Bienvenue sur l'intranet de la coopérative agricole AGRUR!</span>
 			        </li>
 
 			        <li>

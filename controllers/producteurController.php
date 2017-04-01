@@ -8,26 +8,18 @@ class ProducteurController extends Controller{
 	{
 		parent::__construct($model, $nameController, $nameAction);
         $this->_setModel($model);
+   
+        $this->producer = $this->_model->findProducer($_SESSION['user']['user_key']);
 
         $this->_view->setCommons("nav", HOME . DS . 'includes' . DS . 'common.nav.php');
 		$this->_view->setCommons("footer", HOME . DS . 'includes' . DS . 'common.footer.php');
 	}
 
-    /*  Pour ne pas avoir à retrouver le producteur
-        lié à l'id utilisateur à dans chaques pages 
-        on enregistre l'utilisateur courant dans
-        notre classe */
-    public function setSpaceUser($user){
-        $this->producer = $user;
-    }
-
     public function home(){
         $listAxx = $this->secureAccess("producteur/home");
         $this->_view->set('listAxx', $listAxx);
-        
-        $user = $this->_model->findProducer($_SESSION['user']['user_key']);
-        $this->setSpaceUser($user);
-		$this->_view->set('user', $user);
+
+		$this->_view->set('producer', $this->producer);
 
         $vergers = $this->_model->findProducerVergers($this->producer['idProducteur']);
         $this->_view->set('vergers', $vergers);
@@ -41,13 +33,18 @@ class ProducteurController extends Controller{
 
         if($_POST){
             $save = false;
+            $_POST["idProducteur"] = $this->producer['idProducteur'];
             $save = $this->_model->addVerger($_POST);
             $this->setViewResponse($save, "Le nouveau verger a bien été ajouté.", "Un problème est survenu lors de la sauvegarde!");
         }
 
         $vergers = $this->_model->findProducerVergers($this->producer['idProducteur']);
-        foreach($vergers as $verger){
-            if($verger["aoc"]);
+        for($i = 0; $i < count($vergers); $i++){
+            if($vergers[$i]['aocCommune'] || $vergers[$i]['aocVariete']){
+                $vergers[$i]['aoc'] = 1;
+            } else {
+                $vergers[$i]['aoc'] = 0;
+            }
         }
         $this->_view->set('vergers', $vergers);
 
