@@ -7,6 +7,7 @@ class AdminModel extends Model{
 		parent::__construct();
 	}
 
+// Tables relatives à l'utilisateur
 	public function addUser($userEmail, $rank){
 		$tabParam = array($rank, $userEmail);
 		$sql = "INSERT INTO users(rank, email, valid)
@@ -16,6 +17,7 @@ class AdminModel extends Model{
 		$success = $this->execSql($tabParam, true);
 		return $success;
 	}
+
 	/**
 	* Ne supprime pas l'user de la bdd
 	* Update du champ "valid" à 0.
@@ -148,7 +150,10 @@ class AdminModel extends Model{
 
 // Table Verger
 	public function findAllVergers(){
-		$sql = "SELECT * FROM verger";
+		$sql = "SELECT * FROM verger
+				INNER JOIN producteur ON verger.idProducteur = producteur.idProducteur
+				INNER JOIN variete ON verger.idVariete = variete.idVariete
+				INNER JOIN commune ON verger.idCommune = commune.idCommune";
 		$this->_setSql($sql);
 		$results = $this->getAll();
 		return $results;
@@ -180,7 +185,7 @@ class AdminModel extends Model{
 		return $results;
 	}
 
-	public function addCertification($data){
+	public function addCertification(array $data){
 		
 		$sql = "INSERT INTO certification(libelleCertification)
 				VALUES (?)";
@@ -188,5 +193,44 @@ class AdminModel extends Model{
 
 		$success = $this->execSql([$data]);
 		return $success;
+	}
+
+// Table Livraison
+	public function findAllLivraisons(){
+		$sql = "SELECT *, verger.nomVerger 
+				FROM livraison
+				INNER JOIN verger ON livraison.idVerger = verger.idVerger";
+		$this->_setSql($sql);
+		$results = $this->getAll();
+		return $results;
+	}
+
+	public function findLivraisonByID($id){
+		$sql = "SELECT *, verger.nomVerger 
+				FROM livraison
+				INNER JOIN verger ON livraison.idVerger = verger.idVerger
+				INNER JOIN typeproduit ON livraison.idTypeProduit = verger.idTypeProduit
+				WHERE idLivraison = ?";
+		$this->_setSql($sql);
+
+		$livraison = $this->getRow([$id]);
+		return $livraison;
+	}
+
+	public function addLivraison(array $data){
+		$sql = "INSERT INTO livraison(dateLivraison, quantite, idVerger, idTypeProduit)
+				VALUES (:dateLivraison, :quantite, :verger, :typeProduit)";
+		$this->_setSql($sql);
+
+		$success = $this->execSql($data);
+		return $success;
+	}
+
+// Table Typeproduit
+	public function findAllTypesProduits(){
+		$sql = "SELECT * FROM typeproduit";
+		$this->_setSql($sql);
+		$results = $this->getAll();
+		return $results;
 	}
 }

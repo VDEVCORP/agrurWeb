@@ -55,4 +55,5 @@ class ProducteurController extends Controller{
 
         $this->_view->outPut();
     }
+
 }

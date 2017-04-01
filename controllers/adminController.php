@@ -100,7 +100,7 @@ class AdminController extends Controller
             }
         }
 
-        /* Prévoir un tri par ordre alphabetique */
+        #TODO : Prévoir un tri par ordre alphabetique
         $producers = $this->_model->findAllProducers();
         $this->_view->set('producers', $producers);
         $customers = $this->_model->findAllCustomers();
@@ -176,8 +176,23 @@ class AdminController extends Controller
     }
 
     public function livraisons(){
-        $listAxx = $this->secureAccess("admin/certifications");
+        $listAxx = $this->secureAccess("admin/livraisons");
         $this->_view->set('listAxx', $listAxx);
+
+        if($_POST){        
+            $save = false;
+            $save = $this->_model->addLivraison($_POST);
+            $this->setViewResponse($save, "La livraison à bien été enregistrée.", "Un problème est survenu lors de la sauvegarde!");
+        }   
+
+        $vergers = $this->_model->findAllVergers();
+        $this->_view->set('vergers', $vergers);
+        $typesProduits = $this->_model->findAllTypesProduits();
+        $this->_view->set('typesProduits', $typesProduits);
+
+
+        $livraisons = $this->_model->findAllLivraisons();
+        $this->_view->set('livraisons', $livraisons);
 
         $this->_view->outPut();
     }
