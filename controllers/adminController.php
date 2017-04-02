@@ -213,10 +213,18 @@ class AdminController extends Controller
         $listAxx = $this->secureAccess("admin/lots");
         $this->_view->set('listAxx', $listAxx);
 
+        if($_POST){
+            $save = false;
+            $save = $this->_model->addLot($_POST);
+            $this->setViewResponse($save, "Le lot à bien été enregistré.", "Un problème est survenu lors de la sauvegarde!");
+        }
+
         $lots = $this->_model->findAllLots();
         $this->_view->set('lots', $lots);
         $livraisons = $this->_model->findAllLivraisons();
         $this->_view->set('livraisons', $livraisons);
+        $calibres = $this->_model->findAllCalibres();
+        $this->_view->set('calibres', $calibres);
 
         $this->_view->outPut();
     }

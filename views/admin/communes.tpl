@@ -29,7 +29,7 @@
                             <td><?= $commune["idCommune"] ?></td>
                             <td><?= $commune["nomCommune"] ?></td>
                             <td><?= $commune["codePostal"] ?> </td>
-                            <td><?= $commune["aocCommune"] ? '<i class="fa fa-check"></li>' : '<i class="fa fa-times"></li>' ?></td>
+                            <td><?= $commune["aocCommune"] ? '<i class="fa fa-check"></i>' : '<i class="fa fa-times"></i>' ?></td>
                         </tr>
                     <?php } ?>
                     </tbody>

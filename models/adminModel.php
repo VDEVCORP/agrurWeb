@@ -253,4 +253,35 @@ class AdminModel extends Model{
 		$success = $this->execSql($data);
 		return $success;
 	}
+
+// Table Lot
+	public function findAllLots(){
+		$sql = "SELECT * FROM lot
+				INNER JOIN livraison ON lot.idLivraison = livraison.idLivraison
+				INNER JOIN typeproduit ON livraison.idTypeProduit = typeProduit.idTypeProduit
+				INNER JOIN verger ON livraison.idVerger = verger.idVerger
+				INNER JOIN variete ON verger.idVariete = variete.idVariete
+				INNER JOIN commune ON verger.idCommune = commune.idCommune
+				INNER JOIN calibre ON lot.idCalibre = calibre.idCalibre";
+		$this->_setSql($sql);
+		$results = $this->getAll();
+		return $results;
+	}
+
+	public function addLot(array $data){
+		$sql = "INSERT INTO lot(reference, idCalibre, quantiteLot, idLivraison)
+				VALUES (:reference, :calibre, :quantite, :livraison)";
+		$this->_setSql($sql);
+
+		$success = $this->execSql($data);
+		return $success;		
+	}
+
+// Table Calibre
+	public function findAllCalibres(){
+		$sql = "SELECT * FROM calibre";
+		$this->_setSql($sql);
+		$results = $this->getAll();
+		return $results;
+	}
 }
