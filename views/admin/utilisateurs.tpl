@@ -150,6 +150,7 @@
                 <form action="" method="POST">
                     <!-- Flemme du GET en AJAX, on garde l'id du Producteur courant ici -->
                     <input type="hidden" name="producteur" value="<?= $askProducer['idProducteur'] ?>">
+                    <!-- Lol -->
                     <div class="form-group">
                         <label class="font-noraml">Date d'obtention</label>
                         <div class="input-group">

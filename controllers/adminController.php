@@ -209,4 +209,16 @@ class AdminController extends Controller
         $this->_view->outPut();
     }
 
+    public function lots(){
+        $listAxx = $this->secureAccess("admin/lots");
+        $this->_view->set('listAxx', $listAxx);
+
+        $lots = $this->_model->findAllLots();
+        $this->_view->set('lots', $lots);
+        $livraisons = $this->_model->findAllLivraisons();
+        $this->_view->set('livraisons', $livraisons);
+
+        $this->_view->outPut();
+    }
+
 }

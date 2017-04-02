@@ -15,7 +15,7 @@
             <div class="ibox-content">
                 <form class="form-horizontal" action="" method="POST">
                     <div class="form-group">
-                        <label for="name" class="col-sm-3 control-label">Nom / Identifiant du verger</label>
+                        <label for="name" class="col-sm-3 control-label">Nom/Identifiant</label>
                         <div class="col-sm-9">
                             <input type="text" name="name" id="name" class="form-control">
                         </div>

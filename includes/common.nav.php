@@ -77,6 +77,12 @@
                     </li>
                 <?php }} ?>
 
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/lots"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/lots') echo 'active'; ?>">
+                        <a href="/admin/lots"><i class="fa fa-barcode"></i><span class="nav-label">Lots</span></a>
+                    </li>
+                <?php }} ?>
+
                 <?php foreach($listAxx as $page){if($page['url_page'] == "admin/communes"){ ?>
                     <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/communes') echo 'active'; ?>">
                         <a href="/admin/communes"><i class="fa fa-road"></i><span class="nav-label">Communes</span></a>
@@ -94,7 +100,6 @@
                         <a href="/admin/certifications"><i class="fa fa-certificate"></i><span class="nav-label">Certifications</span></a>
                     </li>
                 <?php }} ?>
-
 
                 <!-- MENU LINKS PRODUCTEUR -->
                 <?php foreach($listAxx as $page){if($page['url_page'] == "producteur/vergers"){ ?>
