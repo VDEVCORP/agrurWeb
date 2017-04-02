@@ -36,7 +36,7 @@
 
                             <td class="text-right">
                                 <div class="btn-group">
-                                    <a class="btn btn-info" id="edit" href="/admin/utilisateurs/edit?role=prod&id=<?= $producer['idProducteur'] ?>">Détails</a>
+                                    <a class="btn btn-info" id="edit" href="/admin/utilisateurs/details?role=prod&id=<?= $producer['idProducteur'] ?>">Détails</a>
                                     <button <?= $producer['valid'] ? 'class="btn btn-danger user-disable"' : 'class="btn btn-success user-enable"' ?> id="<?= $producer['fk_id_user'] ?>">
                                         <?= $producer['valid'] ? 'Désactiver' : 'Activer' ?>
                                     </button>
@@ -84,7 +84,7 @@
                             <td class="text-right"><?= $customer['telephone'] ?></td>
                             <td class="text-right">
                                 <div class="btn-group">
-                                    <a class="btn btn-info" href="/admin/utilisateurs/edit?role=cli&id=<?= $customer['idClient'] ?>">Détails</a>
+                                    <a class="btn btn-info" href="/admin/utilisateurs/details?role=cli&id=<?= $customer['idClient'] ?>">Détails</a>
                                     <button <?= $customer['valid'] ? 'class="btn btn-danger user-disable"' : 'class="btn btn-success user-enable"' ?> id="<?= $customer['fk_id_user'] ?>">
                                         <?= $customer['valid'] ? 'Désactiver' : 'Activer' ?>
                                     </button>
@@ -113,6 +113,7 @@
             </div>
             <?php if(isset($askProducer)){ ?>
             <div class="ibox-content profile-content">
+                <h2 class="text-center">Producteur<h2>
                 <h3><strong><?= $askProducer['nomResponsable'] ?> <?= $askProducer['prenomResponsable']?></strong></h3>   
                 <?= isset($askProducer['nomSociete']) && !empty($askProducer['nomSociete']) ? '<h3><small>Société: </small>' . $askProducer['nomSociete'] . '</h3>' : false ?> 
                 
@@ -145,8 +146,7 @@
                     </tbody>
                 </table>
                 <?php } else { echo '<p class="text-center">Aucune certification</p>'; } ?>
-            </div>
-            <div class="ibox-content">
+            <hr>
                 <form action="" method="POST">
                     <!-- Flemme du GET en AJAX, on garde l'id du Producteur courant ici -->
                     <input type="hidden" name="producteur" value="<?= $askProducer['idProducteur'] ?>">
@@ -167,16 +167,38 @@
                                 <?php } ?>
                             </select>
                             <span class="input-group-btn">
-                                <button type="submit" class="btn btn-default">Attribuer</button>
+                                <button type="submit" class="btn btn-primary">Délivrer !</button>
                             </span>
                         </div>
                     </div>
                 </form>
             </div>
+            <div class="ibox-content">
+                <h4 class="text-center">Vergers</h4>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Commune</th>
+                            <th>Variete</th>
+                        </tr>
+                    <thead>
+                    <tbody>
+                    <?php foreach($vergers as $verger){ ?>
+                        <tr>
+                            <td><?= $verger["nomVerger"] ?></td>
+                            <td><?= $verger["nomCommune"] ?></td>
+                            <td><?= $verger["nomVariete"] ?></td>
+                        </tr>
+                    <?php } ?>
+                    </tbody>
+                </table>
+            </div>
             <?php } ?>
 
             <?php if(isset($askCustomer)){ ?>
             <div class="ibox-content profile-content">
+            <h2 class="text-center">Client<h2>
                 <h3><strong><?= $askCustomer['nomRepresentant'] ?> <?= $askCustomer['prenomRepresentant']?></strong></h3>   
                 <?= isset($askCustomer['nomClient']) && !empty($askCustomer['nomClient']) ? '<h3><small>Société: </small>' . $askCustomer['nomClient'] . '</h3>' : false ?> 
                 

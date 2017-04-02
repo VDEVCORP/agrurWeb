@@ -88,7 +88,7 @@ class AdminController extends Controller
             $action = $this->formatAction($action);
             switch($action['path']){
 
-                case('edit') :
+                case('details') :
                     if($action['query']['role'] == 'prod'){
                         $askProducer = $this->_model->findProducerByID($action['query']['id']);
                         $this->_view->set('askProducer', $askProducer);
@@ -96,6 +96,8 @@ class AdminController extends Controller
                         $this->_view->set('certifications', $certifications);
                         $certifDelivrees = $this->_model->findCertifDelivrees($action['query']['id']);
                         $this->_view->set('certifDelivrees', $certifDelivrees);
+                        $vergers = $this->_model->findProducerVergers($action['query']['id']);
+                        $this->_view->set('vergers', $vergers);
                     } elseif($action['query']['role'] == 'cli'){
                         $askCustomer = $this->_model->findCustomerByID($action['query']['id']);
                         $this->_view->set('askCustomer', $askCustomer);

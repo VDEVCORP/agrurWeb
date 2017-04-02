@@ -12,8 +12,27 @@
                     </a>
                 </div>
             </div>
+
             <div class="ibox-content">
-                
+            <?php foreach($vergers as $verger) { ?>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-angle-right"></i> <?= $verger['nomVerger'] ?>
+                        <?= $verger['aoc'] ? '<span class="pull-right label label-primary"><i class="fa fa-star"></i> AOC</span>' : false ?>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            <i class="fa fa-pagelines"></i><small> Variété: </small><strong> <?= $verger['nomVariete'] ?> </strong>
+                            <?= $verger['aocVariete'] ? '</strong><span class="badge badge-danger">AOC</span>' : false ?>
+                            <span  class="pull-right"><strong><?= $verger['superficie'] ?></strong> Hectares || <?= $verger['nbrArbreParHect'] ?> Arbres/Ha</span>
+                        </p>
+                        <p>
+                            <i class="fa fa-map-marker"></i> <?= $verger['nomCommune'] ?> - <?= $verger['codePostal'] ?> 
+                            <?= $verger['aocCommune'] ? '<span class="badge badge-warning">Commune AOC</span>' : false ?>
+                        </p>
+                    </div>
+                </div>
+            <?php } ?>
             </div>
         </div>
     </div>

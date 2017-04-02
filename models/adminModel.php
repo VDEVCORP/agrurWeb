@@ -159,6 +159,18 @@ class AdminModel extends Model{
 		return $results;
 	}
 
+	public function findProducerVergers($id_producer){
+		$sql = "SELECT *
+				FROM verger
+				INNER JOIN producteur ON verger.idProducteur = producteur.idProducteur
+				INNER JOIN variete ON verger.idVariete = variete.idVariete
+				INNER JOIN commune ON verger.idCommune = commune.idCommune
+				WHERE verger.idProducteur = ?";
+		$this->_setSql($sql);
+
+		return $this->getAll([$id_producer]);
+	}
+
 // Table Commune
 	public function findAllCommunes(){
 		$sql = "SELECT * FROM commune";

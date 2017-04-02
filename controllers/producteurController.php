@@ -19,6 +19,10 @@ class ProducteurController extends Controller{
         $listAxx = $this->secureAccess("producteur/home");
         $this->_view->set('listAxx', $listAxx);
 
+        $vergers = $this->_model->findProducerVergers($this->producer['idProducteur']);
+        $vergers = $this->determineVergerAOC($vergers);
+        $this->_view->set('vergers', $vergers);
+
 
         $this->_view->outPut();
     }
@@ -60,13 +64,7 @@ class ProducteurController extends Controller{
         }
 
         $vergers = $this->_model->findProducerVergers($this->producer['idProducteur']);
-        for($i = 0; $i < count($vergers); $i++){
-            if($vergers[$i]['aocCommune'] || $vergers[$i]['aocVariete']){
-                $vergers[$i]['aoc'] = 1;
-            } else {
-                $vergers[$i]['aoc'] = 0;
-            }
-        }
+        $vergers = $this->determineVergerAOC($vergers);
         $this->_view->set('vergers', $vergers);
 
         $varietes = $this->_model->findAllVarietes();
@@ -75,6 +73,17 @@ class ProducteurController extends Controller{
         $this->_view->set('communes', $communes);
 
         $this->_view->outPut();
+    }
+
+    private function determineVergerAOC(array $vergers){
+        for($i = 0; $i < count($vergers); $i++){
+            if($vergers[$i]['aocCommune'] || $vergers[$i]['aocVariete']){
+                $vergers[$i]['aoc'] = 1;
+            } else {
+                $vergers[$i]['aoc'] = 0;
+            }
+        }
+        return $vergers;
     }
 
 }

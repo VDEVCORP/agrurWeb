@@ -114,6 +114,12 @@
                     </li>
                 <?php }} ?>
 
+                <?php foreach($listAxx as $page){if($page['url_page'] == "producteur/contact"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='producteur/contact') echo 'active'; ?>">
+                        <a href="/producteur/contact"><i class="fa fa-pencil-square-o"></i><span class="nav-label">Contact</span></a>
+                    </li>
+                <?php }} ?>
+
                 <!-- MENU LINKS CLIENT -->
 
             </ul>
