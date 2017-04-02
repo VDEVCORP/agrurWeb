@@ -16,6 +16,9 @@ class AdminController extends Controller
         $listAxx = $this->secureAccess("admin/home");
         $this->_view->set('listAxx', $listAxx);
 
+        $vergers = $this->_model->findAllVergers();
+        $this->_view->set('vergers', $vergers);
+
         $this->_view->outPut();
     }
 
@@ -76,26 +79,40 @@ class AdminController extends Controller
         $listAxx = $this->secureAccess("admin/utilisateurs");
         $this->_view->set('listAxx', $listAxx);
 
+        if($_POST){
+            $save = $this->_model->AddCertifDelivree($_POST);
+            $this->setViewResponse($save, "", "Un problème est lors de l'attribution!");
+        }
+
         if($action){
             $action = $this->formatAction($action);
             switch($action['path']){
+
                 case('edit') :
                     if($action['query']['role'] == 'prod'){
                         $askProducer = $this->_model->findProducerByID($action['query']['id']);
                         $this->_view->set('askProducer', $askProducer);
+                        $certifications = $this->_model->findAllCertifications();
+                        $this->_view->set('certifications', $certifications);
+                        $certifDelivrees = $this->_model->findCertifDelivrees($action['query']['id']);
+                        $this->_view->set('certifDelivrees', $certifDelivrees);
                     } elseif($action['query']['role'] == 'cli'){
-                        $askProducer = $this->_model->findCustomerByID($action['query']['id']);
+                        $askCustomer = $this->_model->findCustomerByID($action['query']['id']);
                         $this->_view->set('askCustomer', $askCustomer);
                     }
                 break;
+
                 case('remove') :
                     $save = $this->_model->removeUser($action['query']['id']);
-                    $this->setViewResponse($save, "L'utilisateur à bien été désactivé.", "Un problème est survenu lors de la modificiation!");
                 break;
+                case('activate') :
+                    $save = $this->_model->activateUser($action['query']['id']);
+                break;
+
             }
         }
 
-        /* Prévoir un tri par ordre alphabetique */
+        #TODO : Prévoir un tri par ordre alphabetique
         $producers = $this->_model->findAllProducers();
         $this->_view->set('producers', $producers);
         $customers = $this->_model->findAllCustomers();
@@ -105,12 +122,12 @@ class AdminController extends Controller
     }
 
     public function varietes($action = false){
-        $listAxx = $this->secureAccess("admin/varietes/");
+        $listAxx = $this->secureAccess("admin/varietes");
         $this->_view->set('listAxx', $listAxx);
 
         if($_POST){
             $save = false;
-            isset($_POST["aoc"]) ? $_POST["aoc"] = 1 : $_POST["aoc"] = 0;
+            isset($_POST["aocVariete"]) ? $_POST["aocVariete"] = 1 : $_POST["aocVariete"] = 0;
             $save = $this->_model->addVariete($_POST);
             $this->setViewResponse($save, "La nouvelle variété a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");  
         }
@@ -143,7 +160,7 @@ class AdminController extends Controller
 
         if($_POST){        
             $save = false;
-            isset($_POST["aoc"]) ? $_POST["aoc"] = 1 : $_POST["aoc"] = 0;
+            isset($_POST["aocCommune"]) ? $_POST["aocCommune"] = 1 : $_POST["aocCommune"] = 0;
             $save = $this->_model->addCommune($_POST);
             $this->setViewResponse($save, "La nouvelle commune a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");   
         }
@@ -154,26 +171,60 @@ class AdminController extends Controller
         $this->_view->outPut();
     }
 
-    public function vergers(){
-        $listAxx = $this->secureAccess("admin/vergers");
+    public function certifications(){
+        $listAxx = $this->secureAccess("admin/certifications");
+        $this->_view->set('listAxx', $listAxx);
+
+        if($_POST){        
+            $save = false;
+            $save = $this->_model->addCertification($_POST['libelle']);
+            $this->setViewResponse($save, "La nouvelle certification a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");
+        }   
+
+        $certifications = $this->_model->findAllCertifications();
+        $this->_view->set('certifications', $certifications);
+
+        $this->_view->outPut();
+    }
+
+    public function livraisons(){
+        $listAxx = $this->secureAccess("admin/livraisons");
+        $this->_view->set('listAxx', $listAxx);
+
+        if($_POST){        
+            $save = false;
+            $save = $this->_model->addLivraison($_POST);
+            $this->setViewResponse($save, "La livraison à bien été enregistrée.", "Un problème est survenu lors de la sauvegarde!");
+        }   
+
+        $vergers = $this->_model->findAllVergers();
+        $this->_view->set('vergers', $vergers);
+        $typesProduits = $this->_model->findAllTypesProduits();
+        $this->_view->set('typesProduits', $typesProduits);
+
+
+        $livraisons = $this->_model->findAllLivraisons();
+        $this->_view->set('livraisons', $livraisons);
+
+        $this->_view->outPut();
+    }
+
+    public function lots(){
+        $listAxx = $this->secureAccess("admin/lots");
         $this->_view->set('listAxx', $listAxx);
 
         if($_POST){
             $save = false;
-            $save = $this->_model->addVerger($_POST);
-            $this->setViewResponse($save, "Le nouveau verger a bien été ajouté.", "Un problème est survenu lors de la sauvegarde!");
+            $save = $this->_model->addLot($_POST);
+            $this->setViewResponse($save, "Le lot à bien été enregistré.", "Un problème est survenu lors de la sauvegarde!");
         }
 
-        $vergers = $this->_model->findAllVergers();
-        $this->_view->set('vergers', $vergers);
-
-        $varietes = $this->_model->findAllVarietes();
-        $this->_view->set('varietes', $varietes);
-        $communes = $this->_model->findAllCommunes();
-        $this->_view->set('communes', $communes);
-        $producteurs = $this->_model->findAllProducers();
-        $this->_view->set('producteurs', $producteurs);
-
+        $lots = $this->_model->findAllLots();
+        $this->_view->set('lots', $lots);
+        $livraisons = $this->_model->findAllLivraisons();
+        $this->_view->set('livraisons', $livraisons);
+        $calibres = $this->_model->findAllCalibres();
+        $this->_view->set('calibres', $calibres);
 
         $this->_view->outPut();
     }

@@ -2,12 +2,18 @@
 
 class ClientController extends Controller  
 {
+
+    private $client;
 	
 	public function __construct($model, $nameController, $nameAction)
 	{
 		parent::__construct($model, $nameController, $nameAction);
 		$this->_setModel($model);
 	}
+
+    public function setUser($user){
+        $this->client = $user;
+    }
 
     public function home(){
         $listAxx = $this->secureAccess("client/home");

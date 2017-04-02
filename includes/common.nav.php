@@ -48,10 +48,10 @@
                                     case('admin'):
                                         echo '/admin/home';
                                         break;
-                                    case('producteur'):
+                                    case('producer'):
                                         echo '/producteur/home';
                                         break;
-                                    case('client'):
+                                    case('customer'):
                                         echo '/client/home';
                                         break;
                                 }
@@ -71,6 +71,18 @@
                     </li>
                 <?php }} ?>
 
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/livraisons"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/livraisons') echo 'active'; ?>">
+                        <a href="/admin/livraisons"><i class="fa fa-truck"></i><span class="nav-label">Livraisons</span></a>
+                    </li>
+                <?php }} ?>
+
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/lots"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/lots') echo 'active'; ?>">
+                        <a href="/admin/lots"><i class="fa fa-barcode"></i><span class="nav-label">Lots</span></a>
+                    </li>
+                <?php }} ?>
+
                 <?php foreach($listAxx as $page){if($page['url_page'] == "admin/communes"){ ?>
                     <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/communes') echo 'active'; ?>">
                         <a href="/admin/communes"><i class="fa fa-road"></i><span class="nav-label">Communes</span></a>
@@ -83,23 +95,16 @@
                     </li>
                 <?php }} ?>
 
-                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/vergers"){ ?>
-                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/vergers') echo 'active'; ?>">
-                        <a href="/admin/vergers"><i class="fa fa-tree"></i><span class="nav-label">Vergers</span></a>
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/certifications"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/certifications') echo 'active'; ?>">
+                        <a href="/admin/certifications"><i class="fa fa-certificate"></i><span class="nav-label">Certifications</span></a>
                     </li>
                 <?php }} ?>
-
-                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/commandes"){ ?>
-                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/commandes') echo 'active'; ?>">
-                        <a href="/admin/commandes"><i class="fa fa-truck"></i><span class="nav-label">Commandes</span></a>
-                    </li>
-                <?php }} ?>
-
 
                 <!-- MENU LINKS PRODUCTEUR -->
-                <?php foreach($listAxx as $page){if($page['url_page'] == "regular/exempleRegular"){ ?>
-                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='regular/exempleRegular') echo 'active'; ?>">
-                        <a href="/regular/exempleRegular"><i class="fa fa-cubes"></i><span class="nav-label">Lien autorisé Regular</span></a>
+                <?php foreach($listAxx as $page){if($page['url_page'] == "producteur/vergers"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='producteur/vergers') echo 'active'; ?>">
+                        <a href="/producteur/vergers"><i class="fa fa-tree"></i><span class="nav-label">Mes Vergers</span></a>
                     </li>
                 <?php }} ?>
 
@@ -117,7 +122,7 @@
 	            </div>
 		        <ul class="nav navbar-top-links navbar-right">
 			        <li>
-				        <span class="m-r-sm text-muted welcome-message">Bienvenue, visiteur inconnu</span>
+				        <span class="m-r-sm text-muted welcome-message">Bienvenue sur l'intranet de la coopérative agricole AGRUR!</span>
 			        </li>
 
 			        <li>

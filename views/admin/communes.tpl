@@ -29,8 +29,8 @@
                             <td><?= $commune["idCommune"] ?></td>
                             <td><?= $commune["nomCommune"] ?></td>
                             <td><?= $commune["codePostal"] ?> </td>
-                            <td><?= $commune["aoc"] ? '<i class="fa fa-check"></li>' : '<i class="fa fa-times"></li>' ?></td>
-                        <tr>
+                            <td><?= $commune["aocCommune"] ? '<i class="fa fa-check"></i>' : '<i class="fa fa-times"></i>' ?></td>
+                        </tr>
                     <?php } ?>
                     </tbody>
                 </table>
@@ -72,7 +72,7 @@
                         <div class="col-sm-offset-2 col-sm-10">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="aoc" value="1">
+                                    <input type="checkbox" name="aocCommune" value="1">
                                     Commune AOC
                                 </label>
                             </div>
