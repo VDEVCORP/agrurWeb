@@ -242,7 +242,6 @@ class AdminModel extends Model{
 		$this->_setSql($sql);
 		$results = $this->getAll([$id_producer]);
 		return $results;
-		
 	}
 
 	public function addCertifDelivree(array $data){

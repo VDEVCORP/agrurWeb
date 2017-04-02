@@ -51,4 +51,34 @@ class ProducteurModel extends Model{
 		$success = $this->execSql($data);
 		return $success;
 	}
+
+	public function findCertifDelivrees($id_producer){
+		$sql = "SELECT dateCertification, certification.*
+				FROM certifdelivree
+				INNER JOIN certification ON certifdelivree.idCertification = certification.idCertification
+				WHERE idProducteur = ?";
+		$this->_setSql($sql);
+		$results = $this->getAll([$id_producer]);
+		return $results;
+	}
+
+	public function updateProducer(array $data){
+		$sql = "UPDATE producteur 
+				SET nomSociete = :societe, nomResponsable = :nom, prenomResponsable = :prenom, telephone = :telephone, adresse = :adresse, ville = :ville, codePostal = :codePostal 
+				WHERE idProducteur = :idProducteur";
+		$this->_setSql($sql);
+
+		$success = $this->execSql($data);
+		return $success;
+	}
+
+	public function updateUserEmail(array $data){
+		$sql = "UPDATE users 
+				SET email = ?
+				WHERE id_user = ?";
+		$this->_setSql($sql);
+
+		$success = $this->execSql($data);
+		return $success;
+	}
 }

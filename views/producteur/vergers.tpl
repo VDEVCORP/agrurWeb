@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-lg-7">
+    <div class="col-lg-6">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>Ajouter un nouveau verger</h5>
@@ -67,7 +67,7 @@
         </div>
     </div>
 
-    <div class="col-lg-5">
+    <div class="col-lg-6">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>Vergers en production</h5>

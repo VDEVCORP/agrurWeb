@@ -19,11 +19,32 @@ class ProducteurController extends Controller{
         $listAxx = $this->secureAccess("producteur/home");
         $this->_view->set('listAxx', $listAxx);
 
-		$this->_view->set('producer', $this->producer);
 
-        $vergers = $this->_model->findProducerVergers($this->producer['idProducteur']);
-        $this->_view->set('vergers', $vergers);
+        $this->_view->outPut();
+    }
 
+    public function profil(){
+        $listAxx = $this->secureAccess("producteur/profil");
+        $this->_view->set('listAxx', $listAxx);
+
+        if($_POST){
+            $save = false;
+            $changeForMail = array($_POST['email'], $this->producer['fk_id_user']);
+            unset($_POST['email']);
+            $_POST["idProducteur"] = $this->producer['idProducteur'];
+            $save = $this->_model->updateProducer($_POST);
+            if($save){
+                $this->producer = $this->_model->findProducer($_SESSION['user']['user_key']);
+                $save = $this->_model->updateUserEmail($changeForMail);
+            }
+            $this->setViewResponse($save, "Vos infomations ont bien été mises à jour", "Un problème est survenu lors de la sauvegarde!");
+        }
+
+        $this->_view->set('producer', $this->producer);
+
+        $certifDelivrees = $this->_model->findCertifDelivrees($this->producer['idProducteur']);
+        $this->_view->set('certifDelivrees', $certifDelivrees);
+        
         $this->_view->outPut();
     }
 

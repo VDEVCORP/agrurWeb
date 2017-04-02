@@ -102,6 +102,12 @@
                 <?php }} ?>
 
                 <!-- MENU LINKS PRODUCTEUR -->
+                <?php foreach($listAxx as $page){if($page['url_page'] == "producteur/profil"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='producteur/profil') echo 'active'; ?>">
+                        <a href="/producteur/profil"><i class="fa fa-user"></i><span class="nav-label">Mon profil</span></a>
+                    </li>
+                <?php }} ?>
+
                 <?php foreach($listAxx as $page){if($page['url_page'] == "producteur/vergers"){ ?>
                     <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='producteur/vergers') echo 'active'; ?>">
                         <a href="/producteur/vergers"><i class="fa fa-tree"></i><span class="nav-label">Mes Vergers</span></a>
