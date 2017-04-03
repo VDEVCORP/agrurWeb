@@ -51,7 +51,26 @@
                 </div>
             </div>
             <div class="ibox-content">
-                
+               <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Verger</th>
+                            <th>Quantité</th>
+                            <th>Type</th>
+                        </tr>
+                    <thead>
+                    <tbody>
+                    <?php foreach($livraisons as $livraison){ ?>
+                        <tr>
+                            <td><?= $livraison["dateLivraison"] ?></td>
+                            <td><?= $livraison["nomVerger"] ?></td>
+                            <td><?= $livraison["quantite"] ?></td>
+                            <td><?= $livraison["libelleTypeProduit"] ?></td>
+                        </tr>
+                    <?php } ?>
+                    </tbody>
+                </table>                
             </div>
         </div>
     </div>

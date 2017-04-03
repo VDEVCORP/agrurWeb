@@ -22,7 +22,8 @@ class ProducteurController extends Controller{
         $vergers = $this->_model->findProducerVergers($this->producer['idProducteur']);
         $vergers = $this->determineVergerAOC($vergers);
         $this->_view->set('vergers', $vergers);
-
+        $livraisons = $this->_model->findProducerLivraisons($this->producer['idProducteur']);
+        $this->_view->set('livraisons', $livraisons);
 
         $this->_view->outPut();
     }

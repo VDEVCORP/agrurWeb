@@ -29,7 +29,7 @@
                     <?php foreach($lots as $lot){ ?>
                         <tr>
                             <td><?= $lot["reference"] ?></td>
-                            <td><?= $lot["nomVerger"] ?> <?= $lot["aocCommune"] || $lot["aocVariete"]? '(AOC)' : false ?></td>
+                            <td><?= $lot["nomVerger"] ?> <?= $lot["aocCommune"] || $lot["aocVariete"] ? '(AOC)' : false ?></td>
                             <td><?= $lot["nomVariete"] ?></td>
                             <td><?= $lot["libelleTypeProduit"] ?></td>
                             <td><?= $lot["intervalle"] ?></td>

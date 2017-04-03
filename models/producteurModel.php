@@ -81,4 +81,15 @@ class ProducteurModel extends Model{
 		$success = $this->execSql($data);
 		return $success;
 	}
+
+	public function findProducerLivraisons($id_producer){
+		$sql = "SELECT *
+				FROM livraison
+				INNER JOIN verger ON livraison.idVerger = verger.idVerger
+				INNER JOIN typeproduit ON livraison.idTypeProduit = typeproduit.idTypeProduit
+				WHERE verger.idProducteur = ?";
+		$this->_setSql($sql);
+		$results = $this->getAll([$id_producer]);
+		return $results;
+	}
 }

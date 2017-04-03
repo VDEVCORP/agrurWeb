@@ -128,25 +128,35 @@ class AdminController extends Controller
         $this->_view->set('listAxx', $listAxx);
 
         if($_POST){
-            $save = false;
-            isset($_POST["aocVariete"]) ? $_POST["aocVariete"] = 1 : $_POST["aocVariete"] = 0;
-            $save = $this->_model->addVariete($_POST);
-            $this->setViewResponse($save, "La nouvelle variété a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");  
+            switch($_POST['action']){
+                case('add') :
+                    unset($_POST['action']);
+                    $save = false;
+                    isset($_POST["aocVariete"]) ? $_POST["aocVariete"] = 1 : $_POST["aocVariete"] = 0;
+                    $save = $this->_model->addVariete($_POST);
+                    $this->setViewResponse($save, "La nouvelle variété a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");
+                break;
+                case('update') :
+                    unset($_POST['action']);
+                    $save = false;
+                    isset($_POST["aocVariete"]) ? $_POST["aocVariete"] = 1 : $_POST["aocVariete"] = 0;
+                    $save = $this->_model->updateVariete($_POST);
+                    $this->setViewResponse($save, "La variété à bien été modifiée.", "Un problème est survenu lors de l'opération!");
+                break;
+            }
         }
 
         if($action){
             $action = $this->formatAction($action);
             switch($action['path']){
                 case('edit') :
-                    $save = false;
-                    $save = $this->updateVariete($action['query']['id']);
-                    $this->setViewResponse($save, "La variété à bien été modifiée.", "Un problème est survenu lors de l'opération!");
-                    break;
+                    $askVariete = $this->_model->findVarieteByID($action['query']['id']);
+                    $this->_view->set('askVariete', $askVariete);
+                break;
                 case('delete') :
                     $save = false;
                     $save = $this->deleteVariete($action['query']['id']);
-                    $this->setViewResponse($save, "La variété à bien été supprimée.", "Impossible d'opérer la suppression!");
-                    break;
+                break;
             }
         }
 
@@ -156,15 +166,42 @@ class AdminController extends Controller
         $this->_view->outPut();
     }
 
-    public function communes(){
+    public function communes($action = false){
         $listAxx = $this->secureAccess("admin/communes");
         $this->_view->set('listAxx', $listAxx);
 
-        if($_POST){        
-            $save = false;
-            isset($_POST["aocCommune"]) ? $_POST["aocCommune"] = 1 : $_POST["aocCommune"] = 0;
-            $save = $this->_model->addCommune($_POST);
-            $this->setViewResponse($save, "La nouvelle commune a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");   
+        if($_POST){
+            switch($_POST['action']){
+                case('add') :
+                    unset($_POST['action']);
+                    $save = false;
+                    isset($_POST["aocCommune"]) ? $_POST["aocCommune"] = 1 : $_POST["aocCommune"] = 0;
+                    $save = $this->_model->addCommune($_POST);
+                    $this->setViewResponse($save, "La nouvelle commune a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");
+                break;
+                case('update'):
+                    unset($_POST['action']);
+                    $save = false;
+                    isset($_POST["aocCommune"]) ? $_POST["aocCommune"] = 1 : $_POST["aocCommune"] = 0;
+                    $save = $this->_model->updateCommune($_POST);
+                    $this->setViewResponse($save, "La commune à bien été modifiée.", "Un problème est survenu lors de l'opération!");
+                break;
+            }           
+        }
+
+        if($action){
+            $action = $this->formatAction($action);
+            switch($action['path']){
+
+                case('edit') :
+                    $askCommune = $this->_model->findCommuneByID($action['query']['id']);
+                    $this->_view->set('askCommune', $askCommune);
+                break;
+
+                case('delete') :
+                    $this->_model->deleteCommune($action['query']['id']);
+                break;
+            }
         }
 
         $communes = $this->_model->findAllCommunes();
