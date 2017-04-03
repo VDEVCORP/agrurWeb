@@ -3,8 +3,7 @@
 class AdminController extends Controller  
 {
 	
-	public function __construct($model, $nameController, $nameAction)
-	{
+	public function __construct($model, $nameController, $nameAction) {
 		parent::__construct($model, $nameController, $nameAction);
 		$this->_setModel($model);
 
@@ -146,7 +145,7 @@ class AdminController extends Controller
             }
         }
 
-        if($action){
+        if($action && !$_POST){
             $action = $this->formatAction($action);
             switch($action['path']){
                 case('edit') :
@@ -154,8 +153,7 @@ class AdminController extends Controller
                     $this->_view->set('askVariete', $askVariete);
                 break;
                 case('delete') :
-                    $save = false;
-                    $save = $this->deleteVariete($action['query']['id']);
+                    $this->_model->deleteVariete($action['query']['id']);
                 break;
             }
         }
@@ -189,7 +187,7 @@ class AdminController extends Controller
             }           
         }
 
-        if($action){
+        if($action && !$_POST){
             $action = $this->formatAction($action);
             switch($action['path']){
 
@@ -226,15 +224,39 @@ class AdminController extends Controller
         $this->_view->outPut();
     }
 
-    public function livraisons(){
+    public function livraisons($action = false){
         $listAxx = $this->secureAccess("admin/livraisons");
         $this->_view->set('listAxx', $listAxx);
 
-        if($_POST){        
-            $save = false;
-            $save = $this->_model->addLivraison($_POST);
-            $this->setViewResponse($save, "La livraison à bien été enregistrée.", "Un problème est survenu lors de la sauvegarde!");
-        }   
+        if($_POST){
+            switch($_POST['action']){
+                case('add') :
+                    unset($_POST['action']);
+                    $save = false;
+                    $save = $this->_model->addLivraison($_POST);
+                    $this->setViewResponse($save, "La livraison à bien été enregistrée.", "Un problème est survenu lors de la sauvegarde!");
+                break;
+                case('update') :
+                    unset($_POST['action']);
+                    $save = false;
+                    $save = $this->_model->updateLivraison($_POST);
+                    $this->setViewResponse($save, "La livraison à bien été modifiée.", "Un problème est survenu lors de l'opération!");
+                break;
+            }
+        }
+
+        if($action && !$_POST){
+            $action = $this->formatAction($action);
+            switch($action['path']){
+                case('edit') :
+                    $askLivraison = $this->_model->findLivraisonByID($action['query']['id']);
+                    $this->_view->set('askLivraison', $askLivraison);
+                break;
+                case('delete') :
+                    $this->_model->deleteLivraison($action['query']['id']);
+                break;
+            }
+        }
 
         $vergers = $this->_model->findAllVergers();
         $this->_view->set('vergers', $vergers);

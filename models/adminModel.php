@@ -284,7 +284,7 @@ class AdminModel extends Model{
 		$sql = "SELECT *, verger.nomVerger 
 				FROM livraison
 				INNER JOIN verger ON livraison.idVerger = verger.idVerger
-				INNER JOIN typeproduit ON livraison.idTypeProduit = verger.idTypeProduit
+				INNER JOIN typeproduit ON livraison.idTypeProduit = typeproduit.idTypeProduit
 				WHERE idLivraison = ?";
 		$this->_setSql($sql);
 
@@ -303,16 +303,16 @@ class AdminModel extends Model{
 
 	public function deleteLivraison($id_livraison){
 		$sql = "DELETE FROM livraison
-				WHERE idLivraison = ";
+				WHERE idLivraison = ?";
 		$this->_setSql($sql);
 
-		$success = $this->execSql($data);
+		$success = $this->execSql([$id_livraison]);
 		return $success;
 	}
 
 	public function updateLivraison($data){
 		$sql = "UPDATE livraison
-				SET dateLivraison = :dateLivraison, quantite = :quantite, verger = :verger, typeProduit = :findAllTypesProduits
+				SET dateLivraison = :dateLivraison, quantite = :quantite, idVerger = :verger, idTypeProduit = :typeProduit
 				WHERE idLivraison = :livraison";
 		$this->_setSql($sql);
 
