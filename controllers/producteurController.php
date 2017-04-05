@@ -53,15 +53,40 @@ class ProducteurController extends Controller{
         $this->_view->outPut();
     }
 
-    public function vergers(){
+    public function vergers($action = false){
         $listAxx = $this->secureAccess("producteur/vergers");
         $this->_view->set('listAxx', $listAxx);
 
         if($_POST){
-            $save = false;
-            $_POST["idProducteur"] = $this->producer['idProducteur'];
-            $save = $this->_model->addVerger($_POST);
-            $this->setViewResponse($save, "Le nouveau verger a bien été ajouté.", "Un problème est survenu lors de la sauvegarde!");
+            switch($_POST['action']){
+                case('add') :
+                    unset($_POST['action']);
+                    $save = false;
+                    $_POST["idProducteur"] = $this->producer['idProducteur'];
+                    $save = $this->_model->addVerger($_POST);
+                    $this->setViewResponse($save, "Le nouveau verger a bien été ajouté.", "Un problème est survenu lors de la sauvegarde!");
+                break;
+                case('update') :
+                    unset($_POST['action']);
+                    $save = false;
+                    $_POST["idProducteur"] = $this->producer['idProducteur'];
+                    $save = $this->_model->updateVergers($_POST);
+                    $this->setViewResponse($save, "Le verger à bien été modifié.", "Un problème est survenu lors de l'opération!");
+                break;
+            }
+        }
+
+        if($action && !$_POST){
+            $action = $this->formatAction($action);
+            switch($action['path']){
+                case('edit') :
+                    $askVerger = $this->_model->findVergerByID($action['query']['id']);
+                    $this->_view->set('askVerger', $askVerger);
+                break;
+                case('delete') :
+                    $this->_model->deleteVerger($action['query']['id']);
+                break;
+            }
         }
 
         $vergers = $this->_model->findProducerVergers($this->producer['idProducteur']);
