@@ -30,6 +30,7 @@
                             <i class="fa fa-map-marker"></i> <?= $verger['nomCommune'] ?> - <?= $verger['codePostal'] ?> 
                             <?= $verger['aocCommune'] ? '<span class="badge badge-warning">Commune AOC</span>' : false ?>
                         </p>
+                        <span class="pull-right">Dernière MàJ: <?= $verger['verger_last_edit'] ?></span>
                     </div>
                 </div>
             <?php } ?>

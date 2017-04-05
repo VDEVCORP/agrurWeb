@@ -208,7 +208,7 @@ class AdminController extends Controller
         $this->_view->outPut();
     }
 
-    public function certifications(){
+    public function certifications($action = false){
         $listAxx = $this->secureAccess("admin/certifications");
         $this->_view->set('listAxx', $listAxx);
 
@@ -270,14 +270,38 @@ class AdminController extends Controller
         $this->_view->outPut();
     }
 
-    public function lots(){
+    public function lots($action = false){
         $listAxx = $this->secureAccess("admin/lots");
         $this->_view->set('listAxx', $listAxx);
 
         if($_POST){
-            $save = false;
-            $save = $this->_model->addLot($_POST);
-            $this->setViewResponse($save, "Le lot à bien été enregistré.", "Un problème est survenu lors de la sauvegarde!");
+            switch($_POST['action']){
+                case('add') :
+                    unset($_POST['action']);
+                    $save = false;
+                    $save = $this->_model->addLot($_POST);
+                    $this->setViewResponse($save, "Le lot à bien été enregistré.", "Un problème est survenu lors de la sauvegarde!");
+                break;
+                case('update') :
+                    unset($_POST['action']);
+                    $save = false;
+                    $save = $this->_model->updateLot($_POST);
+                    $this->setViewResponse($save, "Le lot à bien été modifié.", "Un problème est survenu lors de l'opération!");
+                break;
+            }
+        }
+
+        if($action && !$_POST){
+            $action = $this->formatAction($action);
+            switch($action['path']){
+                case('edit') :
+                    $askLot = $this->_model->findLotByID($action['query']['id']);
+                    $this->_view->set('askLot', $askLot);
+                break;
+                case('delete') :
+                    $this->_model->deleteLot($action['query']['id']);
+                break;
+            }
         }
 
         $lots = $this->_model->findAllLots();

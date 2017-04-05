@@ -373,6 +373,12 @@ class AdminModel extends Model{
 
 	public function findLotByID($id_lot){
 		$sql = "SELECT * FROM lot
+				INNER JOIN livraison ON lot.idLivraison = livraison.idLivraison
+				INNER JOIN typeproduit ON livraison.idTypeProduit = typeProduit.idTypeProduit
+				INNER JOIN verger ON livraison.idVerger = verger.idVerger
+				INNER JOIN variete ON verger.idVariete = variete.idVariete
+				INNER JOIN commune ON verger.idCommune = commune.idCommune
+				INNER JOIN calibre ON lot.idCalibre = calibre.idCalibre
 				WHERE idLot = ?";
 		$this->_setSql($sql);
 
@@ -385,12 +391,18 @@ class AdminModel extends Model{
 				WHERE idLot = ?";
 		$this->_setSql($sql);
 
-		$success = $this->getRow([$id_lot]);
+		$success = $this->execSql([$id_lot]);
 		return $success;	
 	}
 
 	public function updateLot(array $data){
+		$sql = "UPDATE lot
+				SET reference = :reference, quantiteLot = :quantite, idCalibre = :calibre, idLivraison = :livraison
+				WHERE idLot = :lot";
+		$this->_setSql($sql);
 
+		$success = $this->execSql($data);
+		return $success;
 	}
 
 // Table Calibre
@@ -400,4 +412,6 @@ class AdminModel extends Model{
 		$results = $this->getAll();
 		return $results;
 	}
+
+// Table Conditionnement
 }

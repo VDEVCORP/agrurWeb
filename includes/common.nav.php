@@ -59,15 +59,10 @@
                 </li>
 
                 <!-- MENU LINKS ADMIN -->
-                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/inscription"){ ?>
-                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/inscription') echo 'active'; ?>">
-                        <a href="/admin/inscription"><i class="fa fa-plus"></i><span class="nav-label">Inscription</span></a>
-                    </li>
-                <?php }} ?>
-
-                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/utilisateurs"){ ?>
-                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/utilisateurs') echo 'active'; ?>">
-                        <a href="/admin/utilisateurs"><i class="fa fa-users"></i><span class="nav-label">Utilisateurs</span></a>
+                
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/commandes"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/commandes') echo 'active'; ?>">
+                        <a href="/admin/commandes"><i class="fa fa-tasks"></i><span class="nav-label">Commandes</span></a>
                     </li>
                 <?php }} ?>
 
@@ -82,6 +77,30 @@
                         <a href="/admin/lots"><i class="fa fa-barcode"></i><span class="nav-label">Lots</span></a>
                     </li>
                 <?php }} ?>
+                
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/conditionnement"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/conditionnement') echo 'active'; ?>">
+                        <a href="/admin/conditionnement"><i class="fa fa-dropbox"></i><span class="nav-label">Conditionnement</span></a>
+                    </li>
+                <?php }} ?>
+
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/utilisateurs"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/utilisateurs') echo 'active'; ?>">
+                        <a href="/admin/utilisateurs"><i class="fa fa-users"></i><span class="nav-label">Utilisateurs</span></a>
+                    </li>
+                <?php }} ?>
+
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/inscription"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/inscription') echo 'active'; ?>">
+                        <a href="/admin/inscription"><i class="fa fa-plus"></i><span class="nav-label">Inscription</span></a>
+                    </li>
+                <?php }} ?>
+
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/certifications"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/certifications') echo 'active'; ?>">
+                        <a href="/admin/certifications"><i class="fa fa-certificate"></i><span class="nav-label">Certifications</span></a>
+                    </li>
+                <?php }} ?>
 
                 <?php foreach($listAxx as $page){if($page['url_page'] == "admin/communes"){ ?>
                     <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/communes') echo 'active'; ?>">
@@ -91,13 +110,7 @@
 
                 <?php foreach($listAxx as $page){if($page['url_page'] == "admin/varietes"){ ?>
                     <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/varietes') echo 'active'; ?>">
-                        <a href="/admin/varietes"><i class="fa fa-quote-right"></i><span class="nav-label">Varietes</span></a>
-                    </li>
-                <?php }} ?>
-
-                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/certifications"){ ?>
-                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/certifications') echo 'active'; ?>">
-                        <a href="/admin/certifications"><i class="fa fa-certificate"></i><span class="nav-label">Certifications</span></a>
+                        <a href="/admin/varietes"><i class="fa fa-leaf"></i><span class="nav-label">Varietes</span></a>
                     </li>
                 <?php }} ?>
 

@@ -20,6 +20,10 @@ class ProducteurController extends Controller{
         $this->_view->set('listAxx', $listAxx);
 
         $vergers = $this->_model->findProducerVergers($this->producer['idProducteur']);
+        for($i = 0; $i < count($vergers); $i++){
+            $date = new Datetime($vergers[$i]['verger_last_edit']);
+            $vergers[$i]['verger_last_edit'] = $date->format('Y-m-d');
+        }
         $vergers = $this->determineVergerAOC($vergers);
         $this->_view->set('vergers', $vergers);
         $livraisons = $this->_model->findProducerLivraisons($this->producer['idProducteur']);

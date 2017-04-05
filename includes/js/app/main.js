@@ -189,3 +189,34 @@ $('.verger-delete').click(function () {
         });
     });
 });
+
+// Supprimer un lot
+$('.lot-delete').click(function () {
+    $element = $(this)
+    var id = $element.attr('id')
+    swal({
+        title: "Êtes-vous sûr ?",
+        text: "Cette information disparaitra également partout où elle apparait !",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Supprimer!",
+        cancelButtonText: "Retour",
+        closeOnConfirm: false
+    }, function() { 
+        $.ajax(
+            {
+                type: "get",
+                url: "/admin/lots/delete",
+                data: "id="+id,
+                success: function(data) {
+                    swal("Fait!", "Le lot à bien été supprimé!", "success");
+                    $element.closest('tr').remove()
+                }
+            }
+        )
+        .error(function(data) {
+            swal("Oops", "Une erreur s'est produite lors de la suppression!", "error");
+        });
+    });
+});
