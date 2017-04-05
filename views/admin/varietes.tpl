@@ -61,7 +61,7 @@
             <div class="ibox-content">
                 <form action="" method="POST" class="form-horizontal">
                     <input type="hidden" name="action" value="update">
-                    <input type="hidden" name="variete" value="<?= $askVariete['idVariete'] ?>" >
+                    <input type="hidden" name="variete" value="<?= $askVariete['idVariete'] ?>">
                     <div class="form-group">
                         <label for="nom" class="col-sm-2 control-label">Nom</label>
                         <div class="col-sm-10">

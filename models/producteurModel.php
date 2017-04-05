@@ -75,8 +75,8 @@ class ProducteurModel extends Model{
 
 	public function updateVerger(array $data){
 		$sql = "UPDATE verger
-				SET nomVerger = :name, superficie = superficie, nbrArbreParHect = :nbArbres, idVariete = :variete, idCommune = :findAllCommunes
-				WHERE idVerger = :idVerger";
+				SET nomVerger = :name, superficie = :superficie, nbrArbreParHect = :nbArbres, idVariete = :variete, idCommune = :commune
+				WHERE idVerger = :verger";
 		$this->_setSql($sql);
 
 		$success = $this->execSql($data);

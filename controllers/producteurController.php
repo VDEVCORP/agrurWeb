@@ -69,8 +69,7 @@ class ProducteurController extends Controller{
                 case('update') :
                     unset($_POST['action']);
                     $save = false;
-                    $_POST["idProducteur"] = $this->producer['idProducteur'];
-                    $save = $this->_model->updateVergers($_POST);
+                    $save = $this->_model->updateVerger($_POST);
                     $this->setViewResponse($save, "Le verger à bien été modifié.", "Un problème est survenu lors de l'opération!");
                 break;
             }
