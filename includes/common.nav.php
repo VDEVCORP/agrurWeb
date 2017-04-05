@@ -122,6 +122,18 @@
 
                 <!-- MENU LINKS CLIENT -->
 
+                <?php foreach($listAxx as $page){if($page['url_page'] == "client/commandes"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='client/commandes') echo 'active'; ?>">
+                        <a href="/client/commandes"><i class="fa fa-tree"></i><span class="nav-label">Mes commandes</span></a>
+                    </li>
+                <?php }} ?>
+
+                <?php foreach($listAxx as $page){if($page['url_page'] == "client/profil"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='client/profil') echo 'active'; ?>">
+                        <a href="/client/profil"><i class="fa fa-user"></i><span class="nav-label">Mon profil</span></a>
+                    </li>
+                <?php }} ?>
+
             </ul>
         </div>
     </nav>
@@ -146,14 +158,14 @@
 
         <div class="row wrapper border-bottom white-bg page-heading">
         <!-- Les traitements PHP qui suivent sont très moche et devront donner lieu à Refactor 
-                - Ces traitements doivent être déplacé dans le controller parent
-                - Une variable d'infos de page est à imaginer'
+                - Ces traitements doivent être déplacé dans le controller parent de tous les controllers
+                - Une variable d'infos de page est à imaginer(?)
         -->
         <?php
             $url_access = substr($_SERVER['REQUEST_URI'],1);
             if(substr_count($url_access, "/") > 1){
-                /*Expression retournant les deux premiers paramètre de l'URL si un troisième
-                est passé pour ne pas froisser l'écriture du chemin de la page */
+                /*Expression retournant les deux premiers paramètres de l'URL si un troisième
+                est passé pour ne pas froisser l'écriture du chemin de la page => à débugger*/
                 $url_access = str_replace(strrchr(substr($_SERVER['REQUEST_URI'],1), "/"), "", substr($_SERVER['REQUEST_URI'],1));
             } 
             foreach($listAxx as $page){
