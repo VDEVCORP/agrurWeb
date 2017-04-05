@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Dim 02 Avril 2017 à 22:18
+-- Généré le :  Mer 05 Avril 2017 à 09:41
 -- Version du serveur :  5.7.9
 -- Version de PHP :  5.6.16
 
@@ -158,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `commune` (
   `nomCommune` varchar(50) DEFAULT NULL,
   `aocCommune` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`idCommune`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `commune`
@@ -178,7 +178,7 @@ INSERT INTO `commune` (`idCommune`, `codePostal`, `nomCommune`, `aocCommune`) VA
 (16, 19190, 'Le Chastang', 0),
 (17, 19160, 'Neuvic', 1),
 (18, 16120, 'Bassac', 0),
-(19, 16170, 'Bonneville', 0),
+(19, 16170, 'Bonneville', 1),
 (20, 16200, 'Houlette', 0),
 (21, 16270, 'Nieuil', 1);
 
@@ -229,7 +229,7 @@ CREATE TABLE IF NOT EXISTS `livraison` (
   PRIMARY KEY (`idLivraison`),
   KEY `FK_LIVRAISON_idVerger` (`idVerger`),
   KEY `FK_LIVRAISON_idTypeProduit` (`idTypeProduit`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `livraison`
@@ -238,7 +238,7 @@ CREATE TABLE IF NOT EXISTS `livraison` (
 INSERT INTO `livraison` (`idLivraison`, `dateLivraison`, `quantite`, `idVerger`, `idTypeProduit`) VALUES
 (2, '2017-04-01', 400, 6, 2),
 (3, '2017-02-17', 200, 4, 1),
-(4, '2017-03-24', 500, 8, 2);
+(4, '2017-03-24', 400, 8, 2);
 
 -- --------------------------------------------------------
 
@@ -256,7 +256,7 @@ CREATE TABLE IF NOT EXISTS `lot` (
   PRIMARY KEY (`idLot`),
   KEY `FK_LOT_idLivraison` (`idLivraison`),
   KEY `idCalibre` (`idCalibre`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `lot`
@@ -281,7 +281,7 @@ CREATE TABLE IF NOT EXISTS `page` (
   `name_page` varchar(100) NOT NULL,
   `description_page` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id_page`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `page`
@@ -300,7 +300,11 @@ INSERT INTO `page` (`id_page`, `url_page`, `name_page`, `description_page`) VALU
 (11, 'admin/livraisons', 'Livraisons', 'Liste et ajout des livraisons de fournisseurs'),
 (12, 'admin/lots', 'Administration des lots', 'Liste et ajout des lots de noix.'),
 (13, 'producteur/profil', 'Mon profil', 'Espace profil du producteur; vu et possibilité de modifier ses informations. Liste des différentes certifications attribuées'),
-(14, 'producteur/contact', 'Contact Administrateur', 'Page de prise de contact avec l''administrateur pour un producteur');
+(14, 'producteur/contact', 'Contact Administrateur', 'Page de prise de contact avec l''administrateur pour un producteur'),
+(15, 'client/profil', 'Mon profil', 'Espace d''administration du profil d''un client'),
+(16, 'client/commandes', 'Commandes', 'Page permettant de passer commande et de garder un visuel sur le status des commandes'),
+(17, 'admin/conditionnement', 'Conditionnement', 'Liste et ajout de différents modes de conditionnement de la coopérative'),
+(18, 'admin/commandes', 'Commandes', 'Espace de gestion et de vue sur les commandes formulés par les clients de la coopérative');
 
 -- --------------------------------------------------------
 
@@ -402,7 +406,7 @@ CREATE TABLE IF NOT EXISTS `users_access` (
   PRIMARY KEY (`users_access_id`),
   KEY `fk_id_page` (`fk_id_page`),
   KEY `fk_id_rank` (`fk_id_rank`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `users_access`
@@ -421,7 +425,11 @@ INSERT INTO `users_access` (`users_access_id`, `fk_id_rank`, `fk_id_page`) VALUE
 (16, 1, 11),
 (17, 1, 12),
 (18, 2, 13),
-(19, 2, 14);
+(19, 2, 14),
+(20, 3, 15),
+(21, 3, 16),
+(22, 1, 17),
+(23, 1, 18);
 
 -- --------------------------------------------------------
 
@@ -488,7 +496,7 @@ CREATE TABLE IF NOT EXISTS `variete` (
   `nomVariete` varchar(25) DEFAULT NULL,
   `aocVariete` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`idVariete`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `variete`
@@ -520,26 +528,26 @@ CREATE TABLE IF NOT EXISTS `verger` (
   `idProducteur` int(11) DEFAULT NULL,
   `idVariete` int(11) NOT NULL,
   `idCommune` int(11) DEFAULT NULL,
-  `last_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `verger_last_edit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`idVerger`),
   KEY `FK_VERGER_idProducteur` (`idProducteur`),
   KEY `FK_VERGER_idVariete` (`idVariete`),
   KEY `FK_VERGER_idCommune` (`idCommune`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `verger`
 --
 
-INSERT INTO `verger` (`idVerger`, `nomVerger`, `superficie`, `nbrArbreParHect`, `idProducteur`, `idVariete`, `idCommune`, `last_edit`) VALUES
-(4, '1FRANQ1MAUR', 4, 100, 13, 13, 9, '2017-04-01 23:45:58'),
-(5, '1CORN1BONN', 6, 70, 13, 10, 19, '2017-04-02 19:28:32'),
-(6, '1FERNOR1NIEU', 2, 120, 13, 16, 21, '2017-04-02 20:27:20'),
-(7, '1PERI2NIEU', 5, 90, 13, 11, 21, '2017-04-02 20:28:46'),
-(8, '198MEENdG1', 20, 125, 14, 15, 15, '2017-04-02 20:44:00'),
-(9, '191LCSGNdP1', 15, 100, 14, 11, 16, '2017-04-02 20:45:32'),
-(10, '162HOULGJ2', 5, 60, 14, 9, 20, '2017-04-02 20:46:51'),
-(11, '162HOULGJ1', 7, 65, 14, 9, 20, '2017-04-02 20:47:17');
+INSERT INTO `verger` (`idVerger`, `nomVerger`, `superficie`, `nbrArbreParHect`, `idProducteur`, `idVariete`, `idCommune`, `verger_last_edit`) VALUES
+(4, '1FRANQ1MAUR', 4, 100, 13, 15, 9, '2017-04-05 09:40:54'),
+(5, '1CORN1BONN', 6, 70, 13, 10, 19, '2017-04-05 08:47:33'),
+(6, '1FERNOR1NIEU', 2, 120, 13, 16, 12, '2017-04-05 09:40:43'),
+(7, '1PERI2NIEU', 5, 90, 13, 11, 21, '2017-04-02 18:28:46'),
+(8, '198MEENdG1', 20, 125, 14, 15, 15, '2017-04-02 18:44:00'),
+(9, '191LCSGNdP1', 15, 100, 14, 11, 16, '2017-04-02 18:45:32'),
+(10, '162HOULGJ2', 5, 60, 14, 9, 20, '2017-04-02 18:46:51'),
+(11, '162HOULGJ1', 7, 65, 14, 9, 20, '2017-04-02 18:47:17');
 
 --
 -- Contraintes pour les tables exportées
