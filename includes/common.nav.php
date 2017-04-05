@@ -59,15 +59,10 @@
                 </li>
 
                 <!-- MENU LINKS ADMIN -->
-                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/inscription"){ ?>
-                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/inscription') echo 'active'; ?>">
-                        <a href="/admin/inscription"><i class="fa fa-plus"></i><span class="nav-label">Inscription</span></a>
-                    </li>
-                <?php }} ?>
-
-                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/utilisateurs"){ ?>
-                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/utilisateurs') echo 'active'; ?>">
-                        <a href="/admin/utilisateurs"><i class="fa fa-users"></i><span class="nav-label">Utilisateurs</span></a>
+                
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/commandes"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/commandes') echo 'active'; ?>">
+                        <a href="/admin/commandes"><i class="fa fa-tasks"></i><span class="nav-label">Commandes</span></a>
                     </li>
                 <?php }} ?>
 
@@ -82,16 +77,22 @@
                         <a href="/admin/lots"><i class="fa fa-barcode"></i><span class="nav-label">Lots</span></a>
                     </li>
                 <?php }} ?>
-
-                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/communes"){ ?>
-                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/communes') echo 'active'; ?>">
-                        <a href="/admin/communes"><i class="fa fa-road"></i><span class="nav-label">Communes</span></a>
+                
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/conditionnement"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/conditionnement') echo 'active'; ?>">
+                        <a href="/admin/conditionnement"><i class="fa fa-dropbox"></i><span class="nav-label">Conditionnement</span></a>
                     </li>
                 <?php }} ?>
 
-                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/varietes"){ ?>
-                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/varietes') echo 'active'; ?>">
-                        <a href="/admin/varietes"><i class="fa fa-quote-right"></i><span class="nav-label">Varietes</span></a>
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/utilisateurs"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/utilisateurs') echo 'active'; ?>">
+                        <a href="/admin/utilisateurs"><i class="fa fa-users"></i><span class="nav-label">Utilisateurs</span></a>
+                    </li>
+                <?php }} ?>
+
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/inscription"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/inscription') echo 'active'; ?>">
+                        <a href="/admin/inscription"><i class="fa fa-plus"></i><span class="nav-label">Inscription</span></a>
                     </li>
                 <?php }} ?>
 
@@ -101,14 +102,50 @@
                     </li>
                 <?php }} ?>
 
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/communes"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/communes') echo 'active'; ?>">
+                        <a href="/admin/communes"><i class="fa fa-road"></i><span class="nav-label">Communes</span></a>
+                    </li>
+                <?php }} ?>
+
+                <?php foreach($listAxx as $page){if($page['url_page'] == "admin/varietes"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='admin/varietes') echo 'active'; ?>">
+                        <a href="/admin/varietes"><i class="fa fa-leaf"></i><span class="nav-label">Varietes</span></a>
+                    </li>
+                <?php }} ?>
+
                 <!-- MENU LINKS PRODUCTEUR -->
+                <?php foreach($listAxx as $page){if($page['url_page'] == "producteur/profil"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='producteur/profil') echo 'active'; ?>">
+                        <a href="/producteur/profil"><i class="fa fa-user"></i><span class="nav-label">Mon profil</span></a>
+                    </li>
+                <?php }} ?>
+
                 <?php foreach($listAxx as $page){if($page['url_page'] == "producteur/vergers"){ ?>
                     <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='producteur/vergers') echo 'active'; ?>">
                         <a href="/producteur/vergers"><i class="fa fa-tree"></i><span class="nav-label">Mes Vergers</span></a>
                     </li>
                 <?php }} ?>
 
+                <?php foreach($listAxx as $page){if($page['url_page'] == "producteur/contact"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='producteur/contact') echo 'active'; ?>">
+                        <a href="/producteur/contact"><i class="fa fa-pencil-square-o"></i><span class="nav-label">Contact</span></a>
+                    </li>
+                <?php }} ?>
+
                 <!-- MENU LINKS CLIENT -->
+
+                <?php foreach($listAxx as $page){if($page['url_page'] == "client/commandes"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='client/commandes') echo 'active'; ?>">
+                        <a href="/client/commandes"><i class="fa fa-tree"></i><span class="nav-label">Mes commandes</span></a>
+                    </li>
+                <?php }} ?>
+
+                <?php foreach($listAxx as $page){if($page['url_page'] == "client/profil"){ ?>
+                    <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='client/profil') echo 'active'; ?>">
+                        <a href="/client/profil"><i class="fa fa-user"></i><span class="nav-label">Mon profil</span></a>
+                    </li>
+                <?php }} ?>
 
             </ul>
         </div>
@@ -134,14 +171,14 @@
 
         <div class="row wrapper border-bottom white-bg page-heading">
         <!-- Les traitements PHP qui suivent sont très moche et devront donner lieu à Refactor 
-                - Ces traitements doivent être déplacé dans le controller parent
-                - Une variable d'infos de page est à imaginer'
+                - Ces traitements doivent être déplacé dans le controller parent de tous les controllers
+                - Une variable d'infos de page est à imaginer(?)
         -->
         <?php
             $url_access = substr($_SERVER['REQUEST_URI'],1);
             if(substr_count($url_access, "/") > 1){
-                /*Expression retournant les deux premiers paramètre de l'URL si un troisième
-                est passé pour ne pas froisser l'écriture du chemin de la page */
+                /*Expression retournant les deux premiers paramètres de l'URL si un troisième
+                est passé pour ne pas froisser l'écriture du chemin de la page => à débugger*/
                 $url_access = str_replace(strrchr(substr($_SERVER['REQUEST_URI'],1), "/"), "", substr($_SERVER['REQUEST_URI'],1));
             } 
             foreach($listAxx as $page){

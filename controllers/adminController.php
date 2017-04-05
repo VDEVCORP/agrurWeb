@@ -3,8 +3,7 @@
 class AdminController extends Controller  
 {
 	
-	public function __construct($model, $nameController, $nameAction)
-	{
+	public function __construct($model, $nameController, $nameAction) {
 		parent::__construct($model, $nameController, $nameAction);
 		$this->_setModel($model);
 
@@ -88,7 +87,7 @@ class AdminController extends Controller
             $action = $this->formatAction($action);
             switch($action['path']){
 
-                case('edit') :
+                case('details') :
                     if($action['query']['role'] == 'prod'){
                         $askProducer = $this->_model->findProducerByID($action['query']['id']);
                         $this->_view->set('askProducer', $askProducer);
@@ -96,6 +95,8 @@ class AdminController extends Controller
                         $this->_view->set('certifications', $certifications);
                         $certifDelivrees = $this->_model->findCertifDelivrees($action['query']['id']);
                         $this->_view->set('certifDelivrees', $certifDelivrees);
+                        $vergers = $this->_model->findProducerVergers($action['query']['id']);
+                        $this->_view->set('vergers', $vergers);
                     } elseif($action['query']['role'] == 'cli'){
                         $askCustomer = $this->_model->findCustomerByID($action['query']['id']);
                         $this->_view->set('askCustomer', $askCustomer);
@@ -126,25 +127,34 @@ class AdminController extends Controller
         $this->_view->set('listAxx', $listAxx);
 
         if($_POST){
-            $save = false;
-            isset($_POST["aocVariete"]) ? $_POST["aocVariete"] = 1 : $_POST["aocVariete"] = 0;
-            $save = $this->_model->addVariete($_POST);
-            $this->setViewResponse($save, "La nouvelle variété a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");  
+            switch($_POST['action']){
+                case('add') :
+                    unset($_POST['action']);
+                    $save = false;
+                    isset($_POST["aocVariete"]) ? $_POST["aocVariete"] = 1 : $_POST["aocVariete"] = 0;
+                    $save = $this->_model->addVariete($_POST);
+                    $this->setViewResponse($save, "La nouvelle variété a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");
+                break;
+                case('update') :
+                    unset($_POST['action']);
+                    $save = false;
+                    isset($_POST["aocVariete"]) ? $_POST["aocVariete"] = 1 : $_POST["aocVariete"] = 0;
+                    $save = $this->_model->updateVariete($_POST);
+                    $this->setViewResponse($save, "La variété à bien été modifiée.", "Un problème est survenu lors de l'opération!");
+                break;
+            }
         }
 
-        if($action){
+        if($action && !$_POST){
             $action = $this->formatAction($action);
             switch($action['path']){
                 case('edit') :
-                    $save = false;
-                    $save = $this->updateVariete($action['query']['id']);
-                    $this->setViewResponse($save, "La variété à bien été modifiée.", "Un problème est survenu lors de l'opération!");
-                    break;
+                    $askVariete = $this->_model->findVarieteByID($action['query']['id']);
+                    $this->_view->set('askVariete', $askVariete);
+                break;
                 case('delete') :
-                    $save = false;
-                    $save = $this->deleteVariete($action['query']['id']);
-                    $this->setViewResponse($save, "La variété à bien été supprimée.", "Impossible d'opérer la suppression!");
-                    break;
+                    $this->_model->deleteVariete($action['query']['id']);
+                break;
             }
         }
 
@@ -154,15 +164,42 @@ class AdminController extends Controller
         $this->_view->outPut();
     }
 
-    public function communes(){
+    public function communes($action = false){
         $listAxx = $this->secureAccess("admin/communes");
         $this->_view->set('listAxx', $listAxx);
 
-        if($_POST){        
-            $save = false;
-            isset($_POST["aocCommune"]) ? $_POST["aocCommune"] = 1 : $_POST["aocCommune"] = 0;
-            $save = $this->_model->addCommune($_POST);
-            $this->setViewResponse($save, "La nouvelle commune a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");   
+        if($_POST){
+            switch($_POST['action']){
+                case('add') :
+                    unset($_POST['action']);
+                    $save = false;
+                    isset($_POST["aocCommune"]) ? $_POST["aocCommune"] = 1 : $_POST["aocCommune"] = 0;
+                    $save = $this->_model->addCommune($_POST);
+                    $this->setViewResponse($save, "La nouvelle commune a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");
+                break;
+                case('update'):
+                    unset($_POST['action']);
+                    $save = false;
+                    isset($_POST["aocCommune"]) ? $_POST["aocCommune"] = 1 : $_POST["aocCommune"] = 0;
+                    $save = $this->_model->updateCommune($_POST);
+                    $this->setViewResponse($save, "La commune à bien été modifiée.", "Un problème est survenu lors de l'opération!");
+                break;
+            }           
+        }
+
+        if($action && !$_POST){
+            $action = $this->formatAction($action);
+            switch($action['path']){
+
+                case('edit') :
+                    $askCommune = $this->_model->findCommuneByID($action['query']['id']);
+                    $this->_view->set('askCommune', $askCommune);
+                break;
+
+                case('delete') :
+                    $this->_model->deleteCommune($action['query']['id']);
+                break;
+            }
         }
 
         $communes = $this->_model->findAllCommunes();
@@ -171,7 +208,7 @@ class AdminController extends Controller
         $this->_view->outPut();
     }
 
-    public function certifications(){
+    public function certifications($action = false){
         $listAxx = $this->secureAccess("admin/certifications");
         $this->_view->set('listAxx', $listAxx);
 
@@ -187,15 +224,39 @@ class AdminController extends Controller
         $this->_view->outPut();
     }
 
-    public function livraisons(){
+    public function livraisons($action = false){
         $listAxx = $this->secureAccess("admin/livraisons");
         $this->_view->set('listAxx', $listAxx);
 
-        if($_POST){        
-            $save = false;
-            $save = $this->_model->addLivraison($_POST);
-            $this->setViewResponse($save, "La livraison à bien été enregistrée.", "Un problème est survenu lors de la sauvegarde!");
-        }   
+        if($_POST){
+            switch($_POST['action']){
+                case('add') :
+                    unset($_POST['action']);
+                    $save = false;
+                    $save = $this->_model->addLivraison($_POST);
+                    $this->setViewResponse($save, "La livraison à bien été enregistrée.", "Un problème est survenu lors de la sauvegarde!");
+                break;
+                case('update') :
+                    unset($_POST['action']);
+                    $save = false;
+                    $save = $this->_model->updateLivraison($_POST);
+                    $this->setViewResponse($save, "La livraison à bien été modifiée.", "Un problème est survenu lors de l'opération!");
+                break;
+            }
+        }
+
+        if($action && !$_POST){
+            $action = $this->formatAction($action);
+            switch($action['path']){
+                case('edit') :
+                    $askLivraison = $this->_model->findLivraisonByID($action['query']['id']);
+                    $this->_view->set('askLivraison', $askLivraison);
+                break;
+                case('delete') :
+                    $this->_model->deleteLivraison($action['query']['id']);
+                break;
+            }
+        }
 
         $vergers = $this->_model->findAllVergers();
         $this->_view->set('vergers', $vergers);
@@ -209,14 +270,38 @@ class AdminController extends Controller
         $this->_view->outPut();
     }
 
-    public function lots(){
+    public function lots($action = false){
         $listAxx = $this->secureAccess("admin/lots");
         $this->_view->set('listAxx', $listAxx);
 
         if($_POST){
-            $save = false;
-            $save = $this->_model->addLot($_POST);
-            $this->setViewResponse($save, "Le lot à bien été enregistré.", "Un problème est survenu lors de la sauvegarde!");
+            switch($_POST['action']){
+                case('add') :
+                    unset($_POST['action']);
+                    $save = false;
+                    $save = $this->_model->addLot($_POST);
+                    $this->setViewResponse($save, "Le lot à bien été enregistré.", "Un problème est survenu lors de la sauvegarde!");
+                break;
+                case('update') :
+                    unset($_POST['action']);
+                    $save = false;
+                    $save = $this->_model->updateLot($_POST);
+                    $this->setViewResponse($save, "Le lot à bien été modifié.", "Un problème est survenu lors de l'opération!");
+                break;
+            }
+        }
+
+        if($action && !$_POST){
+            $action = $this->formatAction($action);
+            switch($action['path']){
+                case('edit') :
+                    $askLot = $this->_model->findLotByID($action['query']['id']);
+                    $this->_view->set('askLot', $askLot);
+                break;
+                case('delete') :
+                    $this->_model->deleteLot($action['query']['id']);
+                break;
+            }
         }
 
         $lots = $this->_model->findAllLots();
