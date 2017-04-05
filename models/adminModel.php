@@ -121,6 +121,15 @@ class AdminModel extends Model{
 		return $results;
 	}
 
+	public function findVarieteByID($id_variete){
+		$sql = "SELECT * FROM variete
+				WHERE idVariete = ?";
+		$this->_setSql($sql);
+
+		$success = $this->getRow([$id_variete]);
+		return $success;
+	}
+
 	public function addVariete(array $data){
 		$sql = "INSERT INTO variete(nomVariete, aocVariete)
 				VALUES (:nom, :aocVariete)";
@@ -139,9 +148,10 @@ class AdminModel extends Model{
 		return $success;
 	}
 
-	public function updateVariete($id, $data){
+	public function updateVariete(array $data){
 		$sql = "UPDATE variete
-				SET nomVariete = :nom, aocVariete = :aocVariete";
+				SET nomVariete = :nom, aocVariete = :aocVariete
+				WHERE idVariete = :variete";
 		$this->_setSql($sql);
 
 		$success = $this->execSql($data);
@@ -157,6 +167,18 @@ class AdminModel extends Model{
 		$this->_setSql($sql);
 		$results = $this->getAll();
 		return $results;
+	}
+
+	public function findProducerVergers($id_producer){
+		$sql = "SELECT *
+				FROM verger
+				INNER JOIN producteur ON verger.idProducteur = producteur.idProducteur
+				INNER JOIN variete ON verger.idVariete = variete.idVariete
+				INNER JOIN commune ON verger.idCommune = commune.idCommune
+				WHERE verger.idProducteur = ?";
+		$this->_setSql($sql);
+
+		return $this->getAll([$id_producer]);
 	}
 
 // Table Commune
@@ -176,6 +198,34 @@ class AdminModel extends Model{
 		return $success;
 	}
 
+	public function deleteCommune($id_commune){
+		$sql = "DELETE FROM commune
+				WHERE idCommune = ?";
+		$this->_setSql($sql);
+
+		$success = $this->execSql([$id_commune]);
+		return $success;
+	}
+
+	public function findCommuneByID($id_commune){
+		$sql = "SELECT * FROM commune
+				WHERE idCommune = ?";
+		$this->_setSql($sql);
+
+		$success = $this->getRow([$id_commune]);
+		return $success;
+	}
+
+	public function updateCommune($data){
+		$sql = "UPDATE commune
+		SET nomCommune = :nom, aocCommune = :aocCommune, codePostal = :codePostal
+		WHERE idCommune = :commune";
+		$this->_setSql($sql);
+
+		$success = $this->execSql($data);
+		return $success;	
+	}
+
 // Table Certification
 	public function findAllCertifications(){
 		$sql = "SELECT * FROM certification";
@@ -185,12 +235,38 @@ class AdminModel extends Model{
 	}
 
 	public function addCertification($libelle){
-		
 		$sql = "INSERT INTO certification(libelleCertification)
 				VALUES (?)";
 		$this->_setSql($sql);
 
 		$success = $this->execSql([$libelle]);
+		return $success;
+	}
+
+	public function findCertificationByID($id_certif){
+		$sql = "SELECT * FROM certification
+				WHERE idCertification = ?";
+		$this->_setSql($sql);
+		$success = $this->getRow([$id_certif]);
+		return $success;
+	}
+
+	public function updateCertification($data){
+		$sql = "UPDATE certification
+				SET libelleCertification = :libelle
+				WHERE idCertification = :certification";
+		$this->_setSql($sql);
+
+		$success = $this->execSql([$libelle]);
+		return $success;
+	}
+
+	public function deleteCertification($id_certif){
+		$sql = "DELETE FROM certification
+				WHERE certification = ?";
+		$this->_setSql($sql);
+
+		$success = $this->execSql([$id_certif]);
 		return $success;
 	}
 
@@ -208,7 +284,7 @@ class AdminModel extends Model{
 		$sql = "SELECT *, verger.nomVerger 
 				FROM livraison
 				INNER JOIN verger ON livraison.idVerger = verger.idVerger
-				INNER JOIN typeproduit ON livraison.idTypeProduit = verger.idTypeProduit
+				INNER JOIN typeproduit ON livraison.idTypeProduit = typeproduit.idTypeProduit
 				WHERE idLivraison = ?";
 		$this->_setSql($sql);
 
@@ -219,6 +295,25 @@ class AdminModel extends Model{
 	public function addLivraison(array $data){
 		$sql = "INSERT INTO livraison(dateLivraison, quantite, idVerger, idTypeProduit)
 				VALUES (:dateLivraison, :quantite, :verger, :typeProduit)";
+		$this->_setSql($sql);
+
+		$success = $this->execSql($data);
+		return $success;
+	}
+
+	public function deleteLivraison($id_livraison){
+		$sql = "DELETE FROM livraison
+				WHERE idLivraison = ?";
+		$this->_setSql($sql);
+
+		$success = $this->execSql([$id_livraison]);
+		return $success;
+	}
+
+	public function updateLivraison($data){
+		$sql = "UPDATE livraison
+				SET dateLivraison = :dateLivraison, quantite = :quantite, idVerger = :verger, idTypeProduit = :typeProduit
+				WHERE idLivraison = :livraison";
 		$this->_setSql($sql);
 
 		$success = $this->execSql($data);
@@ -242,7 +337,6 @@ class AdminModel extends Model{
 		$this->_setSql($sql);
 		$results = $this->getAll([$id_producer]);
 		return $results;
-		
 	}
 
 	public function addCertifDelivree(array $data){
@@ -277,6 +371,40 @@ class AdminModel extends Model{
 		return $success;		
 	}
 
+	public function findLotByID($id_lot){
+		$sql = "SELECT * FROM lot
+				INNER JOIN livraison ON lot.idLivraison = livraison.idLivraison
+				INNER JOIN typeproduit ON livraison.idTypeProduit = typeProduit.idTypeProduit
+				INNER JOIN verger ON livraison.idVerger = verger.idVerger
+				INNER JOIN variete ON verger.idVariete = variete.idVariete
+				INNER JOIN commune ON verger.idCommune = commune.idCommune
+				INNER JOIN calibre ON lot.idCalibre = calibre.idCalibre
+				WHERE idLot = ?";
+		$this->_setSql($sql);
+
+		$success = $this->getRow([$id_lot]);
+		return $success;	
+	}
+
+	public function deleteLot($id_lot){
+		$sql = "DELETE FROM lot
+				WHERE idLot = ?";
+		$this->_setSql($sql);
+
+		$success = $this->execSql([$id_lot]);
+		return $success;	
+	}
+
+	public function updateLot(array $data){
+		$sql = "UPDATE lot
+				SET reference = :reference, quantiteLot = :quantite, idCalibre = :calibre, idLivraison = :livraison
+				WHERE idLot = :lot";
+		$this->_setSql($sql);
+
+		$success = $this->execSql($data);
+		return $success;
+	}
+
 // Table Calibre
 	public function findAllCalibres(){
 		$sql = "SELECT * FROM calibre";
@@ -284,4 +412,6 @@ class AdminModel extends Model{
 		$results = $this->getAll();
 		return $results;
 	}
+
+// Table Conditionnement
 }

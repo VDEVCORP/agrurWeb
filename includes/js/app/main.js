@@ -6,6 +6,7 @@ $('.profession').on('change', function(){
     }
 })
 
+// Désactive un Utilisateur
 $('.user-disable').click(function () {
     $element = $(this)
     var id = $element.attr('id')
@@ -24,22 +25,21 @@ $('.user-disable').click(function () {
                 type: "get",
                 url: "/admin/utilisateurs/remove",
                 data: "id="+id,
-                success: function(data){
+                success: function(data) {
+                    swal("Fait!", "L'utilisateur à bien été désactivé!", "success");
+                    $element.removeClass('user-disable').addClass('user-enable')
+                    $element.removeClass('btn-danger').addClass('btn-success')
+                    $element.text('Activer')
                 }
             }
         )
-        .done(function(data) {
-            swal("Fait!", "L'utilisateur à bien été désactivé!", "success");
-            $element.removeClass('user-disable').addClass('user-enable')
-            $element.removeClass('btn-danger').addClass('btn-success')
-            $element.text('Activer')
-        })
         .error(function(data) {
             swal("Oops", "Une erreur s'est produite lors de la modification!", "error");
         });
     });
 });
 
+// Active un utilisateur
 $('.user-enable').click(function(){
     $element = $(this)
     var id = $element.attr('id')
@@ -65,6 +65,158 @@ $('.user-enable').click(function(){
     });
 });
 
-function updateLinks(){
-    
-}
+// Supprime une commune
+$('.commune-delete').click(function () {
+    $element = $(this)
+    var id = $element.attr('id')
+    swal({
+        title: "Êtes-vous sûr ?",
+        text: "Cette information disparaitra également partout où elle apparait !",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Supprimer!",
+        cancelButtonText: "Retour",
+        closeOnConfirm: false
+    }, function() { 
+        $.ajax(
+            {
+                type: "get",
+                url: "/admin/communes/delete",
+                data: "id="+id,
+                success: function(data) {
+                    swal("Fait!", "La commune à bien été supprimée!", "success");
+                    $element.closest('tr').remove()
+                }
+            }
+        )
+        .error(function(data) {
+            swal("Oops", "Une erreur s'est produite lors de la suppression!", "error");
+        });
+    });
+});
+
+// Supprime une variété
+
+$('.variete-delete').click(function () {
+    $element = $(this)
+    var id = $element.attr('id')
+    swal({
+        title: "Êtes-vous sûr ?",
+        text: "Cette information disparaitra également partout où elle apparait !",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Supprimer!",
+        cancelButtonText: "Retour",
+        closeOnConfirm: false
+    }, function() { 
+        $.ajax(
+            {
+                type: "get",
+                url: "/admin/varietes/delete",
+                data: "id="+id,
+                success: function(data) {
+                    swal("Fait!", "La variété à bien été supprimée!", "success");
+                    $element.closest('tr').remove()
+                }
+            }
+        )
+        .error(function(data) {
+            swal("Oops", "Une erreur s'est produite lors de la suppression!", "error");
+        });
+    });
+});
+
+// Supprimer une livraison
+$('.livraison-delete').click(function () {
+    $element = $(this)
+    var id = $element.attr('id')
+    swal({
+        title: "Êtes-vous sûr ?",
+        text: "Cette information disparaitra également partout où elle apparait !",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Supprimer!",
+        cancelButtonText: "Retour",
+        closeOnConfirm: false
+    }, function() { 
+        $.ajax(
+            {
+                type: "get",
+                url: "/admin/livraisons/delete",
+                data: "id="+id,
+                success: function(data) {
+                    swal("Fait!", "La livraison à bien été supprimée!", "success");
+                    $element.closest('tr').remove()
+                }
+            }
+        )
+        .error(function(data) {
+            swal("Oops", "Une erreur s'est produite lors de la suppression!", "error");
+        });
+    });
+});
+
+// Supprimer un verger
+$('.verger-delete').click(function () {
+    $element = $(this)
+    var id = $element.attr('id')
+    swal({
+        title: "Êtes-vous sûr ?",
+        text: "Cette information disparaitra également partout où elle apparait !",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Supprimer!",
+        cancelButtonText: "Retour",
+        closeOnConfirm: false
+    }, function() { 
+        $.ajax(
+            {
+                type: "get",
+                url: "/producteur/vergers/delete",
+                data: "id="+id,
+                success: function(data) {
+                    swal("Fait!", "Le verger à bien été supprimé!", "success");
+                    $element.closest('tr').remove()
+                }
+            }
+        )
+        .error(function(data) {
+            swal("Oops", "Une erreur s'est produite lors de la suppression!", "error");
+        });
+    });
+});
+
+// Supprimer un lot
+$('.lot-delete').click(function () {
+    $element = $(this)
+    var id = $element.attr('id')
+    swal({
+        title: "Êtes-vous sûr ?",
+        text: "Cette information disparaitra également partout où elle apparait !",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Supprimer!",
+        cancelButtonText: "Retour",
+        closeOnConfirm: false
+    }, function() { 
+        $.ajax(
+            {
+                type: "get",
+                url: "/admin/lots/delete",
+                data: "id="+id,
+                success: function(data) {
+                    swal("Fait!", "Le lot à bien été supprimé!", "success");
+                    $element.closest('tr').remove()
+                }
+            }
+        )
+        .error(function(data) {
+            swal("Oops", "Une erreur s'est produite lors de la suppression!", "error");
+        });
+    });
+});
