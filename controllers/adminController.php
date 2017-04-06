@@ -212,11 +212,35 @@ class AdminController extends Controller
         $listAxx = $this->secureAccess("admin/certifications");
         $this->_view->set('listAxx', $listAxx);
 
-        if($_POST){        
-            $save = false;
-            $save = $this->_model->addCertification($_POST['libelle']);
-            $this->setViewResponse($save, "La nouvelle certification a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");
-        }   
+        if($_POST){
+            switch($_POST['action']){
+                case('add') :
+                    unset($_POST['action']);        
+                    $save = false;
+                    $save = $this->_model->addCertification($_POST['libelle']);
+                    $this->setViewResponse($save, "La nouvelle certification a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");
+                break;
+                case('update') :
+                    unset($_POST['action']);
+                    $save = false;
+                    $save = $this->_model->updateCertification($_POST);
+                    $this->setViewResponse($save, "La certification à bien été modifiée.", "Un problème est survenu lors de l'opération!");
+                break;
+            }
+        }
+
+        if($action && !$_POST){
+            $action = $this->formatAction($action);
+            switch($action['path']){
+                case('edit') :
+                    $askCertification = $this->_model->findCertificationByID($action['query']['id']);
+                    $this->_view->set('askCertification', $askCertification);
+                break;
+                case('delete') :
+                    $this->_model->deleteCertification($action['query']['id']);
+                break;
+            }
+        }
 
         $certifications = $this->_model->findAllCertifications();
         $this->_view->set('certifications', $certifications);

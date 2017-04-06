@@ -257,13 +257,13 @@ class AdminModel extends Model{
 				WHERE idCertification = :certification";
 		$this->_setSql($sql);
 
-		$success = $this->execSql([$libelle]);
+		$success = $this->execSql($data);
 		return $success;
 	}
 
 	public function deleteCertification($id_certif){
 		$sql = "DELETE FROM certification
-				WHERE certification = ?";
+				WHERE idCertification = ?";
 		$this->_setSql($sql);
 
 		$success = $this->execSql([$id_certif]);
