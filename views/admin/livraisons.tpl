@@ -68,7 +68,7 @@
                     <div class="form-group">
                         <label for="dateLivraison" class="col-sm-2 control-label">Date</label>
                         <div class="col-sm-10">
-                            <input type="date" name="dateLivraison" id="dateLivraison" class="form-control" value="<?= $askLivraison['dateLivraison'] ?>">
+                            <input type="date" name="dateLivraison" id="dateLivraison" class="form-control" value="<?= $askLivraison['dateLivraison'] ?>" required>
                         </div>
                     </div>
 
@@ -102,7 +102,7 @@
                     <div class="form-group">
                         <label for="quantite" class="col-sm-2 control-label">Quantité</label>
                         <div class="col-sm-10">
-                            <input type="number" name="quantite" id="quantite" class="form-control" value="<?= $askLivraison['quantite'] ?>" placeholder="*en Kg">
+                            <input type="number" name="quantite" id="quantite" class="form-control" value="<?= $askLivraison['quantite'] ?>" placeholder="*en Kg" required>
                         </div>
                     </div>
 

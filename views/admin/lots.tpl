@@ -70,7 +70,7 @@
                     <div class="form-group">
                         <label for="nom" class="col-sm-2 control-label">Ref</label>
                         <div class="col-sm-10">
-                            <input type="text" name="reference" id="reference" class="form-control" value="<?= $askLot['reference'] ?>">
+                            <input type="text" name="reference" id="reference" class="form-control" value="<?= $askLot['reference'] ?>" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -103,7 +103,7 @@
                     <div class="form-group">
                         <label for="quantite" class="col-sm-2 control-label">Quantite</label>
                         <div class="col-sm-10">
-                            <input type="number" name="quantite" id="quantite" value="<?= $askLot['quantiteLot'] ?>" class="form-control">
+                            <input type="number" name="quantite" id="quantite" value="<?= $askLot['quantiteLot'] ?>" class="form-control" required>
                         </div>
                     </div>
 
@@ -136,7 +136,7 @@
                     <div class="form-group">
                         <label for="nom" class="col-sm-2 control-label">Ref</label>
                         <div class="col-sm-10">
-                            <input type="text" name="reference" id="reference" class="form-control">
+                            <input type="text" name="reference" id="reference" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -167,7 +167,7 @@
                     <div class="form-group">
                         <label for="quantite" class="col-sm-2 control-label">Quantite</label>
                         <div class="col-sm-10">
-                            <input type="number" name="quantite" id="quantite" class="form-control">
+                            <input type="number" name="quantite" id="quantite" class="form-control" required>
                         </div>
                     </div>
 

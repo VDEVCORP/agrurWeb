@@ -61,14 +61,14 @@
                     <div class="form-group">
                         <label for="nom" class="col-sm-2 control-label">Nom</label>
                         <div class="col-sm-10">
-                            <input type="text" name="nom" id="nom" class="form-control">
+                            <input type="text" name="nom" id="nom" class="form-control" required>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="prenom" class="col-sm-2 control-label">Prenom</label>
                         <div class="col-sm-10">
-                            <input type="text" name="prenom" id="prenom" class="form-control">
+                            <input type="text" name="prenom" id="prenom" class="form-control" required>
                         </div>
                     </div>
 
@@ -78,13 +78,13 @@
                     <div class="form-group">
                         <label for="mail" class="col-sm-2 control-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="mail" name="mail" id="mail" class="form-control" placeholder="exemple@mail.fr">
+                            <input type="mail" name="mail" id="mail" class="form-control" placeholder="exemple@mail.fr" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="telephone" class="col-sm-2 control-label">Telephone</label>
                         <div class="col-sm-10">
-                            <input type="tel" name="telephone" id="telephone" class="form-control" placeholder="0612345678">
+                            <input type="tel" name="telephone" id="telephone" class="form-control" placeholder="0612345678" required>
                         </div>
                     </div>
 
@@ -94,21 +94,21 @@
                     <div class="form-group">
                         <label for="adresse" class="col-sm-2 control-label">Rue</label>
                         <div class="col-sm-10">
-                            <input type="text" name="adresse" id="adresse" class="form-control" placeholder="27 rue des Saules">
+                            <input type="text" name="adresse" id="adresse" class="form-control" placeholder="27 rue des Saules" required>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label for="ville" class="col-sm-2 control-label">Ville</label>
                         <div class="col-sm-10">
-                            <input type="text" name="ville" id="ville" class="form-control">
+                            <input type="text" name="ville" id="ville" class="form-control" required>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="codePostal" class="col-sm-2 control-label">Code Postal</label>
                         <div class="col-sm-5">
-                            <input type="text" name="codePostal" id="codePostal" class="form-control">
+                            <input type="text" name="codePostal" id="codePostal" class="form-control" required>
                         </div> 
                     </div>
 
@@ -117,7 +117,7 @@
                     <div class="form-group">
                         <label for="tempPassword" class="col-sm-2 control-label">Mot de passe</label>
                         <div class="col-sm-5">
-                            <input type="text" name="tempPassword" id="tempPassword" class="form-control" placeholder="* Celui-ci est provisoire">
+                            <input type="text" name="tempPassword" id="tempPassword" class="form-control" placeholder="* Celui-ci est provisoire" required>
                         </div>    
                     </div>
 

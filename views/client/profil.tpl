@@ -19,34 +19,34 @@
 					
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Société</label>
-						<div class="col-sm-10"><input type="text" title="Nom de la société" name="societe" value="<?= $customer["nomClient"] ?>" class="form-control"></div>
+						<div class="col-sm-10"><input type="text" title="Nom de la société" name="societe" value="<?= $customer["nomClient"] ?>" class="form-control" required></div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-md-2 control-label">Représentant</label>
-						<div class="col-md-5"><input type="text" title="Nom du responsable" name="nom" value="<?= $customer["nomRepresentant"] ?>" class="form-control"></div>
-						<div class="col-md-5"><input type="text" title="Prénom du responsable" name="prenom" value="<?= $customer["prenomRepresentant"] ?>" class="form-control"></div>	
+						<div class="col-md-5"><input type="text" title="Nom du responsable" name="nom" value="<?= $customer["nomRepresentant"] ?>" class="form-control" required></div>
+						<div class="col-md-5"><input type="text" title="Prénom du responsable" name="prenom" value="<?= $customer["prenomRepresentant"] ?>" class="form-control" required></div>	
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Email</label>
-						<div class="col-sm-10"><input type="email" title="Email" name="email" value="<?= $customer["email"] ?>" class="form-control"></div>
+						<div class="col-sm-10"><input type="email" title="Email" name="email" value="<?= $customer["email"] ?>" class="form-control" required></div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Téléphone</label>
-						<div class="col-sm-10"><input type="text" title="Numéro de téléphone" name="telephone" value="<?= $customer["telephone"] ?>" class="form-control"></div>
+						<div class="col-sm-10"><input type="text" title="Numéro de téléphone" name="telephone" value="<?= $customer["telephone"] ?>" class="form-control" required></div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Adresse</label>
-						<div class="col-sm-10"><input type="text" title="Adresse professionnelle" name="adresse" value="<?= $customer["adresse"] ?>" class="form-control"></div>
+						<div class="col-sm-10"><input type="text" title="Adresse professionnelle" name="adresse" value="<?= $customer["adresse"] ?>" class="form-control" required></div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-md-2 control-label">Ville</label>
-						<div class="col-md-7"><input type="text" title="Ville" name="ville" value="<?= $customer["ville"] ?>" class="form-control"></div>
-						<div class="col-md-3"><input type="text" title="Code postal" name="codePostal" value="<?= $customer["codePostal"] ?>" class="form-control"></div>
+						<div class="col-md-7"><input type="text" title="Ville" name="ville" value="<?= $customer["ville"] ?>" class="form-control" required></div>
+						<div class="col-md-3"><input type="text" title="Code postal" name="codePostal" value="<?= $customer["codePostal"] ?>" class="form-control" required></div>
 					</div>
 					
 					<div class="form-group">

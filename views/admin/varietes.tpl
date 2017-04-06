@@ -65,7 +65,7 @@
                     <div class="form-group">
                         <label for="nom" class="col-sm-2 control-label">Nom</label>
                         <div class="col-sm-10">
-                            <input type="text" name="nom" id="nom" class="form-control" value="<?= $askVariete['nomVariete'] ?>">
+                            <input type="text" name="nom" id="nom" class="form-control" value="<?= $askVariete['nomVariete'] ?>" required>
                         </div>
                     </div>
 
@@ -109,7 +109,7 @@
                     <div class="form-group">
                         <label for="nom" class="col-sm-2 control-label">Nom</label>
                         <div class="col-sm-10">
-                            <input type="text" name="nom" id="nom" class="form-control">
+                            <input type="text" name="nom" id="nom" class="form-control" required>
                         </div>
                     </div>
 
