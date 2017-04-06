@@ -66,7 +66,7 @@
             <div class="ibox-content">
                 <form action="" method="POST" class="form-horizontal">
                     <input type="hidden" name="action" value="update">
-                    <input type="hidden" name="lot" value="<?= $askLot['idLot'] ?>">
+                    <input type="hidden" name="lot" value="<?= $askLot['idLot'] ?>" required>
                     <div class="form-group">
                         <label for="nom" class="col-sm-2 control-label">Ref</label>
                         <div class="col-sm-10">
@@ -142,7 +142,8 @@
                     <div class="form-group">
                         <label for="livraison" class="col-sm-2 control-label">Origine</label>
                         <div class="col-sm-10">
-                            <select class="form-control" name="livraison">
+                            <select class="form-control" name="livraison" required>
+                                <option selected disabled value>-- Selectionnez l'origine --</option>
                                 <?php foreach($livraisons as $livraison){ ?>
                                     <option value="<?= $livraison['idLivraison'] ?>">
                                         <?= $livraison['dateLivraison'] ?> : N° <?= $livraison['idLivraison'] ?> | <?= $livraison['nomVerger'] ?>
@@ -156,7 +157,8 @@
                     <div class="form-group">
                         <label for="calibre" class="col-sm-2 control-label">Calibre</label>
                         <div class="col-sm-10">
-                            <select class="form-control" name="calibre">
+                            <select class="form-control" name="calibre" required>
+                                <option selected disabled value>-- Selectionnez un calibre --</option>
                                 <?php foreach($calibres as $calibre){ ?>
                                     <option value="<?= $calibre['idCalibre'] ?>"><?= $calibre['intervalle'] ?></option>
                                 <?php } ?>

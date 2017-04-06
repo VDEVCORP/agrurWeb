@@ -154,12 +154,13 @@
                     <div class="form-group">
                         <label class="font-noraml">Date d'obtention</label>
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="date" name="dateCertif" class="form-control">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="date" name="dateCertif" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="input-group">
-                            <select class="form-control" name="certification">
+                            <select class="form-control" name="certification" required>
+                                <option selected disabled value>-- Certificats --</option>
                                 <?php foreach($certifications as $certification) { ?>
                                     <option value="<?= $certification['idCertification'] ?>">
                                         <?= $certification['libelleCertification'] ?>
