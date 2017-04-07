@@ -338,4 +338,46 @@ class AdminController extends Controller
         $this->_view->outPut();
     }
 
+    public function conditionnement($action = false){
+        $listAxx = $this->secureAccess("admin/conditionnement");
+        $this->_view->set('listAxx', $listAxx);
+
+        if($_POST){
+            switch($_POST['action']){
+                case('add') :
+                    unset($_POST['action']);
+                    $save = false;
+                    $save = $this->_model->addConditionnement($_POST);
+                    $this->setViewResponse($save, "Le conditionnement à bien été enregistré.", "Un problème est survenu lors de la sauvegarde!");
+                break;
+                case('update') :
+                    unset($_POST['action']);
+                    $save = false;
+                    $save = $this->_model->updateConditionnement($_POST);
+                    $this->setViewResponse($save, "Le conditionnement à bien été modifié.", "Un problème est survenu lors de l'opération!");
+                break;
+            }
+        }
+
+        if($action && !$_POST){
+            $action = $this->formatAction($action);
+            switch($action['path']){
+                case('details') :
+                    $askConditionnement = $this->_model->findConditionnementByID($action['query']['id']);
+                    $this->_view->set('askConditionnement', $askConditionnement);
+                break;
+                case('delete') :
+                    $this->_model->deleteConditionnement($action['query']['id']);
+                break;
+            }
+        }
+
+        $lots = $this->_model->findAllLots();
+        $this->_view->set('lots', $lots);
+        $conditionnements = $this->_model->findAllConditionnement();
+        $this->_view->set('conditionnements', $conditionnements);
+
+        $this->_view->outPut();
+    }
+
 }

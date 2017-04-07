@@ -414,4 +414,60 @@ class AdminModel extends Model{
 	}
 
 // Table Conditionnement
+	public function findAllConditionnement(){
+		$sql = "SELECT 	conditionnement.*,
+						lot.reference referenceLot,
+						verger.nomVerger,
+						variete.nomVariete,
+						commune.nomCommune,
+						livraison.dateLivraison
+				FROM conditionnement
+				INNER JOIN lot ON conditionnement.idLot = lot.idLot
+				INNER JOIN livraison ON lot.idLivraison = livraison.idLivraison
+				INNER JOIN verger ON livraison.idVerger = verger.idVerger
+				INNER JOIN variete ON verger.idVariete = variete.idVariete
+				INNER JOIN commune ON verger.idCommune = commune.idCommune";
+		$this->_setSql($sql);
+		$results = $this->getAll();
+		return $results;
+	}
+
+	public function findConditionnementByID($id_conditionnement){
+		$sql = "SELECT * FROM conditionnement
+				INNER JOIN lot ON conditionnement.idLot = lot.idLot
+				INNER JOIN livraison ON lot.idLivraison = livraison.idLivraison
+				INNER JOIN verger ON livraison.idVerger = verger.idVerger
+				INNER JOIN typeproduit ON livraison.idTypeProduit = typeproduit.idTypeProduit
+				INNER JOIN variete ON verger.idVariete = variete.idVariete
+				INNER JOIN commune ON verger.idCommune = commune.idCommune
+				WHERE idConditionnement = ?";
+		$this->_setSql($sql);
+		$results = $this->getRow([$id_conditionnement]);
+		return $results;
+	}
+
+	public function addConditionnement(array $data){
+		$sql = "INSERT INTO conditionnement(libelleConditionnement, poidsConditionnee, idLot)
+				VALUES (:libelleConditionnement, :poids, :lot)";
+		$this->_setSql($sql);
+		$success = $this->execSql($data);
+		return $success;
+	}
+
+	public function updateConditionnement(array $data){
+		$sql = "UPDATE conditionnement
+				SET libelleConditionnement = :libelleConditionnement, poidsConditionnee = :poids, idLot = :lot
+				WHERE idConditionnement = :conditionnement";
+		$this->_setSql($sql);
+		$success = $this->execSql($data);
+		return $success;
+	}
+
+	public function deleteConditionnement($id_conditionnement){
+		$sql = "DELETE FROM conditionnement
+				WHERE idConditionnement = ?";
+		$this->_setSql($sql);
+		$success = $this->execSql([$id_conditionnement]);
+		return $success;
+	}
 }

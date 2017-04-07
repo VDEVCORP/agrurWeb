@@ -21,7 +21,7 @@
                             <th>Variété</th>
                             <th>Type</th>
                             <th>Calibre</th>
-                            <th>Qtts</th>
+                            <th class="text-right">Qtts</th>
                             <th></th>
                         </tr>
                     <thead>
