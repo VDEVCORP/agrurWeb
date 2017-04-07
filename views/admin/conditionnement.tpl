@@ -14,8 +14,36 @@
         </div>
         <div class="ibox-content">
             <div class="row">
-                <div class="col-lg-8 b-r">
-                    <?= var_dump($askConditionnement) ?>
+                <div class="col-lg-4">
+                    <h2>Le Produit</h2>
+                    <ul>
+                        <li><h3><?= $askConditionnement['libelleConditionnement'] ?></h3>
+                            <ul>
+                                <li><strong>quantite: </strong><?= $askConditionnement['poidsConditionnee'] ?> Kg</li>
+                                <li><strong>calibre: </strong><?= $askConditionnement['intervalle'] ?></li>
+                                <li><strong>variété: </strong> <?= $askConditionnement['nomVariete'] ?> <?= $askConditionnement['aocVariete'] ? '<strong>(AOC)</strong>' : false ?></li>
+                                <li><strong>provenance AOC : </strong><?= $askConditionnement['aocCommune'] ? '<i class="fa fa-check"></i> OUI' : '<i class="fa fa-times"></i> NON' ?></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 b-r">
+                    <h2>Sa provenance</h2>
+                    <ul>
+                        <li><h3>Lot :</h3>
+                            <ul>
+                                <li><strong>référence: </strong><?= $askConditionnement['reference'] ?></li>
+                                <li><strong>livrée le: </strong><?= $askConditionnement['dateLivraison'] ?></li>
+                            </ul>
+                        </li>
+                        <li><h3>Verger :</h3>
+                            <ul>
+                                <li><strong>nom: </strong><?= $askConditionnement['nomVerger'] ?></li>
+                                <li><strong>lieu: </strong><?= $askConditionnement['nomCommune'] ?> - <?= $askConditionnement['codePostal'] ?></li>
+                                <li><strong>exploitant: </strong><?= $askConditionnement['prenomResponsable'] ?> <?= $askConditionnement['nomResponsable'] ?></li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
                 <div class="col-lg-4">
                     <form action="" method="POST" class="form-horizontal">

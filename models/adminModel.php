@@ -433,13 +433,15 @@ class AdminModel extends Model{
 	}
 
 	public function findConditionnementByID($id_conditionnement){
-		$sql = "SELECT * FROM conditionnement
+		$sql = "SELECT *, producteur.nomResponsable, producteur.prenomResponsable FROM conditionnement
 				INNER JOIN lot ON conditionnement.idLot = lot.idLot
+				INNER JOIN calibre ON lot.idCalibre = calibre.idCalibre
 				INNER JOIN livraison ON lot.idLivraison = livraison.idLivraison
 				INNER JOIN verger ON livraison.idVerger = verger.idVerger
 				INNER JOIN typeproduit ON livraison.idTypeProduit = typeproduit.idTypeProduit
 				INNER JOIN variete ON verger.idVariete = variete.idVariete
 				INNER JOIN commune ON verger.idCommune = commune.idCommune
+				INNER JOIN producteur ON verger.idProducteur = producteur. idProducteur
 				WHERE idConditionnement = ?";
 		$this->_setSql($sql);
 		$results = $this->getRow([$id_conditionnement]);
