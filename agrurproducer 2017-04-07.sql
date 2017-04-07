@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.2
--- http://www.phpmyadmin.net
+-- version 4.6.4
+-- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 05 Avril 2017 à 09:41
--- Version du serveur :  5.7.9
--- Version de PHP :  5.6.16
+-- Généré le :  Ven 07 Avril 2017 à 17:50
+-- Version du serveur :  5.7.14
+-- Version de PHP :  5.6.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -26,12 +26,10 @@ SET time_zone = "+00:00";
 -- Structure de la table `calibre`
 --
 
-DROP TABLE IF EXISTS `calibre`;
-CREATE TABLE IF NOT EXISTS `calibre` (
-  `idCalibre` int(11) NOT NULL AUTO_INCREMENT,
-  `intervalle` varchar(25) NOT NULL,
-  PRIMARY KEY (`idCalibre`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `calibre` (
+  `idCalibre` int(11) NOT NULL,
+  `intervalle` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Contenu de la table `calibre`
@@ -51,13 +49,10 @@ INSERT INTO `calibre` (`idCalibre`, `intervalle`) VALUES
 -- Structure de la table `certifdelivree`
 --
 
-DROP TABLE IF EXISTS `certifdelivree`;
-CREATE TABLE IF NOT EXISTS `certifdelivree` (
+CREATE TABLE `certifdelivree` (
   `dateCertification` date DEFAULT NULL,
   `idCertification` int(11) NOT NULL,
-  `idProducteur` int(11) NOT NULL,
-  PRIMARY KEY (`idCertification`,`idProducteur`),
-  KEY `FK_certifDelivree_idProducteur` (`idProducteur`)
+  `idProducteur` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -75,12 +70,10 @@ INSERT INTO `certifdelivree` (`dateCertification`, `idCertification`, `idProduct
 -- Structure de la table `certification`
 --
 
-DROP TABLE IF EXISTS `certification`;
-CREATE TABLE IF NOT EXISTS `certification` (
-  `idCertification` int(11) NOT NULL AUTO_INCREMENT,
-  `libelleCertification` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`idCertification`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+CREATE TABLE `certification` (
+  `idCertification` int(11) NOT NULL,
+  `libelleCertification` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `certification`
@@ -90,7 +83,7 @@ INSERT INTO `certification` (`idCertification`, `libelleCertification`) VALUES
 (8, 'AREA'),
 (10, 'CRITTERRES'),
 (11, 'Qualenvi Lauréat'),
-(12, 'Terr''Avenir'),
+(12, 'Terr\'Avenir'),
 (13, 'AB (Agriculture Biologique)'),
 (14, 'IGP (Indication Géographique Protégée)'),
 (15, 'GLOBALG.A.P.'),
@@ -102,9 +95,8 @@ INSERT INTO `certification` (`idCertification`, `libelleCertification`) VALUES
 -- Structure de la table `client`
 --
 
-DROP TABLE IF EXISTS `client`;
-CREATE TABLE IF NOT EXISTS `client` (
-  `idClient` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `client` (
+  `idClient` int(11) NOT NULL,
   `nomClient` varchar(255) DEFAULT NULL,
   `nomRepresentant` varchar(255) DEFAULT NULL,
   `prenomRepresentant` varchar(255) NOT NULL,
@@ -113,10 +105,8 @@ CREATE TABLE IF NOT EXISTS `client` (
   `ville` varchar(255) DEFAULT NULL,
   `codePostal` int(11) DEFAULT NULL,
   `fk_id_user` int(11) NOT NULL,
-  `last_edit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`idClient`),
-  KEY `fk_id_user` (`fk_id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+  `last_edit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `client`
@@ -134,15 +124,15 @@ INSERT INTO `client` (`idClient`, `nomClient`, `nomRepresentant`, `prenomReprese
 -- Structure de la table `commande`
 --
 
-DROP TABLE IF EXISTS `commande`;
-CREATE TABLE IF NOT EXISTS `commande` (
-  `numeroCommande` int(11) NOT NULL AUTO_INCREMENT,
-  `dateDEnvoi` date DEFAULT NULL,
+CREATE TABLE `commande` (
+  `idCommande` int(11) NOT NULL,
+  `refCommande` varchar(255) NOT NULL,
+  `expedition` timestamp NULL DEFAULT NULL,
+  `preparation` timestamp NULL DEFAULT NULL,
+  `soumission` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `idStatus` int(11) NOT NULL,
   `nbrUniteCommandee` int(11) DEFAULT NULL,
-  `dateConditionnement` date DEFAULT NULL,
-  `idClient` int(11) NOT NULL,
-  PRIMARY KEY (`numeroCommande`),
-  KEY `FK_COMMANDE_idClient` (`idClient`)
+  `idClient` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -151,14 +141,12 @@ CREATE TABLE IF NOT EXISTS `commande` (
 -- Structure de la table `commune`
 --
 
-DROP TABLE IF EXISTS `commune`;
-CREATE TABLE IF NOT EXISTS `commune` (
-  `idCommune` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `commune` (
+  `idCommune` int(11) NOT NULL,
   `codePostal` int(11) DEFAULT NULL,
   `nomCommune` varchar(50) DEFAULT NULL,
-  `aocCommune` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`idCommune`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+  `aocCommune` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `commune`
@@ -174,7 +162,7 @@ INSERT INTO `commune` (`idCommune`, `codePostal`, `nomCommune`, `aocCommune`) VA
 (12, 46210, 'Gorses', 0),
 (13, 46130, 'Loubressac', 1),
 (14, 19800, 'Sarran', 1),
-(15, 19800, 'Meyrignac-l''Eglise', 1),
+(15, 19800, 'Meyrignac-l\'Eglise', 1),
 (16, 19190, 'Le Chastang', 0),
 (17, 19160, 'Neuvic', 1),
 (18, 16120, 'Bassac', 0),
@@ -188,15 +176,20 @@ INSERT INTO `commune` (`idCommune`, `codePostal`, `nomCommune`, `aocCommune`) VA
 -- Structure de la table `conditionnement`
 --
 
-DROP TABLE IF EXISTS `conditionnement`;
-CREATE TABLE IF NOT EXISTS `conditionnement` (
-  `idConditionnement` int(11) NOT NULL AUTO_INCREMENT,
-  `typeConditionnement` varchar(25) DEFAULT NULL,
+CREATE TABLE `conditionnement` (
+  `idConditionnement` int(11) NOT NULL,
+  `libelleConditionnement` varchar(255) DEFAULT NULL,
   `poidsConditionnee` int(11) DEFAULT NULL,
-  `idLot` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idConditionnement`),
-  KEY `FK_CONDITIONNEMENT_idLot` (`idLot`)
+  `idLot` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `conditionnement`
+--
+
+INSERT INTO `conditionnement` (`idConditionnement`, `libelleConditionnement`, `poidsConditionnee`, `idLot`) VALUES
+(1, 'Filet de petites Fernor Cov', 18, 1),
+(2, 'Carton de Noix de Grenoble XL', 30, 2);
 
 -- --------------------------------------------------------
 
@@ -204,13 +197,10 @@ CREATE TABLE IF NOT EXISTS `conditionnement` (
 -- Structure de la table `detailcommande`
 --
 
-DROP TABLE IF EXISTS `detailcommande`;
-CREATE TABLE IF NOT EXISTS `detailcommande` (
-  `quantiteCommande` int(11) DEFAULT NULL,
+CREATE TABLE `detailcommande` (
+  `quantiteCommandee` int(11) DEFAULT NULL,
   `idConditionnement` int(11) NOT NULL,
-  `numeroCommande` int(11) NOT NULL,
-  PRIMARY KEY (`idConditionnement`,`numeroCommande`),
-  KEY `FK_detailCommande_numeroCommande` (`numeroCommande`)
+  `idCommande` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -219,17 +209,13 @@ CREATE TABLE IF NOT EXISTS `detailcommande` (
 -- Structure de la table `livraison`
 --
 
-DROP TABLE IF EXISTS `livraison`;
-CREATE TABLE IF NOT EXISTS `livraison` (
-  `idLivraison` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `livraison` (
+  `idLivraison` int(11) NOT NULL,
   `dateLivraison` date DEFAULT NULL,
   `quantite` int(11) DEFAULT NULL,
   `idVerger` int(11) NOT NULL,
-  `idTypeProduit` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idLivraison`),
-  KEY `FK_LIVRAISON_idVerger` (`idVerger`),
-  KEY `FK_LIVRAISON_idTypeProduit` (`idTypeProduit`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  `idTypeProduit` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `livraison`
@@ -246,17 +232,13 @@ INSERT INTO `livraison` (`idLivraison`, `dateLivraison`, `quantite`, `idVerger`,
 -- Structure de la table `lot`
 --
 
-DROP TABLE IF EXISTS `lot`;
-CREATE TABLE IF NOT EXISTS `lot` (
-  `idLot` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `lot` (
+  `idLot` int(11) NOT NULL,
   `reference` varchar(255) NOT NULL,
   `idCalibre` int(11) DEFAULT NULL,
   `quantiteLot` int(11) NOT NULL,
-  `idLivraison` int(11) NOT NULL,
-  PRIMARY KEY (`idLot`),
-  KEY `FK_LOT_idLivraison` (`idLivraison`),
-  KEY `idCalibre` (`idCalibre`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+  `idLivraison` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `lot`
@@ -274,14 +256,12 @@ INSERT INTO `lot` (`idLot`, `reference`, `idCalibre`, `quantiteLot`, `idLivraiso
 -- Structure de la table `page`
 --
 
-DROP TABLE IF EXISTS `page`;
-CREATE TABLE IF NOT EXISTS `page` (
-  `id_page` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `page` (
+  `id_page` int(11) NOT NULL,
   `url_page` varchar(100) NOT NULL,
   `name_page` varchar(100) NOT NULL,
-  `description_page` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`id_page`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+  `description_page` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `page`
@@ -289,9 +269,9 @@ CREATE TABLE IF NOT EXISTS `page` (
 
 INSERT INTO `page` (`id_page`, `url_page`, `name_page`, `description_page`) VALUES
 (1, 'producteur/home', 'Informations Personnelles', 'Espace du producteur'),
-(2, 'admin/home', 'Vue générale', 'Espace de l''administrateur'),
+(2, 'admin/home', 'Vue générale', 'Espace de l\'administrateur'),
 (3, 'client/home', 'Accueil', 'Espace du client'),
-(4, 'admin/inscription', 'Inscription', 'Permet d''inscrire dans l''application des producteurs ou des clients'),
+(4, 'admin/inscription', 'Inscription', 'Permet d\'inscrire dans l\'application des producteurs ou des clients'),
 (5, 'admin/utilisateurs', 'Gestion des Utilisateurs', 'Liste et outils de gestion relatifs aux différents utilisateurs '),
 (6, 'admin/communes', 'Communes', 'Liste et ajouts des communes'),
 (7, 'admin/varietes', 'Variétés de noix', 'Liste et ajouts des variétés de noix'),
@@ -300,8 +280,8 @@ INSERT INTO `page` (`id_page`, `url_page`, `name_page`, `description_page`) VALU
 (11, 'admin/livraisons', 'Livraisons', 'Liste et ajout des livraisons de fournisseurs'),
 (12, 'admin/lots', 'Administration des lots', 'Liste et ajout des lots de noix.'),
 (13, 'producteur/profil', 'Mon profil', 'Espace profil du producteur; vu et possibilité de modifier ses informations. Liste des différentes certifications attribuées'),
-(14, 'producteur/contact', 'Contact Administrateur', 'Page de prise de contact avec l''administrateur pour un producteur'),
-(15, 'client/profil', 'Mon profil', 'Espace d''administration du profil d''un client'),
+(14, 'producteur/contact', 'Contact Administrateur', 'Page de prise de contact avec l\'administrateur pour un producteur'),
+(15, 'client/profil', 'Mon profil', 'Espace d\'administration du profil d\'un client'),
 (16, 'client/commandes', 'Commandes', 'Page permettant de passer commande et de garder un visuel sur le status des commandes'),
 (17, 'admin/conditionnement', 'Conditionnement', 'Liste et ajout de différents modes de conditionnement de la coopérative'),
 (18, 'admin/commandes', 'Commandes', 'Espace de gestion et de vue sur les commandes formulés par les clients de la coopérative');
@@ -312,9 +292,8 @@ INSERT INTO `page` (`id_page`, `url_page`, `name_page`, `description_page`) VALU
 -- Structure de la table `producteur`
 --
 
-DROP TABLE IF EXISTS `producteur`;
-CREATE TABLE IF NOT EXISTS `producteur` (
-  `idProducteur` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `producteur` (
+  `idProducteur` int(11) NOT NULL,
   `nomSociete` varchar(255) DEFAULT NULL,
   `nomResponsable` varchar(255) DEFAULT NULL,
   `prenomResponsable` varchar(255) DEFAULT NULL,
@@ -324,10 +303,8 @@ CREATE TABLE IF NOT EXISTS `producteur` (
   `codePostal` int(11) DEFAULT NULL,
   `adherent` tinyint(1) DEFAULT NULL,
   `fk_id_user` int(11) DEFAULT NULL,
-  `last_edit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`idProducteur`),
-  KEY `fk_id_user` (`fk_id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+  `last_edit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `producteur`
@@ -342,15 +319,33 @@ INSERT INTO `producteur` (`idProducteur`, `nomSociete`, `nomResponsable`, `preno
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `status`
+--
+
+CREATE TABLE `status` (
+  `idStatus` int(11) NOT NULL,
+  `libelleStatus` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `status`
+--
+
+INSERT INTO `status` (`idStatus`, `libelleStatus`) VALUES
+(1, 'En Attente'),
+(2, 'En Cours'),
+(3, 'Expedié');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `typeproduit`
 --
 
-DROP TABLE IF EXISTS `typeproduit`;
-CREATE TABLE IF NOT EXISTS `typeproduit` (
-  `idTypeProduit` int(11) NOT NULL AUTO_INCREMENT,
-  `libelleTypeProduit` varchar(25) DEFAULT NULL,
-  PRIMARY KEY (`idTypeProduit`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+CREATE TABLE `typeproduit` (
+  `idTypeProduit` int(11) NOT NULL,
+  `libelleTypeProduit` varchar(25) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `typeproduit`
@@ -366,15 +361,12 @@ INSERT INTO `typeproduit` (`idTypeProduit`, `libelleTypeProduit`) VALUES
 -- Structure de la table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `id_user` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users` (
+  `id_user` int(11) NOT NULL,
   `rank` int(11) NOT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `valid` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id_user`),
-  KEY `rank` (`rank`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+  `valid` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `users`
@@ -398,15 +390,11 @@ INSERT INTO `users` (`id_user`, `rank`, `email`, `valid`) VALUES
 -- Structure de la table `users_access`
 --
 
-DROP TABLE IF EXISTS `users_access`;
-CREATE TABLE IF NOT EXISTS `users_access` (
-  `users_access_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users_access` (
+  `users_access_id` int(11) NOT NULL,
   `fk_id_rank` int(11) NOT NULL,
-  `fk_id_page` int(11) NOT NULL,
-  PRIMARY KEY (`users_access_id`),
-  KEY `fk_id_page` (`fk_id_page`),
-  KEY `fk_id_rank` (`fk_id_rank`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+  `fk_id_page` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `users_access`
@@ -437,14 +425,11 @@ INSERT INTO `users_access` (`users_access_id`, `fk_id_rank`, `fk_id_page`) VALUE
 -- Structure de la table `users_login`
 --
 
-DROP TABLE IF EXISTS `users_login`;
-CREATE TABLE IF NOT EXISTS `users_login` (
-  `id_login` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users_login` (
+  `id_login` int(11) NOT NULL,
   `fk_id_user` int(11) NOT NULL,
-  `password_user` varchar(255) NOT NULL,
-  PRIMARY KEY (`id_login`),
-  KEY `fk_id_user` (`fk_id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+  `password_user` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `users_login`
@@ -468,12 +453,10 @@ INSERT INTO `users_login` (`id_login`, `fk_id_user`, `password_user`) VALUES
 -- Structure de la table `users_rank`
 --
 
-DROP TABLE IF EXISTS `users_rank`;
-CREATE TABLE IF NOT EXISTS `users_rank` (
-  `id_rank` int(11) NOT NULL AUTO_INCREMENT,
-  `name_rank` varchar(255) NOT NULL,
-  PRIMARY KEY (`id_rank`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+CREATE TABLE `users_rank` (
+  `id_rank` int(11) NOT NULL,
+  `name_rank` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `users_rank`
@@ -490,13 +473,11 @@ INSERT INTO `users_rank` (`id_rank`, `name_rank`) VALUES
 -- Structure de la table `variete`
 --
 
-DROP TABLE IF EXISTS `variete`;
-CREATE TABLE IF NOT EXISTS `variete` (
-  `idVariete` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `variete` (
+  `idVariete` int(11) NOT NULL,
   `nomVariete` varchar(25) DEFAULT NULL,
-  `aocVariete` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`idVariete`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+  `aocVariete` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `variete`
@@ -519,21 +500,16 @@ INSERT INTO `variete` (`idVariete`, `nomVariete`, `aocVariete`) VALUES
 -- Structure de la table `verger`
 --
 
-DROP TABLE IF EXISTS `verger`;
-CREATE TABLE IF NOT EXISTS `verger` (
-  `idVerger` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `verger` (
+  `idVerger` int(11) NOT NULL,
   `nomVerger` varchar(255) NOT NULL,
   `superficie` int(11) DEFAULT NULL,
   `nbrArbreParHect` int(11) DEFAULT NULL,
   `idProducteur` int(11) DEFAULT NULL,
   `idVariete` int(11) NOT NULL,
   `idCommune` int(11) DEFAULT NULL,
-  `verger_last_edit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`idVerger`),
-  KEY `FK_VERGER_idProducteur` (`idProducteur`),
-  KEY `FK_VERGER_idVariete` (`idVariete`),
-  KEY `FK_VERGER_idCommune` (`idCommune`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+  `verger_last_edit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `verger`
@@ -549,6 +525,242 @@ INSERT INTO `verger` (`idVerger`, `nomVerger`, `superficie`, `nbrArbreParHect`, 
 (10, '162HOULGJ2', 5, 60, 14, 9, 20, '2017-04-02 18:46:51'),
 (11, '162HOULGJ1', 7, 65, 14, 9, 20, '2017-04-02 18:47:17');
 
+--
+-- Index pour les tables exportées
+--
+
+--
+-- Index pour la table `calibre`
+--
+ALTER TABLE `calibre`
+  ADD PRIMARY KEY (`idCalibre`);
+
+--
+-- Index pour la table `certifdelivree`
+--
+ALTER TABLE `certifdelivree`
+  ADD PRIMARY KEY (`idCertification`,`idProducteur`),
+  ADD KEY `FK_certifDelivree_idProducteur` (`idProducteur`);
+
+--
+-- Index pour la table `certification`
+--
+ALTER TABLE `certification`
+  ADD PRIMARY KEY (`idCertification`);
+
+--
+-- Index pour la table `client`
+--
+ALTER TABLE `client`
+  ADD PRIMARY KEY (`idClient`),
+  ADD KEY `fk_id_user` (`fk_id_user`);
+
+--
+-- Index pour la table `commande`
+--
+ALTER TABLE `commande`
+  ADD PRIMARY KEY (`idCommande`),
+  ADD KEY `FK_COMMANDE_idClient` (`idClient`),
+  ADD KEY `idStatus` (`idStatus`);
+
+--
+-- Index pour la table `commune`
+--
+ALTER TABLE `commune`
+  ADD PRIMARY KEY (`idCommune`);
+
+--
+-- Index pour la table `conditionnement`
+--
+ALTER TABLE `conditionnement`
+  ADD PRIMARY KEY (`idConditionnement`),
+  ADD KEY `FK_CONDITIONNEMENT_idLot` (`idLot`);
+
+--
+-- Index pour la table `detailcommande`
+--
+ALTER TABLE `detailcommande`
+  ADD PRIMARY KEY (`idConditionnement`,`idCommande`),
+  ADD KEY `FK_detailCommande_numeroCommande` (`idCommande`);
+
+--
+-- Index pour la table `livraison`
+--
+ALTER TABLE `livraison`
+  ADD PRIMARY KEY (`idLivraison`),
+  ADD KEY `FK_LIVRAISON_idVerger` (`idVerger`),
+  ADD KEY `FK_LIVRAISON_idTypeProduit` (`idTypeProduit`);
+
+--
+-- Index pour la table `lot`
+--
+ALTER TABLE `lot`
+  ADD PRIMARY KEY (`idLot`),
+  ADD KEY `FK_LOT_idLivraison` (`idLivraison`),
+  ADD KEY `idCalibre` (`idCalibre`);
+
+--
+-- Index pour la table `page`
+--
+ALTER TABLE `page`
+  ADD PRIMARY KEY (`id_page`);
+
+--
+-- Index pour la table `producteur`
+--
+ALTER TABLE `producteur`
+  ADD PRIMARY KEY (`idProducteur`),
+  ADD KEY `fk_id_user` (`fk_id_user`);
+
+--
+-- Index pour la table `status`
+--
+ALTER TABLE `status`
+  ADD PRIMARY KEY (`idStatus`);
+
+--
+-- Index pour la table `typeproduit`
+--
+ALTER TABLE `typeproduit`
+  ADD PRIMARY KEY (`idTypeProduit`);
+
+--
+-- Index pour la table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id_user`),
+  ADD KEY `rank` (`rank`);
+
+--
+-- Index pour la table `users_access`
+--
+ALTER TABLE `users_access`
+  ADD PRIMARY KEY (`users_access_id`),
+  ADD KEY `fk_id_page` (`fk_id_page`),
+  ADD KEY `fk_id_rank` (`fk_id_rank`);
+
+--
+-- Index pour la table `users_login`
+--
+ALTER TABLE `users_login`
+  ADD PRIMARY KEY (`id_login`),
+  ADD KEY `fk_id_user` (`fk_id_user`);
+
+--
+-- Index pour la table `users_rank`
+--
+ALTER TABLE `users_rank`
+  ADD PRIMARY KEY (`id_rank`);
+
+--
+-- Index pour la table `variete`
+--
+ALTER TABLE `variete`
+  ADD PRIMARY KEY (`idVariete`);
+
+--
+-- Index pour la table `verger`
+--
+ALTER TABLE `verger`
+  ADD PRIMARY KEY (`idVerger`),
+  ADD KEY `FK_VERGER_idProducteur` (`idProducteur`),
+  ADD KEY `FK_VERGER_idVariete` (`idVariete`),
+  ADD KEY `FK_VERGER_idCommune` (`idCommune`);
+
+--
+-- AUTO_INCREMENT pour les tables exportées
+--
+
+--
+-- AUTO_INCREMENT pour la table `calibre`
+--
+ALTER TABLE `calibre`
+  MODIFY `idCalibre` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT pour la table `certification`
+--
+ALTER TABLE `certification`
+  MODIFY `idCertification` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+--
+-- AUTO_INCREMENT pour la table `client`
+--
+ALTER TABLE `client`
+  MODIFY `idClient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT pour la table `commande`
+--
+ALTER TABLE `commande`
+  MODIFY `idCommande` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `commune`
+--
+ALTER TABLE `commune`
+  MODIFY `idCommune` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+--
+-- AUTO_INCREMENT pour la table `conditionnement`
+--
+ALTER TABLE `conditionnement`
+  MODIFY `idConditionnement` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT pour la table `livraison`
+--
+ALTER TABLE `livraison`
+  MODIFY `idLivraison` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT pour la table `lot`
+--
+ALTER TABLE `lot`
+  MODIFY `idLot` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT pour la table `page`
+--
+ALTER TABLE `page`
+  MODIFY `id_page` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+--
+-- AUTO_INCREMENT pour la table `producteur`
+--
+ALTER TABLE `producteur`
+  MODIFY `idProducteur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+--
+-- AUTO_INCREMENT pour la table `status`
+--
+ALTER TABLE `status`
+  MODIFY `idStatus` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT pour la table `typeproduit`
+--
+ALTER TABLE `typeproduit`
+  MODIFY `idTypeProduit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT pour la table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+--
+-- AUTO_INCREMENT pour la table `users_access`
+--
+ALTER TABLE `users_access`
+  MODIFY `users_access_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+--
+-- AUTO_INCREMENT pour la table `users_login`
+--
+ALTER TABLE `users_login`
+  MODIFY `id_login` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+--
+-- AUTO_INCREMENT pour la table `users_rank`
+--
+ALTER TABLE `users_rank`
+  MODIFY `id_rank` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT pour la table `variete`
+--
+ALTER TABLE `variete`
+  MODIFY `idVariete` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+--
+-- AUTO_INCREMENT pour la table `verger`
+--
+ALTER TABLE `verger`
+  MODIFY `idVerger` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- Contraintes pour les tables exportées
 --
@@ -570,7 +782,8 @@ ALTER TABLE `client`
 -- Contraintes pour la table `commande`
 --
 ALTER TABLE `commande`
-  ADD CONSTRAINT `FK_COMMANDE_idClient` FOREIGN KEY (`idClient`) REFERENCES `client` (`idClient`);
+  ADD CONSTRAINT `FK_COMMANDE_idClient` FOREIGN KEY (`idClient`) REFERENCES `client` (`idClient`),
+  ADD CONSTRAINT `Fk_commande_idStatus_status` FOREIGN KEY (`idStatus`) REFERENCES `status` (`idStatus`);
 
 --
 -- Contraintes pour la table `conditionnement`
@@ -582,8 +795,8 @@ ALTER TABLE `conditionnement`
 -- Contraintes pour la table `detailcommande`
 --
 ALTER TABLE `detailcommande`
-  ADD CONSTRAINT `FK_detailCommande_idConditionnement` FOREIGN KEY (`idConditionnement`) REFERENCES `conditionnement` (`idConditionnement`),
-  ADD CONSTRAINT `FK_detailCommande_numeroCommande` FOREIGN KEY (`numeroCommande`) REFERENCES `commande` (`numeroCommande`);
+  ADD CONSTRAINT `FK_detailCommande_idConditionnement` FOREIGN KEY (`idConditionnement`) REFERENCES `conditionnement` (`idConditionnement`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_detailCommande_numeroCommande` FOREIGN KEY (`idCommande`) REFERENCES `commande` (`idCommande`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `livraison`

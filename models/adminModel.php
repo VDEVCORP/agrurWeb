@@ -472,4 +472,51 @@ class AdminModel extends Model{
 		$success = $this->execSql([$id_conditionnement]);
 		return $success;
 	}
+
+// Table Commande
+	public function findAllCommandes(){
+		$sql = "SELECT * FROM commande
+				INNER JOIN status ON commande.idStatus = status.idStatus";
+		$this->_setSql($sql);
+
+		return $this->getAll();
+	}
+
+	public function findCommandeByID($id_commande){
+		$sql = "SELECT * FROM commande
+				INNER JOIN status ON commande.idStatus = status.idStatus
+				INNER JOIN client ON commande.idClient = client.idClient
+				WHERE idCommande = ?";
+		$this->_setSql($sql);
+
+		return $this->getRow();
+	}
+
+	public function modifStatusCommande($data){
+		$sql = "UPDATE commande
+				SET idStatus = :status
+				WHERE idCommande = :commande";
+		$this->_setSql($sql);
+
+		return $this->execSql($data);
+	}
+
+	public function deleteCommande($id_commande){
+		$sql = "DELETE FROM commande
+				WHERE idCommande = ?";
+		$this->_setSql($sql);
+
+		return $this->execSql($id_commande);
+	}
+
+// Table Detailcommande
+	public function findCommandeDetails($id_commande){
+		$sql = "SELECT quantiteCommandee, conditionnement.*
+				FROM detailcommande
+				INNER JOIN conditionnement ON detailcommande.idConditionnement = conditionnement.idConditionnement
+				WHERE idCommande = ?";
+		$this->_setSql($sql);
+		$results = $this->getAll([$id_commande]);
+		return $results;
+	}
 }
