@@ -100,6 +100,8 @@ class AdminController extends Controller
                     } elseif($action['query']['role'] == 'cli'){
                         $askCustomer = $this->_model->findCustomerByID($action['query']['id']);
                         $this->_view->set('askCustomer', $askCustomer);
+                        $commandes = null; //Rechercher les commandes par client
+                        $this->_view->set('commandes', $commandes);
                     }
                 break;
 
@@ -212,11 +214,35 @@ class AdminController extends Controller
         $listAxx = $this->secureAccess("admin/certifications");
         $this->_view->set('listAxx', $listAxx);
 
-        if($_POST){        
-            $save = false;
-            $save = $this->_model->addCertification($_POST['libelle']);
-            $this->setViewResponse($save, "La nouvelle certification a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");
-        }   
+        if($_POST){
+            switch($_POST['action']){
+                case('add') :
+                    unset($_POST['action']);        
+                    $save = false;
+                    $save = $this->_model->addCertification($_POST['libelle']);
+                    $this->setViewResponse($save, "La nouvelle certification a bien été ajoutée.", "Un problème est survenu lors de la sauvegarde!");
+                break;
+                case('update') :
+                    unset($_POST['action']);
+                    $save = false;
+                    $save = $this->_model->updateCertification($_POST);
+                    $this->setViewResponse($save, "La certification à bien été modifiée.", "Un problème est survenu lors de l'opération!");
+                break;
+            }
+        }
+
+        if($action && !$_POST){
+            $action = $this->formatAction($action);
+            switch($action['path']){
+                case('edit') :
+                    $askCertification = $this->_model->findCertificationByID($action['query']['id']);
+                    $this->_view->set('askCertification', $askCertification);
+                break;
+                case('delete') :
+                    $this->_model->deleteCertification($action['query']['id']);
+                break;
+            }
+        }
 
         $certifications = $this->_model->findAllCertifications();
         $this->_view->set('certifications', $certifications);
@@ -310,6 +336,48 @@ class AdminController extends Controller
         $this->_view->set('livraisons', $livraisons);
         $calibres = $this->_model->findAllCalibres();
         $this->_view->set('calibres', $calibres);
+
+        $this->_view->outPut();
+    }
+
+    public function conditionnement($action = false){
+        $listAxx = $this->secureAccess("admin/conditionnement");
+        $this->_view->set('listAxx', $listAxx);
+
+        if($_POST){
+            switch($_POST['action']){
+                case('add') :
+                    unset($_POST['action']);
+                    $save = false;
+                    $save = $this->_model->addConditionnement($_POST);
+                    $this->setViewResponse($save, "Le conditionnement à bien été enregistré.", "Un problème est survenu lors de la sauvegarde!");
+                break;
+                case('update') :
+                    unset($_POST['action']);
+                    $save = false;
+                    $save = $this->_model->updateConditionnement($_POST);
+                    $this->setViewResponse($save, "Le conditionnement à bien été modifié.", "Un problème est survenu lors de l'opération!");
+                break;
+            }
+        }
+
+        if($action && !$_POST){
+            $action = $this->formatAction($action);
+            switch($action['path']){
+                case('details') :
+                    $askConditionnement = $this->_model->findConditionnementByID($action['query']['id']);
+                    $this->_view->set('askConditionnement', $askConditionnement);
+                break;
+                case('delete') :
+                    $this->_model->deleteConditionnement($action['query']['id']);
+                break;
+            }
+        }
+
+        $lots = $this->_model->findAllLots();
+        $this->_view->set('lots', $lots);
+        $conditionnements = $this->_model->findAllConditionnement();
+        $this->_view->set('conditionnements', $conditionnements);
 
         $this->_view->outPut();
     }

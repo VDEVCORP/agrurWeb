@@ -37,10 +37,10 @@
             <p>Connexion | Authentification</p>
             <form class="m-t">
                 <div class="form-group">
-                    <input id="login" name="login" type="email" class="form-control" placeholder="@ Email" required="">
+                    <input id="login" name="login" type="email" class="form-control" placeholder="@ Email" required>
                 </div>
                 <div class="form-group">
-                    <input id="password" name="password" type="password" class="form-control" placeholder="Mot de passe" required="">
+                    <input id="password" name="password" type="password" class="form-control" placeholder="Mot de passe" required>
                 </div>
                 <button id="connexion" class="btn btn-primary block full-width m-b">Login</button>
             </div>

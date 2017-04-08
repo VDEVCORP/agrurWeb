@@ -257,13 +257,13 @@ class AdminModel extends Model{
 				WHERE idCertification = :certification";
 		$this->_setSql($sql);
 
-		$success = $this->execSql([$libelle]);
+		$success = $this->execSql($data);
 		return $success;
 	}
 
 	public function deleteCertification($id_certif){
 		$sql = "DELETE FROM certification
-				WHERE certification = ?";
+				WHERE idCertification = ?";
 		$this->_setSql($sql);
 
 		$success = $this->execSql([$id_certif]);
@@ -414,4 +414,109 @@ class AdminModel extends Model{
 	}
 
 // Table Conditionnement
+	public function findAllConditionnement(){
+		$sql = "SELECT 	conditionnement.*,
+						lot.reference referenceLot,
+						verger.nomVerger,
+						variete.nomVariete,
+						commune.nomCommune,
+						livraison.dateLivraison
+				FROM conditionnement
+				INNER JOIN lot ON conditionnement.idLot = lot.idLot
+				INNER JOIN livraison ON lot.idLivraison = livraison.idLivraison
+				INNER JOIN verger ON livraison.idVerger = verger.idVerger
+				INNER JOIN variete ON verger.idVariete = variete.idVariete
+				INNER JOIN commune ON verger.idCommune = commune.idCommune";
+		$this->_setSql($sql);
+		$results = $this->getAll();
+		return $results;
+	}
+
+	public function findConditionnementByID($id_conditionnement){
+		$sql = "SELECT *, producteur.nomResponsable, producteur.prenomResponsable FROM conditionnement
+				INNER JOIN lot ON conditionnement.idLot = lot.idLot
+				INNER JOIN calibre ON lot.idCalibre = calibre.idCalibre
+				INNER JOIN livraison ON lot.idLivraison = livraison.idLivraison
+				INNER JOIN verger ON livraison.idVerger = verger.idVerger
+				INNER JOIN typeproduit ON livraison.idTypeProduit = typeproduit.idTypeProduit
+				INNER JOIN variete ON verger.idVariete = variete.idVariete
+				INNER JOIN commune ON verger.idCommune = commune.idCommune
+				INNER JOIN producteur ON verger.idProducteur = producteur. idProducteur
+				WHERE idConditionnement = ?";
+		$this->_setSql($sql);
+		$results = $this->getRow([$id_conditionnement]);
+		return $results;
+	}
+
+	public function addConditionnement(array $data){
+		$sql = "INSERT INTO conditionnement(libelleConditionnement, poidsConditionnee, idLot)
+				VALUES (:libelleConditionnement, :poids, :lot)";
+		$this->_setSql($sql);
+		$success = $this->execSql($data);
+		return $success;
+	}
+
+	public function updateConditionnement(array $data){
+		$sql = "UPDATE conditionnement
+				SET libelleConditionnement = :libelleConditionnement, poidsConditionnee = :poids, idLot = :lot
+				WHERE idConditionnement = :conditionnement";
+		$this->_setSql($sql);
+		$success = $this->execSql($data);
+		return $success;
+	}
+
+	public function deleteConditionnement($id_conditionnement){
+		$sql = "DELETE FROM conditionnement
+				WHERE idConditionnement = ?";
+		$this->_setSql($sql);
+		$success = $this->execSql([$id_conditionnement]);
+		return $success;
+	}
+
+// Table Commande
+	public function findAllCommandes(){
+		$sql = "SELECT * FROM commande
+				INNER JOIN status ON commande.idStatus = status.idStatus";
+		$this->_setSql($sql);
+
+		return $this->getAll();
+	}
+
+	public function findCommandeByID($id_commande){
+		$sql = "SELECT * FROM commande
+				INNER JOIN status ON commande.idStatus = status.idStatus
+				INNER JOIN client ON commande.idClient = client.idClient
+				WHERE idCommande = ?";
+		$this->_setSql($sql);
+
+		return $this->getRow();
+	}
+
+	public function modifStatusCommande($data){
+		$sql = "UPDATE commande
+				SET idStatus = :status
+				WHERE idCommande = :commande";
+		$this->_setSql($sql);
+
+		return $this->execSql($data);
+	}
+
+	public function deleteCommande($id_commande){
+		$sql = "DELETE FROM commande
+				WHERE idCommande = ?";
+		$this->_setSql($sql);
+
+		return $this->execSql($id_commande);
+	}
+
+// Table Detailcommande
+	public function findCommandeDetails($id_commande){
+		$sql = "SELECT quantiteCommandee, conditionnement.*
+				FROM detailcommande
+				INNER JOIN conditionnement ON detailcommande.idConditionnement = conditionnement.idConditionnement
+				WHERE idCommande = ?";
+		$this->_setSql($sql);
+		$results = $this->getAll([$id_commande]);
+		return $results;
+	}
 }

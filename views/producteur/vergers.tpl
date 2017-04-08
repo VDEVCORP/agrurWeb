@@ -18,13 +18,13 @@
                     <div class="form-group">
                         <label for="name" class="col-sm-3 control-label">Nom/Identifiant</label>
                         <div class="col-sm-9">
-                            <input type="text" name="name" id="name" class="form-control">
+                            <input type="text" name="name" id="name" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="superficie" class="col-sm-3 control-label">Superficie</label>
                         <div class="col-sm-5">
-                            <input type="number" name="superficie" id="superficie" class="form-control" placeholder="* en ha">
+                            <input type="number" name="superficie" id="superficie" class="form-control" placeholder="* en ha" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -36,7 +36,8 @@
                     <div class="form-group">
                         <label for="commune" class="col-sm-3 control-label">Commune</label>
                         <div class="col-sm-9">
-                            <select class="form-control" name="commune" id="commune">
+                            <select class="form-control" name="commune" id="commune" required>
+                                <option selected disabled value>-- Selectionnez une commune --</option>
                                 <?php foreach($communes as $commune){ ?>
                                     <option value="<?= $commune['idCommune'] ?>">
                                         <?= $commune['nomCommune'] ?> - <?= $commune['codePostal'] ?> <?= $commune["aocCommune"] ? '(AOC)' : false ?>
@@ -49,7 +50,8 @@
                     <div class="form-group">
                         <label for="commune" class="col-sm-3 control-label">Variété</label>
                         <div class="col-sm-9">
-                            <select class="form-control" name="variete" id="variete">
+                            <select class="form-control" name="variete" id="variete" required>
+                                <option selected disabled value>-- Selectionnez une variété --</option>
                                 <?php foreach($varietes as $variete){ ?>
                                     <option value="<?= $variete['idVariete'] ?>">
                                          <?= $variete['nomVariete'] ?> <?= $variete["aocVariete"] ? '(AOC)' : false ?>
@@ -89,13 +91,13 @@
                     <div class="form-group">
                         <label for="name" class="col-sm-3 control-label">Nom/Identifiant</label>
                         <div class="col-sm-9">
-                            <input type="text" name="name" id="name" class="form-control" value="<?= $askVerger['nomVerger'] ?>">
+                            <input type="text" name="name" id="name" class="form-control" value="<?= $askVerger['nomVerger'] ?>" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="superficie" class="col-sm-3 control-label">Superficie</label>
                         <div class="col-sm-5">
-                            <input type="number" name="superficie" id="superficie" class="form-control" value="<?= $askVerger['superficie'] ?>" placeholder="* en ha">
+                            <input type="number" name="superficie" id="superficie" class="form-control" value="<?= $askVerger['superficie'] ?>" placeholder="* en ha" required>
                         </div>
                     </div>
                     <div class="form-group">

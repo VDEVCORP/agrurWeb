@@ -68,14 +68,14 @@
                     <div class="form-group">
                         <label for="nom" class="col-sm-2 control-label">Nom</label>
                         <div class="col-sm-10">
-                            <input type="text" name="nom" id="nom" class="form-control" value="<?= $askCommune['nomCommune'] ?>">
+                            <input type="text" name="nom" id="nom" class="form-control" value="<?= $askCommune['nomCommune'] ?>" required>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="codePostal" class="col-sm-2 control-label">Code Postal</label>
                         <div class="col-sm-10">
-                            <input type="text" name="codePostal" id="codePostal" class="form-control" value="<?= $askCommune['codePostal'] ?>">
+                            <input type="text" name="codePostal" id="codePostal" class="form-control" value="<?= $askCommune['codePostal'] ?>" required>
                         </div>
                     </div>
 
@@ -119,14 +119,14 @@
                     <div class="form-group">
                         <label for="nom" class="col-sm-2 control-label">Nom</label>
                         <div class="col-sm-10">
-                            <input type="text" name="nom" id="nom" class="form-control">
+                            <input type="text" name="nom" id="nom" class="form-control" required>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="codePostal" class="col-sm-2 control-label">Code Postal</label>
                         <div class="col-sm-10">
-                            <input type="text" name="codePostal" id="codePostal" class="form-control">
+                            <input type="text" name="codePostal" id="codePostal" class="form-control" required>
                         </div>
                     </div>
 

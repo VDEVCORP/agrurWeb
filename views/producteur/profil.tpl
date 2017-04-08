@@ -18,34 +18,34 @@
 					
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Société</label>
-						<div class="col-sm-10"><input type="text" title="Nom de la société" name="societe" value="<?= $producer["nomSociete"] ?>" class="form-control"></div>
+						<div class="col-sm-10"><input type="text" title="Nom de la société" name="societe" value="<?= $producer["nomSociete"] ?>" class="form-control" required></div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-md-2 control-label">Représentant</label>
-						<div class="col-md-5"><input type="text" title="Nom du représentant" name="nom" value="<?= $producer["nomResponsable"] ?>" class="form-control"></div>
-						<div class="col-md-5"><input type="text" title="Prénom du représentant" name="prenom" value="<?= $producer["prenomResponsable"] ?>" class="form-control"></div>	
+						<div class="col-md-5"><input type="text" title="Nom du représentant" name="nom" value="<?= $producer["nomResponsable"] ?>" class="form-control" required></div>
+						<div class="col-md-5"><input type="text" title="Prénom du représentant" name="prenom" value="<?= $producer["prenomResponsable"] ?>" class="form-control" required></div>	
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Email</label>
-						<div class="col-sm-10"><input type="email" title="Email" name="email" value="<?= $producer["email"] ?>" class="form-control"></div>
+						<div class="col-sm-10"><input type="email" title="Email" name="email" value="<?= $producer["email"] ?>" class="form-control" required></div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Téléphone</label>
-						<div class="col-sm-10"><input type="text" title="Numéro de téléphone" name="telephone" value="<?= $producer["telephone"] ?>" class="form-control"></div>
+						<div class="col-sm-10"><input type="text" title="Numéro de téléphone" name="telephone" value="<?= $producer["telephone"] ?>" class="form-control" required></div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Adresse</label>
-						<div class="col-sm-10"><input type="text" title="Adresse professionnelle" name="adresse" value="<?= $producer["adresse"] ?>" class="form-control"></div>
+						<div class="col-sm-10"><input type="text" title="Adresse professionnelle" name="adresse" value="<?= $producer["adresse"] ?>" class="form-control" required></div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-md-2 control-label">Ville</label>
-						<div class="col-md-7"><input type="text" title="Ville" name="ville" value="<?= $producer["ville"] ?>" class="form-control"></div>
-						<div class="col-md-3"><input type="text" title="Code postal" name="codePostal" value="<?= $producer["codePostal"] ?>" class="form-control"></div>
+						<div class="col-md-7"><input type="text" title="Ville" name="ville" value="<?= $producer["ville"] ?>" class="form-control" required></div>
+						<div class="col-md-3"><input type="text" title="Code postal" name="codePostal" value="<?= $producer["codePostal"] ?>" class="form-control" required></div>
 					</div>
 					
 					<div class="form-group">

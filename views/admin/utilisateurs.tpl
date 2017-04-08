@@ -154,12 +154,13 @@
                     <div class="form-group">
                         <label class="font-noraml">Date d'obtention</label>
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="date" name="dateCertif" class="form-control">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="date" name="dateCertif" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="input-group">
-                            <select class="form-control" name="certification">
+                            <select class="form-control" name="certification" required>
+                                <option selected disabled value>-- Certificats --</option>
                                 <?php foreach($certifications as $certification) { ?>
                                     <option value="<?= $certification['idCertification'] ?>">
                                         <?= $certification['libelleCertification'] ?>
@@ -198,7 +199,7 @@
 
             <?php if(isset($askCustomer)){ ?>
             <div class="ibox-content profile-content">
-            <h2 class="text-center">Client<h2>
+                <h2 class="text-center">Client<h2>
                 <h3><strong><?= $askCustomer['nomRepresentant'] ?> <?= $askCustomer['prenomRepresentant']?></strong></h3>   
                 <?= isset($askCustomer['nomClient']) && !empty($askCustomer['nomClient']) ? '<h3><small>Société: </small>' . $askCustomer['nomClient'] . '</h3>' : false ?> 
                 
@@ -208,6 +209,27 @@
                 <p><strong>Email: </strong><?= $askCustomer['email'] ?></p>
                 <p><strong>Telephone: </strong><?= $askCustomer['telephone'] ?></p>
                 <hr>
+                <h4 class="text-center">Commandes</h4>
+                <?php if(!empty($commandes)){ ?>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Nbr<th>
+                            <th>Status</th>
+                        </tr>
+                    <thead>
+                    <tbody>
+                    <?php foreach($commandes as $commandes){ ?>
+                        <tr>
+                            <td><?= $commandes["soumission"] ?></td>
+                            <td><?= $commandes["nbrUnitesCommandee"] ?></td>
+                            <td><?= $commandes["libelleStatus"] ?></td>
+                        </tr>
+                    <?php }?>
+                    </tbody>
+                </table>
+                <?php } else { echo '<p class="text-center">Aucune commande en attente ou en cours.</p>'; } ?>
             </div>
             <?php } ?>
         </div>

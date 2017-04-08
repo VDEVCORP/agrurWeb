@@ -68,7 +68,7 @@
                     <div class="form-group">
                         <label for="dateLivraison" class="col-sm-2 control-label">Date</label>
                         <div class="col-sm-10">
-                            <input type="date" name="dateLivraison" id="dateLivraison" class="form-control" value="<?= $askLivraison['dateLivraison'] ?>">
+                            <input type="date" name="dateLivraison" id="dateLivraison" class="form-control" value="<?= $askLivraison['dateLivraison'] ?>" required>
                         </div>
                     </div>
 
@@ -102,7 +102,7 @@
                     <div class="form-group">
                         <label for="quantite" class="col-sm-2 control-label">Quantité</label>
                         <div class="col-sm-10">
-                            <input type="number" name="quantite" id="quantite" class="form-control" value="<?= $askLivraison['quantite'] ?>" placeholder="*en Kg">
+                            <input type="number" name="quantite" id="quantite" class="form-control" value="<?= $askLivraison['quantite'] ?>" placeholder="*en Kg" required>
                         </div>
                     </div>
 
@@ -135,14 +135,15 @@
                     <div class="form-group">
                         <label for="dateLivraison" class="col-sm-2 control-label">Date</label>
                         <div class="col-sm-10">
-                            <input type="date" name="dateLivraison" id="dateLivraison" class="form-control">
+                            <input type="date" name="dateLivraison" id="dateLivraison" class="form-control" required>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="verger" class="col-sm-2 control-label">Verger</label>
                         <div class="col-sm-10">
-                            <select class="form-control" name="verger" id="verger">
+                            <select class="form-control" name="verger" id="verger" required>
+                                <option selected disabled value>-- Selectionnez un verger --</option>
                                 <?php foreach($vergers as $verger){ ?>
                                     <option value="<?= $verger['idVerger'] ?>">
                                         <?= $verger['nomVerger'] ?> [<?= $verger['nomResponsable'] ?> <?= $verger['prenomResponsable'] ?>] (<?= $verger['nomVariete'] ?>)
@@ -156,7 +157,8 @@
                     <div class="form-group">
                         <label for="typeProduit" class="col-sm-2 control-label">Type</label>
                         <div class="col-sm-10">
-                            <select class="form-control" name="typeProduit" id="typeProduit">
+                            <select class="form-control" name="typeProduit" id="typeProduit" required>
+                                <option selected disabled value>-- Selectionnez un type --</option>
                                 <?php foreach($typesProduits as $typeProduit){ ?>
                                     <option value="<?= $typeProduit['idTypeProduit'] ?>">
                                         <?= $typeProduit['libelleTypeProduit'] ?>
@@ -169,7 +171,7 @@
                     <div class="form-group">
                         <label for="quantite" class="col-sm-2 control-label">Quantité</label>
                         <div class="col-sm-10">
-                            <input type="number" name="quantite" id="quantite" class="form-control" placeholder="*en Kg">
+                            <input type="number" name="quantite" id="quantite" class="form-control" placeholder="*en Kg" required>
                         </div>
                     </div>
 

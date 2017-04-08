@@ -21,7 +21,7 @@
                             <th>Variété</th>
                             <th>Type</th>
                             <th>Calibre</th>
-                            <th>Qtts</th>
+                            <th class="text-right">Qtts</th>
                             <th></th>
                         </tr>
                     <thead>
@@ -66,11 +66,11 @@
             <div class="ibox-content">
                 <form action="" method="POST" class="form-horizontal">
                     <input type="hidden" name="action" value="update">
-                    <input type="hidden" name="lot" value="<?= $askLot['idLot'] ?>">
+                    <input type="hidden" name="lot" value="<?= $askLot['idLot'] ?>" required>
                     <div class="form-group">
                         <label for="nom" class="col-sm-2 control-label">Ref</label>
                         <div class="col-sm-10">
-                            <input type="text" name="reference" id="reference" class="form-control" value="<?= $askLot['reference'] ?>">
+                            <input type="text" name="reference" id="reference" class="form-control" value="<?= $askLot['reference'] ?>" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -103,7 +103,7 @@
                     <div class="form-group">
                         <label for="quantite" class="col-sm-2 control-label">Quantite</label>
                         <div class="col-sm-10">
-                            <input type="number" name="quantite" id="quantite" value="<?= $askLot['quantiteLot'] ?>" class="form-control">
+                            <input type="number" name="quantite" id="quantite" value="<?= $askLot['quantiteLot'] ?>" class="form-control" required>
                         </div>
                     </div>
 
@@ -136,13 +136,14 @@
                     <div class="form-group">
                         <label for="nom" class="col-sm-2 control-label">Ref</label>
                         <div class="col-sm-10">
-                            <input type="text" name="reference" id="reference" class="form-control">
+                            <input type="text" name="reference" id="reference" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="livraison" class="col-sm-2 control-label">Origine</label>
                         <div class="col-sm-10">
-                            <select class="form-control" name="livraison">
+                            <select class="form-control" name="livraison" required>
+                                <option selected disabled value>-- Selectionnez l'origine --</option>
                                 <?php foreach($livraisons as $livraison){ ?>
                                     <option value="<?= $livraison['idLivraison'] ?>">
                                         <?= $livraison['dateLivraison'] ?> : N° <?= $livraison['idLivraison'] ?> | <?= $livraison['nomVerger'] ?>
@@ -156,7 +157,8 @@
                     <div class="form-group">
                         <label for="calibre" class="col-sm-2 control-label">Calibre</label>
                         <div class="col-sm-10">
-                            <select class="form-control" name="calibre">
+                            <select class="form-control" name="calibre" required>
+                                <option selected disabled value>-- Selectionnez un calibre --</option>
                                 <?php foreach($calibres as $calibre){ ?>
                                     <option value="<?= $calibre['idCalibre'] ?>"><?= $calibre['intervalle'] ?></option>
                                 <?php } ?>
@@ -167,7 +169,7 @@
                     <div class="form-group">
                         <label for="quantite" class="col-sm-2 control-label">Quantite</label>
                         <div class="col-sm-10">
-                            <input type="number" name="quantite" id="quantite" class="form-control">
+                            <input type="number" name="quantite" id="quantite" class="form-control" required>
                         </div>
                     </div>
 

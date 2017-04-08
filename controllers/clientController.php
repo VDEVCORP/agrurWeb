@@ -4,13 +4,16 @@ class ClientController extends Controller
 {
 
     private $customer;
+    private $panier;
 	
 	public function __construct($model, $nameController, $nameAction)
 	{
 		parent::__construct($model, $nameController, $nameAction);
 		$this->_setModel($model);
-   
         $this->customer = $this->_model->findCustomer($_SESSION['user']['user_key']);
+
+        include(HOME . DS . 'includes' . DS . 'plugins' . DS . 'Panier' . DS . 'panier.php');
+        $this->panier = new Panier($this->_model);
 
         $this->_view->setCommons("nav", HOME . DS . 'includes' . DS . 'common.nav.php');
 		$this->_view->setCommons("footer", HOME . DS . 'includes' . DS . 'common.footer.php');
@@ -19,6 +22,9 @@ class ClientController extends Controller
     public function home(){
         $listAxx = $this->secureAccess("client/home");
         $this->_view->set('listAxx', $listAxx);
+
+        $produits = $this->_model->findAllConditionnementExpo();
+        $this->_view->set('produits', $produits);
 
         $this->_view->outPut();
     }
