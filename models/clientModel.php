@@ -41,12 +41,14 @@ class ClientModel extends Model{
 
 // Table Conditionnement
 	public function findAllConditionnementExpo(){
-		$sql = "SELECT 	
+		$sql = "SELECT *
 			#TODO : Déterminer les infos affichées
 				FROM conditionnement
 				INNER JOIN lot ON conditionnement.idLot = lot.idLot
+				INNER JOIN calibre ON lot.idCalibre = calibre.idCalibre
 				INNER JOIN livraison ON lot.idLivraison = livraison.idLivraison
 				INNER JOIN verger ON livraison.idVerger = verger.idVerger
+				INNER JOIN typeproduit ON livraison.idTypeProduit = typeproduit.idTypeProduit
 				INNER JOIN variete ON verger.idVariete = variete.idVariete
 				INNER JOIN commune ON verger.idCommune = commune.idCommune";
 		$this->_setSql($sql);

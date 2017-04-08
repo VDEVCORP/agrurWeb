@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Ven 07 Avril 2017 à 17:50
+-- Généré le :  Sam 08 Avril 2017 à 12:06
 -- Version du serveur :  5.7.14
 -- Version de PHP :  5.6.25
 
@@ -200,7 +200,8 @@ INSERT INTO `conditionnement` (`idConditionnement`, `libelleConditionnement`, `p
 CREATE TABLE `detailcommande` (
   `quantiteCommandee` int(11) DEFAULT NULL,
   `idConditionnement` int(11) NOT NULL,
-  `idCommande` int(11) NOT NULL
+  `idCommande` int(11) NOT NULL,
+  `soumis` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

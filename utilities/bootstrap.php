@@ -30,8 +30,9 @@ if(!$forbidden){
 	$controller = $nameController . 'Controller';
 	unset($listParameters);
 
-
-	session_start();
+	if(!isset($_SESSION)){
+		session_start();           
+	}
 
 	if (file_exists(HOME . DS . 'views' . DS . strtolower($nameController) . DS . $nameAction . '.tpl')){
 		$load = new $controller($nameModel, $nameController, $nameAction);

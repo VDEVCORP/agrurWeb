@@ -100,6 +100,8 @@ class AdminController extends Controller
                     } elseif($action['query']['role'] == 'cli'){
                         $askCustomer = $this->_model->findCustomerByID($action['query']['id']);
                         $this->_view->set('askCustomer', $askCustomer);
+                        $commandes = null; //Rechercher les commandes par client
+                        $this->_view->set('commandes', $commandes);
                     }
                 break;
 
