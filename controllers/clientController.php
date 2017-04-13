@@ -1,8 +1,6 @@
 <?php
 
-class ClientController extends Controller  
-{
-
+class ClientController extends Controller {
     private $customer;
     private $panier;
 	
@@ -19,7 +17,25 @@ class ClientController extends Controller
 		$this->_view->setCommons("footer", HOME . DS . 'includes' . DS . 'common.footer.php');
 	}
 
-    public function home(){
+    public function interactPanier($action = false){
+        if($action) {
+            $action = $this->formatAction($action);
+
+            switch($action['path']) {
+                case('add'):
+                    echo $this->panier->addProduct($action['query']['id']);
+                break;
+                case('remove') :
+                    $this->panier->delProduct($action['query']['id']);
+                break;
+                case('clear') :
+                    $this->panier->clearPanier();
+                break;
+            }
+        }
+    }
+
+    public function home($action = false){
         $listAxx = $this->secureAccess("client/home");
         $this->_view->set('listAxx', $listAxx);
 
@@ -55,6 +71,17 @@ class ClientController extends Controller
         $listAxx = $this->secureAccess("client/commandes");
         $this->_view->set('listAxx', $listAxx);
 
+        if($_POST){
+            $this->panier->recalculate();
+        }
+        $items = array();
+        if(!empty($_SESSION['panier'])){
+            $items = $this->_model->findConditionnementInIDs(array_keys($_SESSION['panier']));
+        }
+        $this->_view->set('items', $items);
+        $this->_view->set('nbrItems', $this->panier->count());
+
+        $this->_view->set('panier', $this->panier);
         $this->_view->outPut();
 
     }

@@ -313,3 +313,41 @@ $('.conditionnement-delete').click(function () {
         });
     });
 });
+
+// Ajout produit au panier
+$('.add-panier').click(function (event){
+    event.preventDefault()
+    $.get($(this).attr('href'), {}, function(data){
+        if(data.error){
+            swal({
+                title: "Error!",
+                text: data.message,
+                type: "error",
+                confirmButtonText: "retour"
+            })
+        } else {
+            swal({
+                title: data.message,
+                type: "success",
+                showConfirmButton: false,
+                timer: 900,
+            })
+        }
+    }, 'json')
+    return false
+})
+
+$('.remove-product').click(function(event){
+    event.preventDefault()
+    $.get($(this).attr('href'), {}, function(data){})
+    $(this).closest('.ibox-content').remove()
+})
+
+$('.clear-panier').click(function(event){
+    event.preventDefault()
+    $.get($(this).attr('href'), {}, function(data){
+        $('.item').each(function(){
+            $(this).remove()
+        })
+    })
+})

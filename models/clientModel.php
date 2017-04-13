@@ -41,8 +41,8 @@ class ClientModel extends Model{
 
 // Table Conditionnement
 	public function findAllConditionnementExpo(){
-		$sql = "SELECT *
-			#TODO : Déterminer les infos affichées
+		$sql = "SELECT conditionnement.idConditionnement, libelleConditionnement, variete.idVariete, nomVariete,
+						poidsConditionnee, intervalle, aocCommune, aocVariete
 				FROM conditionnement
 				INNER JOIN lot ON conditionnement.idLot = lot.idLot
 				INNER JOIN calibre ON lot.idCalibre = calibre.idCalibre
@@ -56,22 +56,10 @@ class ClientModel extends Model{
 		return $results;
 	}
 
-	public function findAllConditionnementForm(){
-		$sql = "SELECT
-			#TODO : Déterminer les infos du comboBox
+	public function findConditionnementInIDs(array $ids){
+		$sql = "SELECT conditionnement.idConditionnement, libelleConditionnement, variete.idVariete, nomVariete,
+						poidsConditionnee, intervalle, aocCommune, aocVariete
 				FROM conditionnement
-				INNER JOIN lot ON conditionnement.idLot = lot.idLot
-				INNER JOIN livraison ON lot.idLivraison = livraison.idLivraison
-				INNER JOIN verger ON livraison.idVerger = verger.idVerger
-				INNER JOIN variete ON verger.idVariete = variete.idVariete
-				INNER JOIN commune ON verger.idCommune = commune.idCommune";
-		$this->_setSql($sql);
-		$results = $this->getAll();
-		return $results;
-	}
-
-	public function findConditionnementByID($id_conditionnement){
-		$sql = "SELECT *, producteur.nomResponsable, producteur.prenomResponsable FROM conditionnement
 				INNER JOIN lot ON conditionnement.idLot = lot.idLot
 				INNER JOIN calibre ON lot.idCalibre = calibre.idCalibre
 				INNER JOIN livraison ON lot.idLivraison = livraison.idLivraison
@@ -79,11 +67,10 @@ class ClientModel extends Model{
 				INNER JOIN typeproduit ON livraison.idTypeProduit = typeproduit.idTypeProduit
 				INNER JOIN variete ON verger.idVariete = variete.idVariete
 				INNER JOIN commune ON verger.idCommune = commune.idCommune
-				INNER JOIN producteur ON verger.idProducteur = producteur. idProducteur
-				WHERE idConditionnement = ?";
+				WHERE idConditionnement IN (". implode(',', $ids) .")";
 		$this->_setSql($sql);
-		$results = $this->getRow([$id_conditionnement]);
-		return $results;
+		$results = $this->getAll();
+		return $results;	
 	}
 
 // Table Commande
