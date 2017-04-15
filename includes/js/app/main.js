@@ -314,6 +314,37 @@ $('.conditionnement-delete').click(function () {
     });
 });
 
+// Supprimer une Commande (si possible :P)
+$('.commande-delete').click(function () {
+    $element = $(this)
+    var id = $element.attr('id')
+    swal({
+        title: "Êtes-vous sûr ?",
+        text: "La commande ainsi que ses détails seront perdus à jamais !",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Annuler!",
+        cancelButtonText: "Retour",
+        closeOnConfirm: false
+    }, function() { 
+        $.ajax(
+            {
+                type: "get",
+                url: "/client/profil/delete",
+                data: "id="+id,
+                success: function(data) {
+                    swal("Fait!", "La commande à bien été annulée!", "success");
+                    $element.closest('tr').remove()
+                }
+            }
+        )
+        .error(function(data) {
+            swal("Oops", "Une erreur s'est produite lors de l'annulation'!", "error");
+        });
+    });
+});
+
 // Ajout produit au panier
 $('.add-panier').click(function (event){
     event.preventDefault()
@@ -336,6 +367,8 @@ $('.add-panier').click(function (event){
     }, 'json')
     return false
 })
+
+
 
 $('.remove-product').click(function(event){
     event.preventDefault()

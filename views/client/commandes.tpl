@@ -70,13 +70,18 @@
                 </div>
             </div>
             <?php endforeach ?>
+            </form>
             <div class="ibox-content">
                 <a href="/client/interactPanier/clear" class="clear-panier btn btn-white pull-right"> Vider</a>
-                <a href="/client/interactPanier/submit" class="btn btn-primary pull-right m-r-sm"><i class="fa fa-shopping-cart"></i>&nbsp;Commander</a>
+                <form action="/client/bonCommande" method="POST">
+                    <input type="hidden" name="create" value="true">
+                    <button type="submit" class="btn btn-primary pull-right m-r-sm">
+                        <i class="fa fa-shopping-cart"></i>&nbsp;Commander
+                    </button>
+                </form>
                 <a href="/client/home" class="btn btn-white"><i class="fa fa-arrow-left"></i>&nbsp;Retourner au catalogue</a>
             </div>
         </div>
-        </form>
     </div>
 
     <div class="col-md-3">
@@ -106,10 +111,15 @@
                     * Tarifs applicables uniquement en France métropolitaine
                 </span>
                 <div class="m-t-sm">
-                    <div class="btn-group">
-                    <a href="/client/interactPanier/submit" class="btn btn-primary btn-sm"><i class="fa fa-shopping-cart"></i> Commander</a>
-                    <a href="/client/interactPanier/clear" class="clear-panier btn btn-white btn-sm"> Vider</a>
-                    </div>
+                    <form action="/client/bonCommande" method="POST">
+                        <input type="hidden" name="create" value="true">
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-primary btn-sm">
+                                <i class="fa fa-shopping-cart"></i>&nbsp;Commander
+                            </button>
+                            <a href="/client/interactPanier/clear" class="clear-panier btn btn-white btn-sm"> Vider</a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
