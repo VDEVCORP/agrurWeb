@@ -75,15 +75,13 @@ class ClientController extends Controller {
         $commandes = $this->_model->findCustomerCommandes($this->customer['idClient']);
         for($i = 0; $i < count($commandes); $i++){
             $detailCommande = $this->_model->findCommandeDetails($commandes[$i]['idCommande']);
-
-            $date = new DateTime($commandes[$i]['soumission']);
-            $commandes[$i]['soumission'] = $date->format('Y-m-d');
-
             $commandes[$i]['nbrItem'] = 0;
             for($j = 0; $j < count($detailCommande); $j++){
                 $commandes[$i]['nbrItem'] += $detailCommande[$j]['quantiteCommandee'];
             }
         }
+        $commandes = $this->shortDate($commandes, 'soumission');
+
         $this->_view->set('commandes', $commandes);
         $this->_view->set('customer', $this->customer);
         $this->_view->outPut();
@@ -134,14 +132,16 @@ class ClientController extends Controller {
         if($action){
             $action = $this->formatAction($action);
             if($this->_model->issetCommande($action['query']['id'])){
-                $commande = $this->_model->findCommandeByID($action['query']['id']);
+                $commande = $this->_model->findCommandeByID($action['query']['id']); 
+                $commande = $this->shortDate(array($commande), 'soumission');
                 $this->_view->set('commande', $commande);
             } else {
                 $this->setViewResponse("Affichage impossible, cette commande est inexistante.");
             }
 
         } else {
-            $commande = $this->_model->findCommandeByID($commande);
+            $commande = $this->_model->findCommandeByID($commande);    
+            $commande = $this->shortDate(array($commande), 'soumission');
             $this->_view->set('commande', $commande);
         }
 
@@ -149,6 +149,20 @@ class ClientController extends Controller {
         $this->_view->set('commandeDetails', $commandeDetails);
 
         $this->_view->outPut();
+    }
+
+    private function shortDate(array $requestResult, $field){
+        if(count($requestResult) > 1){
+            for($i = 0; $i < count($requestResult); $i++){
+                $date = new DateTime($requestResult[$i][$field]);
+                $requestResult[$i][$field] = $date->format('Y-m-d');
+            }
+        } else {
+            $date = new DateTime($requestResult[0][$field]);
+            $requestResult[0][$field] = $date->format('Y-m-d');
+            $requestResult = array_shift($requestResult);
+        }
+        return $requestResult;
     }
 
 }
