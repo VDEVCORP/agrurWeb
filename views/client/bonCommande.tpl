@@ -1,7 +1,9 @@
-<?php 
-    var_dump($commande);
-    var_dump($commandeDetails);
-?>
+<div class="row border-bottom white-bg page-heading m-r-n-md m-l-n-md p-xs m-b-md">
+    <a href="<?= $_SESSION['user']['rank'] == 'admin' ? '/admin/commandes' : '/client/profil' ?>" class="btn btn-white">
+        <i class="fa fa-arrow-left"></i> <?= $_SESSION['user']['rank'] == 'admin' ? 'Retourner aux commandes' : 'Retourner au profil' ?>
+    </a>
+    <span class="pull-right"><a href="/client/profil" class="btn btn-primary"><i class="fa fa-print"></i> Imprimer || Enregistrer <i class="fa fa-save"></i></a></span>
+</div>
 
 <div class="ibox-content p-xl">
     <div class="row">

@@ -80,7 +80,13 @@ class ClientController extends Controller {
                 $commandes[$i]['nbrItem'] += $detailCommande[$j]['quantiteCommandee'];
             }
         }
+
         $commandes = $this->shortDate($commandes, 'soumission');
+        /*  Si shortDate reçois un tableau contenant une unique commande, il renverra cet unique
+            commande et non une liste de commandes. L'algo si dessous, si la commande est unique,
+            l'insert dans une nouvelle liste pour ne pas provoquer d'erreurs dans le "foreach" de 
+            la vue. */
+        !empty($commandes) && !in_array('0', array_keys($commandes)) ?  $commandes = array($commandes) : false;
 
         $this->_view->set('commandes', $commandes);
         $this->_view->set('customer', $this->customer);
@@ -111,7 +117,7 @@ class ClientController extends Controller {
         $this->_view->set('listAxx', $listAxx);
 
         if($_POST){
-            $reference = substr(md5($this->customer['nomClient'] . date_default_timezone_set("Europe/Paris") . rand(1, 9)), 0, 10);
+            $reference = substr(md5($this->customer['nomClient'] . date('Y-m-d H:i:s') . rand(1, 9)), 0, 10);
             $data = array('refCommande' => $reference, 'idClient' => $this->customer['idClient']);
             
             $commande = $this->_model->addCommande($data);
@@ -151,16 +157,18 @@ class ClientController extends Controller {
         $this->_view->outPut();
     }
 
-    private function shortDate(array $requestResult, $field){
-        if(count($requestResult) > 1){
-            for($i = 0; $i < count($requestResult); $i++){
-                $date = new DateTime($requestResult[$i][$field]);
-                $requestResult[$i][$field] = $date->format('Y-m-d');
+    private function shortDate($requestResult = null, $field){
+        if(!empty($requestResult)){
+            if(count($requestResult) > 1){
+                for($i = 0; $i < count($requestResult); $i++){
+                    $date = new DateTime($requestResult[$i][$field]);
+                    $requestResult[$i][$field] = $date->format('Y-m-d');
+                }
+            } else {
+                $date = new DateTime($requestResult[0][$field]);
+                $requestResult[0][$field] = $date->format('Y-m-d');
+                $requestResult = array_shift($requestResult);
             }
-        } else {
-            $date = new DateTime($requestResult[0][$field]);
-            $requestResult[0][$field] = $date->format('Y-m-d');
-            $requestResult = array_shift($requestResult);
         }
         return $requestResult;
     }

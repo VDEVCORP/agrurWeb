@@ -368,8 +368,6 @@ $('.add-panier').click(function (event){
     return false
 })
 
-
-
 $('.remove-product').click(function(event){
     event.preventDefault()
     $.get($(this).attr('href'), {}, function(data){})
@@ -383,4 +381,37 @@ $('.clear-panier').click(function(event){
             $(this).remove()
         })
     })
+})
+
+$('.change-status').click(function(event){
+    event.preventDefault()
+    $.get($(this).attr('href'), {}, function(data){})
+    var tdpStatus = $(this).closest('td').prev().contents()
+    switch($(this).attr('id')){
+        case "encours" :
+            $(this).prev().removeAttr('disabled')
+            $(this).attr('disabled', true)
+            tdpStatus.removeClass('text-danger')
+            tdpStatus.removeClass('text-info')
+            tdpStatus.addClass('text-success')
+            tdpStatus.text('En cours')
+            break
+        case "expedie" :
+            var btnExpedie = $(this).attr('disabled', true)
+            var btnEncours = btnExpedie.prev().attr('disabled', true)
+            btnEncours.prev().attr('disabled', true)
+            tdpStatus.removeClass('text-success')
+            tdpStatus.removeClass('text-danger')
+            tdpStatus.addClass('text-info')
+            tdpStatus.text('Expedié')
+            break
+        case "attente" :
+            $(this).attr('disabled', true)
+            var btnEncours = $(this).next().removeAttr('disabled')
+            tdpStatus.removeClass('text-info')
+            tdpStatus.removeClass('text-success')
+            tdpStatus.addClass('text-danger')
+            tdpStatus.text('En attente')
+            break
+    }
 })

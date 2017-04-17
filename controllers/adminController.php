@@ -382,4 +382,65 @@ class AdminController extends Controller
         $this->_view->outPut();
     }
 
+    public function commandes($action = false){
+        $listAxx = $this->secureAccess("admin/commandes");
+        $this->_view->set('listAxx', $listAxx);
+
+        if($action){
+            $action = $this->formatAction($action);
+            $currentDateTime = new DateTime(null, new DateTimezone('Europe/Paris'));
+            $data = array(  'dateTime' => $currentDateTime->format('Y-m-d H:i:s'),
+                            'commande' => $action['query']['id']);
+            switch($action['path']){
+                case('attente') :
+                    $this->_model->updateCommandeStatus($data, 1);
+                    break;
+                case('encours') :
+                    $this->_model->updateCommandeStatus($data, 2);
+                    break;
+                case('expedie') :
+                    $this->_model->updateCommandeStatus($data, 3);
+                    break;
+            }
+        }
+
+        $commandes = $this->_model->findAllCommandes();
+        for($i = 0; $i < count($commandes); $i++){
+            $detailCommande = $this->_model->findCommandeDetails($commandes[$i]['idCommande']);
+            $commandes[$i]['nbrItem'] = 0;
+            for($j = 0; $j < count($detailCommande); $j++){
+                $commandes[$i]['nbrItem'] += $detailCommande[$j]['quantiteCommandee'];
+            }
+        }
+        $commandes = $this->shortDateTime($commandes, 'soumission');
+        $commandes = $this->shortDateTime($commandes, 'preparation');
+        $commandes = $this->shortDateTime($commandes, 'expedition');
+            /*  Si shortDate reçois un tableau contenant une unique commande, il renverra cet unique
+        commande et non une liste de commandes. L'algo si dessous, si la commande est unique,
+        l'insert dans une nouvelle liste pour ne pas provoquer d'erreurs dans le "foreach" de 
+        la vue. */
+        !empty($commandes) && !in_array('0', array_keys($commandes)) ?  $commandes = array($commandes) : false;
+
+        $this->_view->set('commandes', $commandes);
+
+        $this->_view->outPut();
+    }
+
+    private function shortDateTime($requestResult = null, $field){
+        if(!empty($requestResult)){
+            if(count($requestResult) > 1){
+                for($i = 0; $i < count($requestResult); $i++){
+                    if(!empty($requestResult[$i][$field])){
+                        $date = new DateTime($requestResult[$i][$field]);
+                        $requestResult[$i][$field] = $date->format('Y-m-d H:i');
+                    }
+                }
+            } else {
+                $date = new DateTime($requestResult[0][$field]);
+                $requestResult[0][$field] = $date->format('Y-m-d H:i');
+                $requestResult = array_shift($requestResult);
+            }
+        }
+        return $requestResult;
+    }
 }

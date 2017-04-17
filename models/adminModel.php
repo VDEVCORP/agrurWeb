@@ -476,7 +476,9 @@ class AdminModel extends Model{
 // Table Commande
 	public function findAllCommandes(){
 		$sql = "SELECT * FROM commande
-				INNER JOIN status ON commande.idStatus = status.idStatus";
+				INNER JOIN status ON commande.idStatus = status.idStatus
+				INNER JOIN client ON commande.idClient = client.idClient
+				ORDER BY status.idStatus";
 		$this->_setSql($sql);
 
 		return $this->getAll();
@@ -492,10 +494,22 @@ class AdminModel extends Model{
 		return $this->getRow();
 	}
 
-	public function modifStatusCommande($data){
+	public function updateCommandeStatus($data, $status){
 		$sql = "UPDATE commande
-				SET idStatus = :status
-				WHERE idCommande = :commande";
+				SET idStatus = " . $status . ", ";
+		switch($status){
+			case 1 :
+				unset($data['dateTime']);
+				$sql .= "preparation = NULL ";
+				break;
+			case 2 :
+				$sql .= "preparation = :dateTime ";
+				break;
+			case 3 :
+				$sql .= "expedition = :dateTime ";
+				break;
+		}
+		$sql .= "WHERE idCommande = :commande";
 		$this->_setSql($sql);
 
 		return $this->execSql($data);

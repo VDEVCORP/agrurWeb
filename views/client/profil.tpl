@@ -88,14 +88,19 @@
                             <td><?= $commande['refCommande'] ?></td>
                             <td><?= $commande['soumission'] ?></td>
                             <td><?= $commande['nbrItem'] ?></td>
-                            <td><?= $commande['expedition'] ?></td>
-							<td><?= $commande['libelleStatus']?></td>
+                            <td><?= $commande['expedition'] ? $commande['expedition'] : ' - '?></td>
+							<td><p class="	<?php 	if($commande['libelleStatus'] == 'en attente') echo 'text-danger';
+													if($commande['libelleStatus'] == 'en cours') echo 'text-success';
+													if($commande['libelleStatus'] == 'expedié') echo 'text-info';
+											?>">
+								<?= ucfirst($commande['libelleStatus'])?>
+							</p></td>
                             <td class="text-right">
                                 <div class="btn-group">
 									<?php if($commande['libelleStatus'] == 'en attente') : ?>
 										<button class="commande-delete btn btn-danger btn-sm" id="<?= $commande["idCommande"] ?>">Annuler</button>
 									<?php endif ?>
-                                    <a class="btn btn-info btn-sm" href="/client/bonCommande/?id=<?= $commande['idCommande'] ?>">Détails</a>
+                                    <a class="btn btn-info btn-sm" href="/client/bonCommande/?id=<?= $commande['idCommande'] ?>" <?= $commande['libelleStatus'] == 'expedié' ? 'disabled' : false ?>>Détails</a>
                                 </div>
                             </td>
                         </tr>
