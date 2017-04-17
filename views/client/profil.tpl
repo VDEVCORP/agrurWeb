@@ -100,7 +100,7 @@
 									<?php if($commande['libelleStatus'] == 'en attente') : ?>
 										<button class="commande-delete btn btn-danger btn-sm" id="<?= $commande["idCommande"] ?>">Annuler</button>
 									<?php endif ?>
-                                    <a class="btn btn-info btn-sm" href="/client/bonCommande/?id=<?= $commande['idCommande'] ?>" <?= $commande['libelleStatus'] == 'expedié' ? 'disabled' : false ?>>Détails</a>
+                                    <a class="btn btn-info btn-sm" href="/client/bonCommande/?id=<?= $commande['idCommande'] ?>">Détails</a>
                                 </div>
                             </td>
                         </tr>

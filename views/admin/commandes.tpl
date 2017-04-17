@@ -1,7 +1,8 @@
 <div class="ibox float-e-margins">
     <div class="ibox-title">
-        <h5>Historique des commandes</h5>
+        <h5>Historique des commandes </h5>
         <div class="ibox-tools">
+            <a href="http://agrur.vdev/admin/commandes" class="btn btn-default btn-xs"><i class="fa fa-repeat"></i> Rafraîchir</a>
             <a class="collapse-link">
                 <i class="fa fa-chevron-up"></i>
             </a>

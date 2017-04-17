@@ -523,6 +523,19 @@ class AdminModel extends Model{
 		return $this->execSql($id_commande);
 	}
 
+	public function findCustomerLast5Commandes($id_customer){
+		$sql = "SELECT idCommande, soumission, refCommande, libelleStatus
+				FROM commande
+				INNER JOIN status ON status.idStatus = commande.idStatus
+				WHERE idClient = ?
+				ORDER BY soumission DESC
+				LIMIT 5";
+		$this->_setSql($sql);
+
+		$results = $this->getAll([$id_customer]);
+		return $results;
+	}
+
 // Table Detailcommande
 	public function findCommandeDetails($id_commande){
 		$sql = "SELECT quantiteCommandee, conditionnement.*

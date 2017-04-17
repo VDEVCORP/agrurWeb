@@ -100,7 +100,13 @@ class AdminController extends Controller
                     } elseif($action['query']['role'] == 'cli'){
                         $askCustomer = $this->_model->findCustomerByID($action['query']['id']);
                         $this->_view->set('askCustomer', $askCustomer);
-                        $commandes = null; //Rechercher les commandes par client
+                        $commandes = $this->_model->findCustomerLast5Commandes($action['query']['id']);
+                        $commandes = $this->shortDateTime($commandes, 'soumission');
+                                        /*  Si shortDate reçois un tableau contenant une unique commande, il renverra cet unique
+                        commande et non une liste de commandes. L'algo si dessous, si la commande est unique,
+                        l'insert dans une nouvelle liste pour ne pas provoquer d'erreurs dans le "foreach" de 
+                        la vue. */
+                        !empty($commandes) && !in_array('0', array_keys($commandes)) ?  $commandes = array($commandes) : false;
                         $this->_view->set('commandes', $commandes);
                     }
                 break;
