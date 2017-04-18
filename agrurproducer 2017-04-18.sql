@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Sam 08 Avril 2017 à 12:06
+-- Généré le :  Mar 18 Avril 2017 à 09:00
 -- Version du serveur :  5.7.14
 -- Version de PHP :  5.6.25
 
@@ -38,7 +38,7 @@ CREATE TABLE `calibre` (
 INSERT INTO `calibre` (`idCalibre`, `intervalle`) VALUES
 (1, '< 24mm'),
 (2, '{24, 28}mm'),
-(3, '{24, 28}mm'),
+(3, '{28, 30}mm'),
 (4, '{30, 32}mm'),
 (5, '{32, 34}mm'),
 (6, '> 34mm');
@@ -113,9 +113,9 @@ CREATE TABLE `client` (
 --
 
 INSERT INTO `client` (`idClient`, `nomClient`, `nomRepresentant`, `prenomRepresentant`, `telephone`, `adresse`, `ville`, `codePostal`, `fk_id_user`, `last_edit`) VALUES
-(9, 'Ferrero', 'Vainere', 'Dimitri', '0647586914', '18 Rue Jacques Monod', 'Mont-Saint-Aignan', 76130, 28, '2017-04-02 09:40:07'),
-(10, 'Paul', 'Descamps', 'Marion', '0652637485', '344, avenue de la Marne', 'Marcq-en-Baroeul', 59700, 29, '2017-04-02 09:40:07'),
-(11, 'La Saladerie', 'Dubois', 'Mathilde', '0652859674', '98 avenue de la République', 'Bordeaux', 33800, 30, '2017-04-02 09:40:07'),
+(9, 'Ferrero', 'Vainere', 'Dimitri', '0647586914', '18 Rue Jacques Monod', 'Mont-Saint-Aignan', 76130, 28, '2017-04-03 08:25:13'),
+(10, 'Paul', 'Descamps', 'Marion', '0652637485', '344, avenue de la Marne', 'Marcq-en-Baroeul', 59700, 29, '2017-04-02 09:41:40'),
+(11, 'La Saladerie', 'Dubois', 'Mathilde', '0652859674', '98 avenue de la République', 'Bordeaux', 33800, 30, '2017-04-02 09:39:31'),
 (12, 'Carrefour Brive-la-Gaillarde', 'Cohen', 'Alexandre', '675153595', '56 rue Pierre Chaumeil', 'Brive-la-Gaillarde', 19100, 32, '2017-04-02 09:40:07');
 
 -- --------------------------------------------------------
@@ -130,10 +130,21 @@ CREATE TABLE `commande` (
   `expedition` timestamp NULL DEFAULT NULL,
   `preparation` timestamp NULL DEFAULT NULL,
   `soumission` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `idStatus` int(11) NOT NULL,
-  `nbrUniteCommandee` int(11) DEFAULT NULL,
+  `idStatus` int(11) NOT NULL DEFAULT '1',
   `idClient` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `commande`
+--
+
+INSERT INTO `commande` (`idCommande`, `refCommande`, `expedition`, `preparation`, `soumission`, `idStatus`, `idClient`) VALUES
+(20, 'c72030afee', NULL, '2017-04-17 12:54:59', '2017-04-17 08:23:53', 2, 9),
+(21, '97cb6d8fd8', '2017-04-17 12:55:01', '2017-04-17 12:54:59', '2017-04-17 08:24:29', 3, 9),
+(22, '0b74812821', NULL, NULL, '2017-04-17 08:27:33', 1, 11),
+(23, '94ef04c654', NULL, NULL, '2017-04-17 08:28:26', 1, 10),
+(24, 'b70bdd78a8', NULL, NULL, '2017-04-17 08:28:55', 1, 10),
+(26, 'ccd82d0947', NULL, NULL, '2017-04-17 12:58:44', 1, 9);
 
 -- --------------------------------------------------------
 
@@ -189,7 +200,15 @@ CREATE TABLE `conditionnement` (
 
 INSERT INTO `conditionnement` (`idConditionnement`, `libelleConditionnement`, `poidsConditionnee`, `idLot`) VALUES
 (1, 'Filet de petites Fernor Cov', 18, 1),
-(2, 'Carton de Noix de Grenoble XL', 30, 2);
+(2, 'Carton de Noix de Grenoble XL', 30, 2),
+(4, 'Palette - Noix du Perigord XL', 200, 4),
+(5, 'Palette - Noix du Perigord L', 200, 11),
+(6, 'Filet de petites Lara Sèches', 10, 7),
+(7, 'Filet de Lara Sèches', 10, 8),
+(8, 'La belle Marbot Fraîche - Carton', 22, 9),
+(9, 'Sac de petites Franquettes Fraîche', 3, 4),
+(10, 'Parisiennes à Pâtisser - Grand filet', 18, 12),
+(11, 'La Grand Jean L - Carton', 30, 13);
 
 -- --------------------------------------------------------
 
@@ -198,11 +217,29 @@ INSERT INTO `conditionnement` (`idConditionnement`, `libelleConditionnement`, `p
 --
 
 CREATE TABLE `detailcommande` (
-  `quantiteCommandee` int(11) DEFAULT NULL,
   `idConditionnement` int(11) NOT NULL,
   `idCommande` int(11) NOT NULL,
-  `soumis` tinyint(1) NOT NULL DEFAULT '0'
+  `quantiteCommandee` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `detailcommande`
+--
+
+INSERT INTO `detailcommande` (`idConditionnement`, `idCommande`, `quantiteCommandee`) VALUES
+(1, 22, 1),
+(2, 21, 2),
+(5, 22, 1),
+(6, 24, 10),
+(7, 21, 5),
+(7, 22, 2),
+(8, 22, 2),
+(8, 26, 2),
+(9, 23, 25),
+(10, 22, 3),
+(10, 24, 5),
+(10, 26, 6),
+(11, 20, 6);
 
 -- --------------------------------------------------------
 
@@ -225,7 +262,14 @@ CREATE TABLE `livraison` (
 INSERT INTO `livraison` (`idLivraison`, `dateLivraison`, `quantite`, `idVerger`, `idTypeProduit`) VALUES
 (2, '2017-04-01', 400, 6, 2),
 (3, '2017-02-17', 200, 4, 1),
-(4, '2017-03-24', 400, 8, 2);
+(4, '2017-03-24', 400, 8, 2),
+(6, '2017-03-28', 170, 17, 2),
+(7, '2017-03-29', 120, 18, 2),
+(8, '2017-03-17', 325, 13, 1),
+(9, '2017-04-05', 1100, 15, 1),
+(10, '2017-04-07', 400, 14, 1),
+(11, '2017-04-08', 575, 10, 2),
+(12, '2017-03-31', 150, 10, 2);
 
 -- --------------------------------------------------------
 
@@ -249,7 +293,15 @@ INSERT INTO `lot` (`idLot`, `reference`, `idCalibre`, `quantiteLot`, `idLivraiso
 (1, 'FERNOR2428S', 3, 100, 2),
 (2, 'NDGR3032S1', 4, 250, 4),
 (3, 'NDGR3234S2', 5, 250, 4),
-(4, '1FRANQM241', 1, 100, 3);
+(4, '1FRANQM241', 1, 100, 3),
+(7, '1LARAMAR28', 1, 75, 6),
+(8, '2LARAMAR28', 2, 75, 6),
+(9, '1marb040734', 6, 213, 10),
+(10, 'Peri0405m341', 6, 320, 9),
+(11, 'Peri04052342', 5, 362, 9),
+(12, '170317PARIS1L', 3, 545, 8),
+(13, 'GrandJean481', 3, 200, 11),
+(14, 'GrandJean482', 3, 220, 12);
 
 -- --------------------------------------------------------
 
@@ -271,7 +323,7 @@ CREATE TABLE `page` (
 INSERT INTO `page` (`id_page`, `url_page`, `name_page`, `description_page`) VALUES
 (1, 'producteur/home', 'Informations Personnelles', 'Espace du producteur'),
 (2, 'admin/home', 'Vue générale', 'Espace de l\'administrateur'),
-(3, 'client/home', 'Accueil', 'Espace du client'),
+(3, 'client/home', 'Catalogue des produits', 'Espace du client'),
 (4, 'admin/inscription', 'Inscription', 'Permet d\'inscrire dans l\'application des producteurs ou des clients'),
 (5, 'admin/utilisateurs', 'Gestion des Utilisateurs', 'Liste et outils de gestion relatifs aux différents utilisateurs '),
 (6, 'admin/communes', 'Communes', 'Liste et ajouts des communes'),
@@ -285,7 +337,8 @@ INSERT INTO `page` (`id_page`, `url_page`, `name_page`, `description_page`) VALU
 (15, 'client/profil', 'Mon profil', 'Espace d\'administration du profil d\'un client'),
 (16, 'client/commandes', 'Commandes', 'Page permettant de passer commande et de garder un visuel sur le status des commandes'),
 (17, 'admin/conditionnement', 'Conditionnement', 'Liste et ajout de différents modes de conditionnement de la coopérative'),
-(18, 'admin/commandes', 'Commandes', 'Espace de gestion et de vue sur les commandes formulés par les clients de la coopérative');
+(18, 'admin/commandes', 'Commandes', 'Espace de gestion et de vue sur les commandes formulés par les clients de la coopérative'),
+(19, 'client/bonCommande', 'Edition du bon de commande', 'Affichage du bon de commande avec tout ses détails et possibilité d\'impression du bon');
 
 -- --------------------------------------------------------
 
@@ -333,9 +386,9 @@ CREATE TABLE `status` (
 --
 
 INSERT INTO `status` (`idStatus`, `libelleStatus`) VALUES
-(1, 'En Attente'),
-(2, 'En Cours'),
-(3, 'Expedié');
+(1, 'en attente'),
+(2, 'en cours'),
+(3, 'expedié');
 
 -- --------------------------------------------------------
 
@@ -418,7 +471,9 @@ INSERT INTO `users_access` (`users_access_id`, `fk_id_rank`, `fk_id_page`) VALUE
 (20, 3, 15),
 (21, 3, 16),
 (22, 1, 17),
-(23, 1, 18);
+(23, 1, 18),
+(24, 1, 19),
+(25, 3, 19);
 
 -- --------------------------------------------------------
 
@@ -524,7 +579,13 @@ INSERT INTO `verger` (`idVerger`, `nomVerger`, `superficie`, `nbrArbreParHect`, 
 (8, '198MEENdG1', 20, 125, 14, 15, 15, '2017-04-02 18:44:00'),
 (9, '191LCSGNdP1', 15, 100, 14, 11, 16, '2017-04-02 18:45:32'),
 (10, '162HOULGJ2', 5, 60, 14, 9, 20, '2017-04-02 18:46:51'),
-(11, '162HOULGJ1', 7, 65, 14, 9, 20, '2017-04-02 18:47:17');
+(11, '162HOULGJ1', 7, 65, 14, 9, 20, '2017-04-02 18:47:17'),
+(13, 'Parisienne16120', 10, 110, 15, 14, 18, '2017-04-09 10:51:44'),
+(14, 'Marbot16200', 10, 110, 15, 8, 20, '2017-04-09 10:52:02'),
+(15, 'Perigord16200', 20, 90, 15, 11, 20, '2017-04-09 10:53:20'),
+(16, '1Loubr46130LLR', 5, 80, 16, 12, 13, '2017-04-09 10:56:15'),
+(17, '1SarrLLR19800', 7, 85, 16, 12, 14, '2017-04-09 10:56:01'),
+(18, '2SarrLLR19800', 3, 85, 16, 12, 14, '2017-04-09 10:56:48');
 
 --
 -- Index pour les tables exportées
@@ -681,42 +742,42 @@ ALTER TABLE `calibre`
 -- AUTO_INCREMENT pour la table `certification`
 --
 ALTER TABLE `certification`
-  MODIFY `idCertification` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `idCertification` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT pour la table `client`
 --
 ALTER TABLE `client`
-  MODIFY `idClient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `idClient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT pour la table `commande`
 --
 ALTER TABLE `commande`
-  MODIFY `idCommande` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCommande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT pour la table `commune`
 --
 ALTER TABLE `commune`
-  MODIFY `idCommune` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `idCommune` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT pour la table `conditionnement`
 --
 ALTER TABLE `conditionnement`
-  MODIFY `idConditionnement` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idConditionnement` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT pour la table `livraison`
 --
 ALTER TABLE `livraison`
-  MODIFY `idLivraison` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idLivraison` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT pour la table `lot`
 --
 ALTER TABLE `lot`
-  MODIFY `idLot` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idLot` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT pour la table `page`
 --
 ALTER TABLE `page`
-  MODIFY `id_page` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_page` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT pour la table `producteur`
 --
@@ -736,17 +797,17 @@ ALTER TABLE `typeproduit`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT pour la table `users_access`
 --
 ALTER TABLE `users_access`
-  MODIFY `users_access_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `users_access_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT pour la table `users_login`
 --
 ALTER TABLE `users_login`
-  MODIFY `id_login` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id_login` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT pour la table `users_rank`
 --
@@ -756,12 +817,12 @@ ALTER TABLE `users_rank`
 -- AUTO_INCREMENT pour la table `variete`
 --
 ALTER TABLE `variete`
-  MODIFY `idVariete` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `idVariete` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT pour la table `verger`
 --
 ALTER TABLE `verger`
-  MODIFY `idVerger` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `idVerger` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- Contraintes pour les tables exportées
 --
@@ -797,7 +858,7 @@ ALTER TABLE `conditionnement`
 --
 ALTER TABLE `detailcommande`
   ADD CONSTRAINT `FK_detailCommande_idConditionnement` FOREIGN KEY (`idConditionnement`) REFERENCES `conditionnement` (`idConditionnement`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_detailCommande_numeroCommande` FOREIGN KEY (`idCommande`) REFERENCES `commande` (`idCommande`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_detailCommande_numeroCommande` FOREIGN KEY (`idCommande`) REFERENCES `commande` (`idCommande`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `livraison`

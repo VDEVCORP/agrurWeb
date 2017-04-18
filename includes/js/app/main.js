@@ -313,3 +313,105 @@ $('.conditionnement-delete').click(function () {
         });
     });
 });
+
+// Supprimer une Commande (si possible :P)
+$('.commande-delete').click(function () {
+    $element = $(this)
+    var id = $element.attr('id')
+    swal({
+        title: "Êtes-vous sûr ?",
+        text: "La commande ainsi que ses détails seront perdus à jamais !",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Annuler!",
+        cancelButtonText: "Retour",
+        closeOnConfirm: false
+    }, function() { 
+        $.ajax(
+            {
+                type: "get",
+                url: "/client/profil/delete",
+                data: "id="+id,
+                success: function(data) {
+                    swal("Fait!", "La commande à bien été annulée!", "success");
+                    $element.closest('tr').remove()
+                }
+            }
+        )
+        .error(function(data) {
+            swal("Oops", "Une erreur s'est produite lors de l'annulation'!", "error");
+        });
+    });
+});
+
+// Ajout produit au panier
+$('.add-panier').click(function (event){
+    event.preventDefault()
+    $.get($(this).attr('href'), {}, function(data){
+        if(data.error){
+            swal({
+                title: "Error!",
+                text: data.message,
+                type: "error",
+                confirmButtonText: "retour"
+            })
+        } else {
+            swal({
+                title: data.message,
+                type: "success",
+                showConfirmButton: false,
+                timer: 900,
+            })
+        }
+    }, 'json')
+    return false
+})
+
+$('.remove-product').click(function(event){
+    event.preventDefault()
+    $.get($(this).attr('href'), {}, function(data){})
+    $(this).closest('.ibox-content').remove()
+})
+
+$('.clear-panier').click(function(event){
+    event.preventDefault()
+    $.get($(this).attr('href'), {}, function(data){
+        $('.item').each(function(){
+            $(this).remove()
+        })
+    })
+})
+
+$('.change-status').click(function(event){
+    event.preventDefault()
+    $.get($(this).attr('href'), {}, function(data){})
+    var tdpStatus = $(this).closest('td').prev().contents()
+    switch($(this).attr('id')){
+        case "encours" :
+            $(this).prev().removeAttr('disabled')
+            $(this).attr('disabled', true)
+            tdpStatus.removeClass('text-danger')
+            tdpStatus.removeClass('text-info')
+            tdpStatus.addClass('text-success')
+            tdpStatus.text('En cours')
+            break
+        case "expedie" :
+            var btnExpedie = $(this).attr('disabled', true)
+            var btnEncours = btnExpedie.prev().attr('disabled', true)
+            btnEncours.prev().attr('disabled', true)
+            tdpStatus.removeClass('text-success')
+            tdpStatus.removeClass('text-danger')
+            tdpStatus.addClass('text-info')
+            tdpStatus.text('Expedié')
+            break
+        case "attente" :
+            $(this).attr('disabled', true)
+            var btnEncours = $(this).next().removeAttr('disabled')
+            tdpStatus.removeClass('text-info')
+            tdpStatus.removeClass('text-success')
+            tdpStatus.addClass('text-danger')
+            tdpStatus.text('En attente')
+            break
+    }
+})

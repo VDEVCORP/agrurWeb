@@ -20,7 +20,8 @@
                             <th>#</th>
                             <th>Date de livraison</th>
                             <th>Provenance</th>
-                            <th>Quantité (kg)</th>
+                            <th>Type</th>
+                            <th class="text-right">Quantité (kg)</th>
                             <th></th>
                         </tr>
                     <thead>
@@ -29,8 +30,9 @@
                         <tr>
                             <td><?= $livraison["idLivraison"] ?></td>
                             <td><?= $livraison["dateLivraison"] ?></td>
-                            <td><?= $livraison["nomVerger"] ?> </td>
-                            <td><span class="pull-right"><?= $livraison["quantite"] ?></span></td>
+                            <td><?= $livraison["nomVerger"] ?></td>
+                            <td><?= $livraison["libelleTypeProduit"] ?></td>
+                            <td class="text-right"><?= $livraison["quantite"] ?></td>
                             <td class="text-right">
                                 <div class="btn-group">
                                     <a class="btn btn-info btn-xs" href="/admin/livraisons/edit?id=<?= $livraison['idLivraison'] ?>">Editer</a>
@@ -43,7 +45,6 @@
                     <?php } ?>
                     </tbody>
                 </table>
-
             </div>
         </div>
     </div>
