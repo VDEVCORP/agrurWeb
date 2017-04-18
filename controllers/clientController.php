@@ -54,7 +54,7 @@ class ClientController extends Controller {
             $changeForMail = array($_POST['email'], $this->customer['fk_id_user']);
             unset($_POST['email']);
 
-            $_POST["idCustomer"] = $this->customer['idCustomer'];
+            $_POST["idClient"] = $this->customer['idClient'];
             $save = $this->_model->updateCustomer($_POST);
             if($save){
                 $this->customer = $this->_model->findCustomer($_SESSION['user']['user_key']);

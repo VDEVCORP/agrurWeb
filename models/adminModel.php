@@ -65,6 +65,17 @@ class AdminModel extends Model{
 		return $producer;
 	}
 
+	public function find5LastProducers(){
+		$sql = "SELECT * 
+				FROM producteur
+				INNER JOIN users ON producteur.fk_id_user = users.id_user
+				ORDER BY last_edit DESC
+				LIMIT 5";
+		$this->_setSql($sql);
+
+		return $this->getAll();
+	}
+
 	public function findAllProducers(){
 		$sql = "SELECT *, users.email, users.valid
 				FROM producteur
@@ -93,6 +104,17 @@ class AdminModel extends Model{
 
 		$producer = $this->getRow([$id]);
 		return $producer;
+	}
+
+	public function find5LastCustomers(){
+		$sql = "SELECT * 
+				FROM client
+				INNER JOIN users ON client.fk_id_user = users.id_user
+				ORDER BY last_edit DESC
+				LIMIT 5";
+		$this->_setSql($sql);
+
+		return $this->getAll();
 	}
 
 	public function findAllCustomers(){
@@ -165,6 +187,19 @@ class AdminModel extends Model{
 				INNER JOIN variete ON verger.idVariete = variete.idVariete
 				INNER JOIN commune ON verger.idCommune = commune.idCommune";
 		$this->_setSql($sql);
+		$results = $this->getAll();
+		return $results;
+	}
+
+	public function find10LastVergers(){
+		$sql = "SELECT * FROM verger
+				INNER JOIN producteur ON verger.idProducteur = producteur.idProducteur
+				INNER JOIN variete ON verger.idVariete = variete.idVariete
+				INNER JOIN commune ON verger.idCommune = commune.idCommune
+				ORDER BY verger_last_edit DESC
+				LIMIT 10";
+		$this->_setSql($sql);
+
 		$results = $this->getAll();
 		return $results;
 	}
@@ -274,10 +309,23 @@ class AdminModel extends Model{
 	public function findAllLivraisons(){
 		$sql = "SELECT *, verger.nomVerger 
 				FROM livraison
-				INNER JOIN verger ON livraison.idVerger = verger.idVerger";
+				INNER JOIN verger ON livraison.idVerger = verger.idVerger
+				INNER JOIN typeproduit ON livraison.idTypeProduit = typeproduit.idTypeProduit";
 		$this->_setSql($sql);
 		$results = $this->getAll();
 		return $results;
+	}
+
+	public function find10LastLivraisons(){
+		$sql = "SELECT *, verger.nomVerger 
+				FROM livraison
+				INNER JOIN verger ON livraison.idVerger = verger.idVerger
+				INNER JOIN typeproduit ON livraison.idTypeProduit = typeproduit.idTypeProduit
+				ORDER BY dateLivraison DESC
+				LIMIT 10";
+		$this->_setSql($sql);
+
+		return $this->getAll();
 	}
 
 	public function findLivraisonByID($id){
@@ -484,6 +532,17 @@ class AdminModel extends Model{
 		return $this->getAll();
 	}
 
+	public function find10LastCommandes(){
+		$sql = "SELECT * FROM commande
+				INNER JOIN status ON commande.idStatus = status.idStatus
+				INNER JOIN client ON commande.idClient = client.idClient
+				ORDER BY soumission DESC
+				LIMIT 10";
+		$this->_setSql($sql);
+
+		return $this->getAll();
+	}
+
 	public function findCommandeByID($id_commande){
 		$sql = "SELECT * FROM commande
 				INNER JOIN status ON commande.idStatus = status.idStatus
@@ -523,7 +582,7 @@ class AdminModel extends Model{
 		return $this->execSql($id_commande);
 	}
 
-	public function findCustomerLast5Commandes($id_customer){
+	public function findCustomer5LastCommandes($id_customer){
 		$sql = "SELECT idCommande, soumission, refCommande, libelleStatus
 				FROM commande
 				INNER JOIN status ON status.idStatus = commande.idStatus
