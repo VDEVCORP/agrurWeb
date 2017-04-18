@@ -1,6 +1,5 @@
 <div class="row">
-	<div class="col-lg-2"></div>
-	<div class="col-lg-8">
+	<div class="col-lg-5">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
 				<h5>INFORMATIONS <small>Dernières modification le <b><?= $customer['last_edit'] ?></b></small></h5>
@@ -58,5 +57,57 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-lg-2"></div>
+	<div class="col-lg-7">
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<h5>Historique des commandes</h5>
+				<div class="ibox-tools">
+					<a class="collapse-link">
+						<i class="fa fa-chevron-up"></i>
+					</a>
+					<a class="close-link">
+						<i class="fa fa-times"></i>
+					</a>
+				</div>
+			</div>
+			<div class="ibox-content">
+				<table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Référérence</th>
+							<th>Fait le</th>
+							<th>Nbr unités</th>
+                            <th>Expedié le</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    <thead>
+                    <tbody>
+                    <?php foreach($commandes as $commande) : ?>
+                        <tr>
+                            <td><?= $commande['refCommande'] ?></td>
+                            <td><?= $commande['soumission'] ?></td>
+                            <td><?= $commande['nbrItem'] ?></td>
+                            <td><?= $commande['expedition'] ? $commande['expedition'] : ' - '?></td>
+							<td><p class="	<?php 	if($commande['libelleStatus'] == 'en attente') echo 'text-danger';
+													if($commande['libelleStatus'] == 'en cours') echo 'text-success';
+													if($commande['libelleStatus'] == 'expedié') echo 'text-info';
+											?>">
+								<?= ucfirst($commande['libelleStatus'])?>
+							</p></td>
+                            <td class="text-right">
+                                <div class="btn-group">
+									<?php if($commande['libelleStatus'] == 'en attente') : ?>
+										<button class="commande-delete btn btn-danger btn-sm" id="<?= $commande["idCommande"] ?>">Annuler</button>
+									<?php endif ?>
+                                    <a class="btn btn-info btn-sm" href="/client/bonCommande/?id=<?= $commande['idCommande'] ?>">Détails</a>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endforeach ?>
+                    </tbody>
+                </table>
+			</div>
+		</div>
+	</div>
 </div>

@@ -6,7 +6,7 @@
             <div class="ibox-content product-box">
                 <img class="img-responsive" src="/includes/images/noix/<?= $produit['idVariete'] ?>.jpg">
                 <div class="product-desc">
-                    <a href="/client/home/add?id="><span class="product-price">
+                    <a href="/client/interactPanier/add?id=<?= $produit['idConditionnement'] ?>" class="add-panier"><span class="product-price">
                         <i class="fa fa-plus"></i>
                     </span></a>
                     <small class="text-muted"><?= $produit['nomVariete'] ?></small>
@@ -19,8 +19,10 @@
                         </ul>
                     </div>
                     <div class="m-t text-righ">
-
-                        <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
+                        <p>
+                            <?= $produit['aocVariete'] ? '<span class="label label-primary badge-xs"><i class="fa fa-leaf"></i>&nbsp;&nbsp;Variété AOC</span>' : false ?>
+                            <?= $produit['aocCommune'] ? '&nbsp;<span class="label label-warning xs"><i class="fa fa-home"></i>&nbsp;&nbsp;Provenance AOC</span>' : false ?>
+                        </p>
                     </div>
                 </div>
             </div>

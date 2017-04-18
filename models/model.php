@@ -10,7 +10,7 @@ class Model
 		$this->_db = Db::init();
 	}
 	
-	protected function _setSql($sql)
+	public function _setSql($sql)
 	{
 		$this->_sql = $sql;
 	}

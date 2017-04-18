@@ -209,22 +209,22 @@
                 <p><strong>Email: </strong><?= $askCustomer['email'] ?></p>
                 <p><strong>Telephone: </strong><?= $askCustomer['telephone'] ?></p>
                 <hr>
-                <h4 class="text-center">Commandes</h4>
+                <h4 class="text-center">Dernières commandes</h4>
                 <?php if(!empty($commandes)){ ?>
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Nbr<th>
+                            <th>Soumission</th>
                             <th>Status</th>
                         </tr>
                     <thead>
                     <tbody>
-                    <?php foreach($commandes as $commandes){ ?>
+                    <?php foreach($commandes as $commande){ ?>
                         <tr>
-                            <td><?= $commandes["soumission"] ?></td>
-                            <td><?= $commandes["nbrUnitesCommandee"] ?></td>
-                            <td><?= $commandes["libelleStatus"] ?></td>
+                            <td><a href="/client/bonCommande/?id=<?= $commande["idCommande"] ?>"><?= $commande["refCommande"] ?></a></td>
+                            <td><?= $commande["soumission"] ?></td>
+                            <td><?= $commande["libelleStatus"] ?></td>
                         </tr>
                     <?php }?>
                     </tbody>

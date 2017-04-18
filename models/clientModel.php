@@ -2,8 +2,7 @@
 
 class ClientModel extends Model{
 
-    public function __construct()
-	{
+    public function __construct(){
 		parent::__construct();
 	}
 
@@ -41,8 +40,8 @@ class ClientModel extends Model{
 
 // Table Conditionnement
 	public function findAllConditionnementExpo(){
-		$sql = "SELECT *
-			#TODO : Déterminer les infos affichées
+		$sql = "SELECT conditionnement.idConditionnement, libelleConditionnement, variete.idVariete, nomVariete,
+						poidsConditionnee, intervalle, aocCommune, aocVariete
 				FROM conditionnement
 				INNER JOIN lot ON conditionnement.idLot = lot.idLot
 				INNER JOIN calibre ON lot.idCalibre = calibre.idCalibre
@@ -56,22 +55,10 @@ class ClientModel extends Model{
 		return $results;
 	}
 
-	public function findAllConditionnementForm(){
-		$sql = "SELECT
-			#TODO : Déterminer les infos du comboBox
+	public function findConditionnementInIDs(array $ids){
+		$sql = "SELECT conditionnement.idConditionnement, libelleConditionnement, variete.idVariete, nomVariete,
+						poidsConditionnee, intervalle, aocCommune, aocVariete
 				FROM conditionnement
-				INNER JOIN lot ON conditionnement.idLot = lot.idLot
-				INNER JOIN livraison ON lot.idLivraison = livraison.idLivraison
-				INNER JOIN verger ON livraison.idVerger = verger.idVerger
-				INNER JOIN variete ON verger.idVariete = variete.idVariete
-				INNER JOIN commune ON verger.idCommune = commune.idCommune";
-		$this->_setSql($sql);
-		$results = $this->getAll();
-		return $results;
-	}
-
-	public function findConditionnementByID($id_conditionnement){
-		$sql = "SELECT *, producteur.nomResponsable, producteur.prenomResponsable FROM conditionnement
 				INNER JOIN lot ON conditionnement.idLot = lot.idLot
 				INNER JOIN calibre ON lot.idCalibre = calibre.idCalibre
 				INNER JOIN livraison ON lot.idLivraison = livraison.idLivraison
@@ -79,11 +66,10 @@ class ClientModel extends Model{
 				INNER JOIN typeproduit ON livraison.idTypeProduit = typeproduit.idTypeProduit
 				INNER JOIN variete ON verger.idVariete = variete.idVariete
 				INNER JOIN commune ON verger.idCommune = commune.idCommune
-				INNER JOIN producteur ON verger.idProducteur = producteur. idProducteur
-				WHERE idConditionnement = ?";
+				WHERE idConditionnement IN (". implode(',', $ids) .")";
 		$this->_setSql($sql);
-		$results = $this->getRow([$id_conditionnement]);
-		return $results;
+		$results = $this->getAll();
+		return $results;	
 	}
 
 // Table Commande
@@ -96,6 +82,15 @@ class ClientModel extends Model{
 		return $this->getAll([$id_customer]);
 	}
 
+	public function issetCommande($id_commande){
+		$sql = 'SELECT count(*) 
+				FROM commande
+				WHERE idCommande = ?';
+		$this->_setSql($sql);
+
+		return $this->getRow([$id_commande]);
+	}
+
 	public function findCommandeByID($id_commande){
 		$sql = "SELECT * FROM commande
 				INNER JOIN status ON commande.idStatus = status.idStatus
@@ -103,7 +98,7 @@ class ClientModel extends Model{
 				WHERE idCommande = ?";
 		$this->_setSql($sql);
 
-		return $this->getRow();
+		return $this->getRow([$id_commande]);
 	}
 
 	public function deleteCommande($id_commande){
@@ -111,20 +106,21 @@ class ClientModel extends Model{
 				WHERE idCommande = ?";
 		$this->_setSql($sql);
 
-		return $this->execSql($id_commande);
+		return $this->execSql([$id_commande]);
 	}
 
+	// Les champs 'soumission' et 'idStatus' sont fixé par défaut en bdd à la création
 	public function addCommande(array $data){
-		$sql = "INSERT INTO commande(refCommande, soumission, idStatus, nbrUniteCommandee, idClient)
-				VALUES (:refCommande, :soumission, :idStatus, :nbrUnite, :idClient)";
+		$sql = "INSERT INTO commande(refCommande, idClient)
+				VALUES (:refCommande, :idClient)";
 		$this->_setSql($sql);
 
-		return $this->execSql($data);
+		return $this->execSql($data, true);
 	}
 
 // Table Detailcommande
 	public function findCommandeDetails($id_commande){
-		$sql = "SELECT quantiteCommande, conditionnement.*
+		$sql = "SELECT quantiteCommandee, conditionnement.*
 				FROM detailcommande
 				INNER JOIN conditionnement ON detailcommande.idConditionnement = conditionnement.idConditionnement
 				WHERE idCommande = ?";
@@ -144,7 +140,7 @@ class ClientModel extends Model{
 		return $this->execSql($data);
 	}
 
-	public function addConditionnementCommande(array $data){
+	public function addDetailCommande(array $data){
 		$sql = "INSERT INTO detailcommande(quantiteCommandee, idCommande, idConditionnement)
 				VALUES (:nbrUnite, :commande, :conditionnement)";
 		$this->_setSql($sql);

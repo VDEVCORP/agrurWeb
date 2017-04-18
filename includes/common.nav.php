@@ -137,7 +137,7 @@
 
                 <?php foreach($listAxx as $page){if($page['url_page'] == "client/commandes"){ ?>
                     <li class="<?php if (substr($_SERVER['REQUEST_URI'],1)=='client/commandes') echo 'active'; ?>">
-                        <a href="/client/commandes"><i class="fa fa-tree"></i><span class="nav-label">Mes commandes</span></a>
+                        <a href="/client/commandes"><i class="fa fa-shopping-cart"></i><span class="nav-label">Ma commande</span></a>
                     </li>
                 <?php }} ?>
 
