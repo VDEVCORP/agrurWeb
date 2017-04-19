@@ -120,9 +120,11 @@ class ClientModel extends Model{
 
 // Table Detailcommande
 	public function findCommandeDetails($id_commande){
-		$sql = "SELECT quantiteCommandee, conditionnement.*
+		$sql = "SELECT quantiteCommandee, conditionnement.*, intervalle
 				FROM detailcommande
 				INNER JOIN conditionnement ON detailcommande.idConditionnement = conditionnement.idConditionnement
+				INNER JOIN lot ON lot.idLot = conditionnement.idLot
+				INNER JOIN calibre ON calibre.idCalibre = lot.idCalibre
 				WHERE idCommande = ?";
 		$this->_setSql($sql);
 

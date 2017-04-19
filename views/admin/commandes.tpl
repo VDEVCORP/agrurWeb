@@ -55,7 +55,7 @@
                             id="encours" <?= $commande['libelleStatus'] == 'en cours' || $commande['libelleStatus'] == 'expedié' ? 'disabled' : false;?>>
                                 En cours</a>
                             <a class="change-status btn btn-primary btn-xs" href="/admin/commandes/expedie?id=<?= $commande['idCommande'] ?>"
-                            id="expedie" <?= $commande['libelleStatus'] == 'expedié' ? 'disabled' : false;?>>
+                            id="expedie" <?= $commande['libelleStatus'] == 'expedié' || $commande['libelleStatus'] == 'en attente' ? 'disabled' : false;?>>
                                 Expedié</a>
                         </div>
                     </td>

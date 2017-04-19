@@ -157,6 +157,31 @@ class ClientController extends Controller {
         $this->_view->outPut();
     }
 
+    public function bonCommandePDF($action = false){
+        $listAxx = $this->secureAccess("client/bonCommandePDF");
+        $this->_view->set('listAxx', $listAxx);
+
+        $action = $this->formatAction($action);
+        $testCommande = $this->_model->issetCommande($action['query']['id']);
+        if(array_shift($testCommande)){
+            $commande = $this->_model->findCommandeByID($action['query']['id']); 
+            $commande = $this->shortDate(array($commande), 'soumission');
+            $commandeDetails = $this->_model->findCommandeDetails($commande['idCommande']);
+
+            include(HOME . DS . 'includes' . DS . 'plugins' . DS . 'Fpdf' . DS . 'fpdf_bonCommande.php');
+            $pdf = new fpdf_bonCommande($commande, $commandeDetails);
+            $nomPdf = 'BDC-' . $commande['refCommande'] . '-' . $commande['soumission'];
+            $pdf->Output('I', $nomPdf, true);
+        } else {
+            if($_SESSION['user']['rank'] == 'customer'){
+                header('location: http://' . DOMAIN_NAME . '/client/profil');
+            } elseif($_SESSION['user']['rank'] == 'admin'){
+                header('location:  http://' . DOMAIN_NAME . '/admin/commandes');
+            }
+        }
+
+    }
+
     private function shortDate($requestResult = null, $field){
         if(!empty($requestResult)){
             if(count($requestResult) > 1){

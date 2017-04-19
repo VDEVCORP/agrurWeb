@@ -203,7 +203,7 @@
                         <tr>
                             <td><?= $lastVerger["verger_last_edit"] ?></td>
                             <td><?= $lastVerger["nomVerger"] ?></a></td>
-                            <td><?php echo substr($lastVerger["prenomResponsable"], 0, 1) ?>. <?= $lastVerger["nomResponsable"] ?></td>
+                            <td><?= substr($lastVerger["prenomResponsable"], 0, 1) ?>. <?= $lastVerger["nomResponsable"] ?></td>
                             <td class="text-right"><?= $lastVerger["nomCommune"] ?><?= $lastVerger["aocCommune"] ? ' (AOC)' : false ?></td>
                             <td class="text-right"><?= $lastVerger["nomVariete"] ?><?= $lastVerger["aocVariete"] ? ' (AOC)' : false ?></td>
                         </tr>
