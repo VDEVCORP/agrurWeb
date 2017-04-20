@@ -25,7 +25,7 @@ A partir de là, allez sur votre navigateur internet préféré et tapez le **no
 > vous avez respecté les 5 étapes d'installation précédentes,
 > contactez Deascenh à l'addresse t.moulin76@gmail.com
 
-Vous devriez arrivez sur la page de connexion à l'ERP d'AGRUR. Cet intranet dispose de trois *"espaces"* distincts: Client, Producteur et Administrateur.
+Vous devriez alors arrivez sur la page de connexion à l'ERP d'AGRUR. Cet intranet dispose de trois *"espaces"* distincts: Client, Producteur et Administrateur.
 Pour profiter d'une démonstration du système, un certain nombre d'accès ont déjà été créés :
 | Rang              | Accès         | Mdp   |
 | ----------------- | ------------- | ----- |
