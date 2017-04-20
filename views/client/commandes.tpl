@@ -98,7 +98,7 @@
                 </h2>
                 <hr class="m-b-xs">
                 <dl class="dl-horizontal m-b-none">
-                    <dt>TVA 20%</dt>
+                    <dt>TVA 7%</dt>
                     <dd>€ PART TVA</dd>
                 </dl>
                 <hr class="m-b-xs m-t-xs">

@@ -390,6 +390,7 @@ $('.change-status').click(function(event){
     switch($(this).attr('id')){
         case "encours" :
             $(this).prev().removeAttr('disabled')
+            $(this).next().removeAttr('disabled')
             $(this).attr('disabled', true)
             tdpStatus.removeClass('text-danger')
             tdpStatus.removeClass('text-info')

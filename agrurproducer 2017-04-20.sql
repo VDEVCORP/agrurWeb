@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 18 Avril 2017 à 09:00
+-- Généré le :  Jeu 20 Avril 2017 à 10:15
 -- Version du serveur :  5.7.14
 -- Version de PHP :  5.6.25
 
@@ -60,6 +60,7 @@ CREATE TABLE `certifdelivree` (
 --
 
 INSERT INTO `certifdelivree` (`dateCertification`, `idCertification`, `idProducteur`) VALUES
+('2017-04-01', 10, 13),
 ('2016-11-10', 10, 14),
 ('2017-03-24', 13, 13),
 ('2016-07-14', 15, 13);
@@ -144,7 +145,8 @@ INSERT INTO `commande` (`idCommande`, `refCommande`, `expedition`, `preparation`
 (22, '0b74812821', NULL, NULL, '2017-04-17 08:27:33', 1, 11),
 (23, '94ef04c654', NULL, NULL, '2017-04-17 08:28:26', 1, 10),
 (24, 'b70bdd78a8', NULL, NULL, '2017-04-17 08:28:55', 1, 10),
-(26, 'ccd82d0947', NULL, NULL, '2017-04-17 12:58:44', 1, 9);
+(26, 'ccd82d0947', NULL, NULL, '2017-04-17 12:58:44', 1, 9),
+(28, '185d4be798', NULL, NULL, '2017-04-19 15:11:58', 1, 9);
 
 -- --------------------------------------------------------
 
@@ -228,18 +230,25 @@ CREATE TABLE `detailcommande` (
 
 INSERT INTO `detailcommande` (`idConditionnement`, `idCommande`, `quantiteCommandee`) VALUES
 (1, 22, 1),
+(1, 28, 3),
 (2, 21, 2),
+(2, 28, 2),
 (5, 22, 1),
+(5, 28, 1),
 (6, 24, 10),
+(6, 28, 15),
 (7, 21, 5),
 (7, 22, 2),
 (8, 22, 2),
 (8, 26, 2),
+(8, 28, 5),
 (9, 23, 25),
 (10, 22, 3),
 (10, 24, 5),
 (10, 26, 6),
-(11, 20, 6);
+(10, 28, 3),
+(11, 20, 6),
+(11, 28, 2);
 
 -- --------------------------------------------------------
 
@@ -338,7 +347,8 @@ INSERT INTO `page` (`id_page`, `url_page`, `name_page`, `description_page`) VALU
 (16, 'client/commandes', 'Commandes', 'Page permettant de passer commande et de garder un visuel sur le status des commandes'),
 (17, 'admin/conditionnement', 'Conditionnement', 'Liste et ajout de différents modes de conditionnement de la coopérative'),
 (18, 'admin/commandes', 'Commandes', 'Espace de gestion et de vue sur les commandes formulés par les clients de la coopérative'),
-(19, 'client/bonCommande', 'Edition du bon de commande', 'Affichage du bon de commande avec tout ses détails et possibilité d\'impression du bon');
+(19, 'client/bonCommande', 'Edition du bon de commande', 'Affichage du bon de commande avec tout ses détails et possibilité d\'impression du bon'),
+(20, 'client/bonCommandePDF', 'PDF du bon de commande', 'Génération du format PDF du bon de commande, il est imprimable et enregistrable');
 
 -- --------------------------------------------------------
 
@@ -473,7 +483,9 @@ INSERT INTO `users_access` (`users_access_id`, `fk_id_rank`, `fk_id_page`) VALUE
 (22, 1, 17),
 (23, 1, 18),
 (24, 1, 19),
-(25, 3, 19);
+(25, 3, 19),
+(26, 1, 20),
+(27, 3, 20);
 
 -- --------------------------------------------------------
 
@@ -752,7 +764,7 @@ ALTER TABLE `client`
 -- AUTO_INCREMENT pour la table `commande`
 --
 ALTER TABLE `commande`
-  MODIFY `idCommande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `idCommande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT pour la table `commune`
 --
@@ -777,7 +789,7 @@ ALTER TABLE `lot`
 -- AUTO_INCREMENT pour la table `page`
 --
 ALTER TABLE `page`
-  MODIFY `id_page` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_page` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT pour la table `producteur`
 --
@@ -802,7 +814,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `users_access`
 --
 ALTER TABLE `users_access`
-  MODIFY `users_access_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `users_access_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT pour la table `users_login`
 --

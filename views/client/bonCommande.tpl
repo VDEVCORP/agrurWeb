@@ -2,7 +2,7 @@
     <a href="<?= $_SESSION['user']['rank'] == 'admin' ? '/admin/commandes' : '/client/profil' ?>" class="btn btn-white">
         <i class="fa fa-arrow-left"></i> <?= $_SESSION['user']['rank'] == 'admin' ? 'Retourner aux commandes' : 'Retourner au profil' ?>
     </a>
-    <span class="pull-right"><a href="/client/profil" class="btn btn-primary"><i class="fa fa-print"></i> Imprimer || Enregistrer <i class="fa fa-save"></i></a></span>
+    <span class="pull-right"><a href="/client/bonCommandePDF/?id=<?= $commande['idCommande'] ?>" target="_blank"class="btn btn-primary"><i class="fa fa-print"></i> Imprimer || Enregistrer <i class="fa fa-save"></i></a></span>
 </div>
 
 <div class="ibox-content p-xl">
@@ -43,7 +43,7 @@
                     <th>Liste des articles</th>
                     <th>Quantité</th>
                     <th>Prix/U</th>
-                    <th>Taxe <em>(20%)</em></th>
+                    <th>Taxe <em>(7%)</em></th>
                     <th>Prix total</th>
                 </tr>
             </thead>
@@ -51,7 +51,9 @@
             <tbody>
                 <tr>
                     <td><div><strong><?= $commandeDetail['libelleConditionnement'] ?></strong></div>
-                        <span class="m-l-md"><small><strong>Poids :</strong> <?= $commandeDetail['poidsConditionnee'] ?> Kg</small></td></span>
+                        <span class="m-l-md"><small><strong>Calibre noix :</strong> <?= $commandeDetail['intervalle'] ?></small></span>
+                        <span class="m-l-md"><small><strong>Poids :</strong> <?= $commandeDetail['poidsConditionnee'] ?> Kg</small></span>
+                    </td>
                     <td><?= $commandeDetail['quantiteCommandee'] ?></td>
                     <td>€Prix</td>
                     <td>€part</td>
