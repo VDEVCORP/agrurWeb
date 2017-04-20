@@ -13,7 +13,7 @@ Rendez vous dans l'interface localhost de Wamp puis cliquez sur le lien "Ajouter
 Afin que celui-ci soit pris en compte, effectuez un clic-droit sur le petit icône caché Wamp en bas à droite de votre écran puis *> Outils > Redémarrage DNS*.
 4. Créez la base de donnée MySQL à partir de PhpMyAdmin en lui donnant le nom de votre choix *(retenez-le)*. Importez y ensuite le fichier de structure et de contenu de la BBD AGRUR ```agrurproducer [date].sql``` qui se trouve à la racine du site. 
 5. Rendez-vous enfin à la racine du projet et trouvez le fichier de configuration du site ```config.php```. Dans celui-ci vous devrez modifier les constantes :
-    - ```DOMAIN_NAME``` : Nom du **VirtualHost** choisi que vous avez précédemment,
+    - ```DOMAIN_NAME``` : Nom du **VirtualHost** que vous avez précédemment choisi,
     - ```DB_HOST``` : Conservez "localhost"
     - ```DB_NAME``` : Nom de la base de donnée créée précédemment,
     - ```DB_USER``` : Si vous n'avez pas créé d'utilisateur spécial pour votre bdd, conservez "root",
@@ -21,22 +21,24 @@ Afin que celui-ci soit pris en compte, effectuez un clic-droit sur le petit icô
 
 ## Enjoy
 A partir de là, allez sur votre navigateur internet préféré et tapez le **nom de VirtualHost** que vous avez choisie pour le site *(exemple: monsite.dev)* dans la barre d'URL; comme si vous souhaitiez vous rendre sur un site normal.
-> :warning Si à ce moment une erreur se produit alors  que 
+:warning
+> Si à ce moment une erreur se produit alors  que 
 > vous avez respecté les 5 étapes d'installation précédentes,
 > contactez Deascenh à l'addresse t.moulin76@gmail.com
 
 Vous devriez alors arrivez sur la page de connexion à l'ERP d'AGRUR. Cet intranet dispose de trois *"espaces"* distincts: Client, Producteur et Administrateur.
 Pour profiter d'une démonstration du système, un certain nombre d'accès ont déjà été créés :
-| Rang              | Accès         | Mdp   |
-| ----------------- | ------------- | ----- |
-| Administrateur    | admin         | admin |
-| Client            | cli1@a.fr     | cli1  |
-| Client            | cli2@a.fr     | cli2  |
-| Client            | cli3@a.fr     | cli3  |
-| Client            | cli4@a.fr     | cli4  |
-| Producteur        | prod1@a.fr    | prod1 |
-| Producteur        | prod2@a.fr    | prod2 |
-| Producteur        | prod3@a.fr    | prod3 |
-| Producteur        | prod4@a.fr    | prod4 |
+
+| Rang | Accès | Mdp |
+| :--- | :---: | :---: |
+| Administrateur | admin | admin |
+| Client | cli1@a.fr | cli1 |
+| Client | cli2@a.fr | cli2 |
+| Client | cli3@a.fr | cli3 |
+| Client | cli4@a.fr | cli4 |
+| Producteur | prod1@a.fr | prod1 |
+| Producteur | prod2@a.fr | prod2 |
+| Producteur | prod3@a.fr | prod3 |
+| Producteur | prod4@a.fr | prod4 |
 
 Si pendant votre parcour et/ou votre découverte de l'application il vous arrivait de tomber sur un bug ou une anomalie, merci le signaler à Deascenh à l'addresse t.moulin76@gmail.com
