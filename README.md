@@ -13,7 +13,7 @@ Rendez vous dans l'interface localhost de Wamp puis cliquez sur le lien "Ajouter
 Afin que celui-ci soit pris en compte, effectuez un clic-droit sur le petit icône caché Wamp en bas à droite de votre écran puis *> Outils > Redémarrage DNS*.
 4. Créez la base de donnée MySQL à partir de PhpMyAdmin en lui donnant le nom de votre choix *(retenez-le)*. Importez y ensuite le fichier de structure et de contenu de la BBD AGRUR ```agrurproducer [date].sql``` qui se trouve à la racine du site. 
 5. Rendez-vous enfin à la racine du projet et trouvez le fichier de configuration du site ```config.php```. Dans celui-ci vous devrez modifier les constantes :
-    - ```DOMAIN_NAME``` : Nom du **VirtualHost** choisi que vous avez précédemment,
+    - ```DOMAIN_NAME``` : Nom du **VirtualHost** que vous avez précédemment choisi,
     - ```DB_HOST``` : Conservez "localhost"
     - ```DB_NAME``` : Nom de la base de donnée créée précédemment,
     - ```DB_USER``` : Si vous n'avez pas créé d'utilisateur spécial pour votre bdd, conservez "root",
